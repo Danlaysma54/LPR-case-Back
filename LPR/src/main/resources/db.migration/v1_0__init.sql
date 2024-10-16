@@ -3,13 +3,12 @@ CREATE TABLE suite (
     suite_id UUID PRIMARY KEY,
     suite_name VARCHAR(128) NOT NULL,
     suite_root_id UUID NOT NULL,
-    suite_description VARCHAR(1024)
 );
 
 -- Create table "test_case"
 CREATE TABLE test_case (
     test_case_id UUID PRIMARY KEY,
-    case_name VARCHAR(128) NOT NULL,
+    test_case_name VARCHAR(128) NOT NULL,
     suite_id UUID NOT NULL REFERENCES suite(suite_id) ON DELETE CASCADE,
     automation_status VARCHAR(128) NOT NULL,
     layer VARCHAR(128) NOT NULL

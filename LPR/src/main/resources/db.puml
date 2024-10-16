@@ -5,13 +5,12 @@ suite_id: UUID primary key
 ---
 suite_name: varchar(128) not null
 suite_root_id: UUID not null
-suite_description: varchar(1024)
 }
 
 entity "test_case" as test_case {
 test_case_id: UUID primary key
 ---
-case_name: varchar(128) not null
+test_case_name: varchar(128) not null
 suite_id: UUID not null
 automation_status: varchar(128) not null
 layer: varchar(128) not null
