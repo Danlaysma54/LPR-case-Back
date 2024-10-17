@@ -1,16 +1,45 @@
 package core.repository;
 
+import core.model.CaseAndSuite;
 import core.repository.tree.TreeRepository;
+import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.RowMapper;
 
-import static org.mockito.Mockito.mock;
+import java.util.List;
+import java.util.UUID;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 public class TreeRepositoryTest {
     private TreeRepository treeRepository;
     private JdbcOperations jdbcOperations;
 
+    @BeforeEach
     public void setUp() {
         jdbcOperations = mock(JdbcOperations.class);
         treeRepository = new TreeRepository(jdbcOperations);
+    }
+
+    @Test
+    public void getFirstLevelTestCases() {
+        UUID projectId = mock(UUID.class);
+        List<CaseAndSuite> mockList = mock(List.class);
+        when(jdbcOperations.query(anyString(),any(RowMapper.class),anyString())).thenReturn(mockList);
+        List<CaseAndSuite> response = treeRepository.getFirstLevelCases(projectId);
+        Assertions.assertEquals(mockList, response);
+    }
+    @Test
+    public void getFirstLevelTestSuites(){
+        UUID projectId = mock(UUID.class);
+        List<CaseAndSuite> mockList = mock(List.class);
+        when(jdbcOperations.query(anyString(),any(RowMapper.class),anyString())).thenReturn(mockList);
+        List<CaseAndSuite> response = treeRepository.getFirstLevelSuites(projectId);
+        Assertions.assertEquals(mockList, response);
     }
 }

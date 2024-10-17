@@ -21,7 +21,7 @@ public class TreeRepository implements ITreeRepository {
             UUID suiteId = resultSet.getObject("suite_id", UUID.class);
             String suiteName = resultSet.getString("suite_name");
             return new CaseAndSuite(suiteId, projectID, suiteName, false);
-        });
+        },projectID.toString());
     }
 
     @Override
@@ -30,6 +30,6 @@ public class TreeRepository implements ITreeRepository {
             UUID testCaseId = resultSet.getObject("test_case_id", UUID.class);
             String testCaseName = resultSet.getString("test_case_name");
             return new CaseAndSuite(testCaseId, projectID, testCaseName, false);
-        });
+        },projectID.toString());
     }
 }

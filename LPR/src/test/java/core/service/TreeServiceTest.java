@@ -3,11 +3,13 @@ package core.service;
 import core.model.CaseAndSuite;
 import core.repository.tree.ITreeRepository;
 import core.service.tree.TreeService;
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.Mockito.*;
@@ -28,9 +30,11 @@ public class TreeServiceTest {
         CaseAndSuite caseAndSuite = mock(CaseAndSuite.class);
         node.add(caseAndSuite);
         node.add(caseAndSuite);
-        when(treeRepository.getFirstLevel(projectId)).thenReturn(node);
-        ArrayList<CaseAndSuite> response= treeService.getFirstLevel(projectId);
-        verify(treeRepository,times(1)).getFirstLevel(projectId);
-        Assertions.assertEquals(node, response);
+        when(treeRepository.getFirstLevelSuites(projectId)).thenReturn(node);
+        when(treeRepository.getFirstLevelCases(projectId)).thenReturn(node);
+        List<CaseAndSuite> responseCase= treeService.getFirstLevel(projectId);
+        verify(treeRepository,times(1)).getFirstLevelSuites(projectId);
+        verify(treeRepository,times(1)).getFirstLevelCases(projectId);
+        Assert.assertEquals(responseCase,treeService.getFirstLevel(projectId));
     }
 }

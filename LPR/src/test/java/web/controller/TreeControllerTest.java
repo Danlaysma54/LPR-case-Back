@@ -1,7 +1,6 @@
 package web.controller;
 
 import core.model.CaseAndSuite;
-import core.model.interfaces.Node;
 import core.service.tree.ITreeService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +11,7 @@ import web.controllers.TreeController;
 import core.service.tree.TreeService;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
@@ -35,7 +35,7 @@ public class TreeControllerTest {
         node.add(caseAndSuite);
         node.add(caseAndSuite);
         when(treeService.getFirstLevel(projectId)).thenReturn(node);
-        ResponseEntity<ArrayList<CaseAndSuite>> response = treeController.getFirstLevel(projectId);
+        ResponseEntity<List<CaseAndSuite>> response = treeController.getFirstLevel(projectId);
         verify(treeService, times(1)).getFirstLevel(projectId);
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertEquals(node, response.getBody());

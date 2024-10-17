@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 @RestController
 @RequestMapping("/{projectId}/tree")
@@ -18,7 +19,7 @@ public class TreeController {
     }
     @GetMapping("/getFirstLevel")
     @ResponseBody
-    public ResponseEntity<ArrayList<CaseAndSuite>> getFirstLevel(@PathVariable("projectId") final UUID projectId){
+    public ResponseEntity<List<CaseAndSuite>> getFirstLevel(@PathVariable("projectId") final UUID projectId){
       return new ResponseEntity<>(treeService.getFirstLevel(projectId), HttpStatus.OK);
     }
 }
