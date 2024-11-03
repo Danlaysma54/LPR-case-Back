@@ -1,10 +1,9 @@
 package core.service.tree;
 
-import core.model.CaseAndSuite;
-
-import java.util.List;
+import web.model.OneLevelResponse;
 import java.util.UUID;
 
 public interface ITreeService {
-    List<CaseAndSuite> getFirstLevel(UUID projectId);
+    OneLevelResponse getOneLevel(UUID suiteId);
+
 }

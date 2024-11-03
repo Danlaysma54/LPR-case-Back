@@ -1,6 +1,8 @@
 package core.repository.tree;
 
-import core.model.CaseAndSuite;
+import core.model.CaseAndSuiteResponse;
+import core.model.CaseDTO;
+import core.model.Suite;
 import org.springframework.jdbc.core.JdbcOperations;
 
 
@@ -16,20 +18,20 @@ public class TreeRepository implements ITreeRepository {
 
 
     @Override
-    public List<CaseAndSuite> getFirstLevelSuites(UUID projectID) {
+    public List<Suite> getOneLevelSuites(UUID projectID) {
         return jdbcOperations.query("SELECT suite_id,suite_name from suite where suite_root_id = ?", (resultSet, i) -> {
             UUID suiteId = resultSet.getObject("suite_id", UUID.class);
             String suiteName = resultSet.getString("suite_name");
-            return new CaseAndSuite(suiteId, projectID, suiteName, false);
+            return new Suite(suiteName,suiteId);
         },projectID.toString());
     }
 
     @Override
-    public List<CaseAndSuite> getFirstLevelCases(UUID projectID) {
+    public List<CaseDTO> getOneLevelCases(UUID projectID) {
         return jdbcOperations.query("SELECT test_case_id,case_name from suite where suite_id = ?", (resultSet, i) -> {
             UUID testCaseId = resultSet.getObject("test_case_id", UUID.class);
             String testCaseName = resultSet.getString("test_case_name");
-            return new CaseAndSuite(testCaseId, projectID, testCaseName, false);
+            return new CaseDTO(testCaseName,testCaseId);
         },projectID.toString());
     }
 }

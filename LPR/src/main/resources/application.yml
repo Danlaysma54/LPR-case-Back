@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   datasource:
-    seven_quizzes:
+    lpr:
       jdbcUrl: jdbc:postgresql://localhost:5432/lpr
       username: lpr_admin
       password: lpr_pass

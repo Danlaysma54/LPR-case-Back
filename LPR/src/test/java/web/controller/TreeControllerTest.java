@@ -1,6 +1,6 @@
 package web.controller;
 
-import core.model.CaseAndSuite;
+import core.model.CaseAndSuiteResponse;
 import core.service.tree.ITreeService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import web.controllers.TreeController;
 import core.service.tree.TreeService;
+import web.model.OneLevelResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +31,11 @@ public class TreeControllerTest {
     @Test
     public void getFirstLevelTest() {
         UUID projectId = mock(UUID.class);
-        ArrayList<CaseAndSuite> node = new ArrayList<>();
-        CaseAndSuite caseAndSuite = mock(CaseAndSuite.class);
-        node.add(caseAndSuite);
-        node.add(caseAndSuite);
-        when(treeService.getFirstLevel(projectId)).thenReturn(node);
-        ResponseEntity<List<CaseAndSuite>> response = treeController.getFirstLevel(projectId);
-        verify(treeService, times(1)).getFirstLevel(projectId);
+        OneLevelResponse mockResp = mock(OneLevelResponse.class);
+        when(treeService.getOneLevel(projectId)).thenReturn(mockResp);
+        ResponseEntity<OneLevelResponse> response = treeController.getFirstLevel(projectId);
+        verify(treeService, times(1)).getOneLevel(projectId);
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals(node, response.getBody());
+        Assertions.assertEquals(mockResp, response.getBody());
     }
 }

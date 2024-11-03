@@ -1,12 +1,14 @@
 package core.service;
 
-import core.model.CaseAndSuite;
+import core.model.CaseAndSuiteResponse;
+import core.model.CaseDTO;
+import core.model.Suite;
 import core.repository.tree.ITreeRepository;
 import core.service.tree.TreeService;
 import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import web.model.OneLevelResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +28,14 @@ public class TreeServiceTest {
     @Test
     public void getFirstLevelTestService(){
         UUID projectId = mock(UUID.class);
-        ArrayList<CaseAndSuite> node = new ArrayList<>();
-        CaseAndSuite caseAndSuite = mock(CaseAndSuite.class);
-        node.add(caseAndSuite);
-        node.add(caseAndSuite);
-        when(treeRepository.getFirstLevelSuites(projectId)).thenReturn(node);
-        when(treeRepository.getFirstLevelCases(projectId)).thenReturn(node);
-        List<CaseAndSuite> responseCase= treeService.getFirstLevel(projectId);
-        verify(treeRepository,times(1)).getFirstLevelSuites(projectId);
-        verify(treeRepository,times(1)).getFirstLevelCases(projectId);
-        Assert.assertEquals(responseCase,treeService.getFirstLevel(projectId));
+        ArrayList<CaseDTO> caseMock = new ArrayList<>();
+        ArrayList<Suite> suiteMock = new ArrayList<>();
+        when(treeRepository.getOneLevelSuites(projectId)).thenReturn(suiteMock);
+        when(treeRepository.getOneLevelCases(projectId)).thenReturn(caseMock);
+        OneLevelResponse oneLevelResponse= treeService.getOneLevel(projectId);
+        verify(treeRepository,times(1)).getOneLevelCases(projectId);
+        verify(treeRepository,times(1)).getOneLevelSuites(projectId);
+        Assert.assertEquals(oneLevelResponse.getCases(),treeService.getOneLevel(projectId).getCases());
+        Assert.assertEquals(oneLevelResponse.getSuites(),treeService.getOneLevel(projectId).getSuites());
     }
 }

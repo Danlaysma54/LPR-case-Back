@@ -1,8 +1,9 @@
 package core.repository;
 
-import core.model.CaseAndSuite;
+import core.model.CaseAndSuiteResponse;
+import core.model.CaseDTO;
+import core.model.Suite;
 import core.repository.tree.TreeRepository;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,17 +30,17 @@ public class TreeRepositoryTest {
     @Test
     public void getFirstLevelTestCases() {
         UUID projectId = mock(UUID.class);
-        List<CaseAndSuite> mockList = mock(List.class);
+        List<CaseAndSuiteResponse> mockList = mock(List.class);
         when(jdbcOperations.query(anyString(),any(RowMapper.class),anyString())).thenReturn(mockList);
-        List<CaseAndSuite> response = treeRepository.getFirstLevelCases(projectId);
+        List<CaseDTO> response = treeRepository.getOneLevelCases(projectId);
         Assertions.assertEquals(mockList, response);
     }
     @Test
     public void getFirstLevelTestSuites(){
         UUID projectId = mock(UUID.class);
-        List<CaseAndSuite> mockList = mock(List.class);
+        List<CaseDTO> mockList = mock(List.class);
         when(jdbcOperations.query(anyString(),any(RowMapper.class),anyString())).thenReturn(mockList);
-        List<CaseAndSuite> response = treeRepository.getFirstLevelSuites(projectId);
+        List<Suite> response = treeRepository.getOneLevelSuites(projectId);
         Assertions.assertEquals(mockList, response);
     }
 }
