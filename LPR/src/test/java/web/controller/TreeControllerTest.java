@@ -1,6 +1,5 @@
 package web.controller;
 
-import core.model.CaseAndSuiteResponse;
 import core.service.tree.ITreeService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,8 +10,6 @@ import web.controllers.TreeController;
 import core.service.tree.TreeService;
 import web.model.OneLevelResponse;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;

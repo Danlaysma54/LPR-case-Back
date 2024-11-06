@@ -1,16 +1,16 @@
 package core.repository.tree;
 
-import core.model.CaseAndSuiteResponse;
 import core.model.CaseDTO;
 import core.model.Suite;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.stereotype.Repository;
 
 
 import java.util.List;
 import java.util.UUID;
-
+@Repository
 public class TreeRepository implements ITreeRepository {
-    private JdbcOperations jdbcOperations;
+    private final JdbcOperations jdbcOperations;
 
     public TreeRepository(final JdbcOperations jdbcOperations) {
         this.jdbcOperations = jdbcOperations;

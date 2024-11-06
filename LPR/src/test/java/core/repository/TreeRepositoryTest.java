@@ -1,6 +1,5 @@
 package core.repository;
 
-import core.model.CaseAndSuiteResponse;
 import core.model.CaseDTO;
 import core.model.Suite;
 import core.repository.tree.TreeRepository;
@@ -30,7 +29,7 @@ public class TreeRepositoryTest {
     @Test
     public void getFirstLevelTestCases() {
         UUID projectId = mock(UUID.class);
-        List<CaseAndSuiteResponse> mockList = mock(List.class);
+        List<CaseDTO> mockList = mock(List.class);
         when(jdbcOperations.query(anyString(),any(RowMapper.class),anyString())).thenReturn(mockList);
         List<CaseDTO> response = treeRepository.getOneLevelCases(projectId);
         Assertions.assertEquals(mockList, response);

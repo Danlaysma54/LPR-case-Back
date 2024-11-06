@@ -1,6 +1,5 @@
 package core.service;
 
-import core.model.CaseAndSuiteResponse;
 import core.model.CaseDTO;
 import core.model.Suite;
 import core.repository.tree.ITreeRepository;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import web.model.OneLevelResponse;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.Mockito.*;

@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     lpr:
-      jdbcUrl: jdbc:postgresql://localhost:5432/lpr
+      url: jdbc:postgresql://localhost:5432/lpr
       username: lpr_admin
       password: lpr_pass
       driver-class-name: org.postgresql.Driver

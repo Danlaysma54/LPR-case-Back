@@ -1,14 +1,11 @@
 package web.controllers;
 
-import core.model.CaseAndSuiteResponse;
+
 import core.service.tree.ITreeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web.model.OneLevelResponse;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 @RestController
 @RequestMapping("/{projectId}/tree")
@@ -23,4 +20,5 @@ public class TreeController {
     public ResponseEntity<OneLevelResponse> getFirstLevel(@PathVariable("projectId") final UUID projectId){
       return new ResponseEntity<>(treeService.getOneLevel(projectId), HttpStatus.OK);
     }
+
 }

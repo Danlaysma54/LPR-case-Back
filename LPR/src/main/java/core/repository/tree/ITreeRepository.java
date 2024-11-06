@@ -1,6 +1,5 @@
 package core.repository.tree;
 
-import core.model.CaseAndSuiteResponse;
 import core.model.CaseDTO;
 import core.model.Suite;
 
