@@ -1,11 +1,10 @@
--- Create table "suite"
 CREATE TABLE suite (
     suite_id UUID PRIMARY KEY,
     suite_name VARCHAR(128) NOT NULL,
     suite_root_id UUID NOT NULL,
 );
 
--- Create table "test_case"
+
 CREATE TABLE test_case (
     test_case_id UUID  PRIMARY KEY,
     test_case_name VARCHAR(128) NOT NULL,
@@ -14,27 +13,26 @@ CREATE TABLE test_case (
     layer VARCHAR(128) NOT NULL
 );
 
--- Create table "project"
+
 CREATE TABLE project (
     project_id UUID  PRIMARY KEY,
     project_name VARCHAR(128) NOT NULL,
     project_description VARCHAR(1024)
 );
 
--- Create table "test_plan"
+
 CREATE TABLE test_plan (
     test_plan_id PRIMARY KEY,
     test_plan_description VARCHAR(1024)
 );
 
--- Create table "test_run"
+
 CREATE TABLE test_run (
     test_run_id UUID  PRIMARY KEY,
     test_name VARCHAR(128),
     test_plan UUID REFERENCES test_plan(test_plan_id) ON DELETE SET NULL
 );
 
--- Create table "test_cases_in_test_plan"
 CREATE TABLE test_cases_in_test_plan (
     test_run_id UUID REFERENCES test_run(test_run_id) ON DELETE CASCADE,
     test_case_id UUID REFERENCES test_case(test_case_id) ON DELETE CASCADE,
@@ -63,7 +61,7 @@ CREATE TABLE users_in_projects (
     PRIMARY KEY (project_id, user_id)
 );
 
--- Create table "test_step"
+
 CREATE TABLE test_step (
     test_step_id UUID PRIMARY KEY,
     step_description VARCHAR(128) NOT NULL,

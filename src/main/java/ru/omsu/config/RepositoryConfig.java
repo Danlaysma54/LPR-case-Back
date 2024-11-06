@@ -10,12 +10,12 @@ import org.springframework.jdbc.core.JdbcOperations;
 @Configuration
 public class RepositoryConfig {
     @Bean
-    public TreeRepository gameRepository(@Qualifier("quizJdbcOperations") final JdbcOperations jdbcOperations) {
+    public TreeRepository TreeRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
         return new TreeRepository(jdbcOperations);
     }
 
     @Bean
-    public TestCaseRepository questionRepository(@Qualifier("quizJdbcOperations") final JdbcOperations jdbcOperations) {
+    public TestCaseRepository TestCaseRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
         return new TestCaseRepository(jdbcOperations);
     }
 
