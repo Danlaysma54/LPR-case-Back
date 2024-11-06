@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="409a4f6c-0d54-4d73-9263-33c73fe52601" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/config/LPRConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/config/RepositoryConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/config/ServiceConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/model/CaseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/model/Suite.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/model/TestCase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/repository/testCase/ITestCaseRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/repository/testCase/TestCaseRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/repository/tree/ITreeRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/repository/tree/TreeRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/service/testCase/ITestCaseService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/service/testCase/TestCaseService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/service/tree/ITreeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/service/tree/TreeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/omsu/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/web/controllers/TestCaseController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/web/controllers/TreeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/web/model/OneLevelResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db.migration/v1_0__init.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db.puml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/core/repository/TreeRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/core/service/TestCaseServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/core/service/TreeServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/web/controller/TestCaseControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/web/controller/TreeControllerTest.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="UML Sequence" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2mpNFSrXOPqirDK7X2NQV4x1hUv" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "DefaultPlantUmlFileTemplate": "UML Sequence",
+    "Docker.docker-compose.yaml: Compose Deployment.executor": "Run",
+    "JUnit.TestCaseControllerTest.addTestCase.executor": "Run",
+    "JUnit.TreeControllerTest.executor": "Run",
+    "JUnit.TreeControllerTest.getFirstLevelTest.executor": "Run",
+    "JUnit.TreeRepositoryTest.executor": "Run",
+    "JUnit.TreeRepositoryTest.getFirstLevelTest.executor": "Run",
+    "JUnit.TreeServiceTest.executor": "Run",
+    "JUnit.TreeServiceTest.getFirstLevelTestService.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/danlaysma/diploma/LPR-case-Back",
+    "project.structure.last.edited": "Facets",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "org.infernus.idea.checkstyle.CheckStyleConfigurable",
+    "show.migrate.to.gradle.popup": "false"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/java/ru/omsu" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.omsu.Main" />
+      <module name="LPR" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.omsu.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestCaseControllerTest.addTestCase" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="LPR" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="web.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="web.controller" />
+      <option name="MAIN_CLASS_NAME" value="web.controller.TestCaseControllerTest" />
+      <option name="METHOD_NAME" value="addTestCase" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestCaseServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="LPR" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="core.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="core.service" />
+      <option name="MAIN_CLASS_NAME" value="core.service.TestCaseServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TreeServiceTest.getFirstLevelTestService" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="LPR" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="core.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="core.service" />
+      <option name="MAIN_CLASS_NAME" value="core.service.TreeServiceTest" />
+      <option name="METHOD_NAME" value="getFirstLevelTestService" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Docker.docker-compose.yaml: Compose Deployment" />
+        <item itemvalue="JUnit.TestCaseServiceTest" />
+        <item itemvalue="JUnit.TestCaseControllerTest.addTestCase" />
+        <item itemvalue="JUnit.TreeServiceTest.getFirstLevelTestService" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="409a4f6c-0d54-4d73-9263-33c73fe52601" name="Changes" comment="" />
+      <created>1727769456351</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1727769456351</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
