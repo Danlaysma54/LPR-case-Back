@@ -1,11 +1,11 @@
-package web.controllers;
+package ru.omsu.web.controllers;
 
 
-import core.service.tree.ITreeService;
+import ru.omsu.core.service.tree.ITreeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import web.model.OneLevelResponse;
+import ru.omsu.web.model.OneLevelResponse;
 import java.util.UUID;
 @RestController
 @RequestMapping("/{projectId}/tree")

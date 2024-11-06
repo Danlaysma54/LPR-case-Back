@@ -1,7 +1,7 @@
-package core.service.testCase;
+package ru.omsu.core.service.testCase;
 
-import core.model.TestCase;
-import core.repository.testCase.ITestCaseRepository;
+import ru.omsu.core.model.TestCase;
+import ru.omsu.core.repository.testCase.ITestCaseRepository;
 import org.springframework.stereotype.Service;
 
 @Service

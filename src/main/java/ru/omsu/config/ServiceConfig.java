@@ -1,9 +1,9 @@
-package config;
+package ru.omsu.config;
 
-import core.repository.testCase.ITestCaseRepository;
-import core.repository.tree.ITreeRepository;
-import core.service.testCase.TestCaseService;
-import core.service.tree.TreeService;
+import ru.omsu.core.repository.testCase.ITestCaseRepository;
+import ru.omsu.core.repository.tree.ITreeRepository;
+import ru.omsu.core.service.testCase.TestCaseService;
+import ru.omsu.core.service.tree.TreeService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

@@ -1,7 +1,7 @@
-package web.model;
+package ru.omsu.web.model;
 
-import core.model.CaseDTO;
-import core.model.Suite;
+import ru.omsu.core.model.CaseDTO;
+import ru.omsu.core.model.Suite;
 
 import java.util.List;
 

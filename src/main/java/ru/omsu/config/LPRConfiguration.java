@@ -1,4 +1,4 @@
-package config;
+package ru.omsu.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
@@ -16,7 +16,7 @@ public class LPRConfiguration {
     @Bean
     @FlywayDataSource
     @Qualifier("lprDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.lpr")
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource lprDataSource() {
         return DataSourceBuilder.create().build();
     }

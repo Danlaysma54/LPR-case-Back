@@ -1,6 +1,6 @@
-package core.repository.testCase;
+package ru.omsu.core.repository.testCase;
 
-import core.model.TestCase;
+import ru.omsu.core.model.TestCase;
 
 import java.util.UUID;
 

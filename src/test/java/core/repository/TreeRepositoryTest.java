@@ -1,8 +1,8 @@
 package core.repository;
 
-import core.model.CaseDTO;
-import core.model.Suite;
-import core.repository.tree.TreeRepository;
+import ru.omsu.core.model.CaseDTO;
+import ru.omsu.core.model.Suite;
+import ru.omsu.core.repository.tree.TreeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

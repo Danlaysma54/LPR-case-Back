@@ -1,8 +1,8 @@
 server:
   port: 8080
 spring:
+  flyway.baselineOnMigrate: true
   datasource:
-    lpr:
       url: jdbc:postgresql://localhost:5432/lpr
       username: lpr_admin
       password: lpr_pass

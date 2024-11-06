@@ -1,14 +1,14 @@
 package web.controller;
 
-import core.service.tree.ITreeService;
+import ru.omsu.core.service.tree.ITreeService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import web.controllers.TreeController;
-import core.service.tree.TreeService;
-import web.model.OneLevelResponse;
+import ru.omsu.web.controllers.TreeController;
+import ru.omsu.core.service.tree.TreeService;
+import ru.omsu.web.model.OneLevelResponse;
 
 import java.util.UUID;
 

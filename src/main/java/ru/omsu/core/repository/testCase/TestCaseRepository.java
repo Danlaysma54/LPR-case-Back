@@ -1,6 +1,6 @@
-package core.repository.testCase;
+package ru.omsu.core.repository.testCase;
 
-import core.model.TestCase;
+import ru.omsu.core.model.TestCase;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
 

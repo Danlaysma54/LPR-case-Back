@@ -1,6 +1,6 @@
-package core.service.tree;
+package ru.omsu.core.service.tree;
 
-import web.model.OneLevelResponse;
+import ru.omsu.web.model.OneLevelResponse;
 import java.util.UUID;
 
 public interface ITreeService {

@@ -1,7 +1,7 @@
-package web.controllers;
+package ru.omsu.web.controllers;
 
-import core.model.TestCase;
-import core.service.testCase.ITestCaseService;
+import ru.omsu.core.model.TestCase;
+import ru.omsu.core.service.testCase.ITestCaseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

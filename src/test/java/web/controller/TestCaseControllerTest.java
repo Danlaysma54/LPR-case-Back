@@ -1,22 +1,13 @@
 package web.controller;
 
-import core.model.TestCase;
-import core.repository.testCase.ITestCaseRepository;
-import core.service.testCase.ITestCaseService;
-import core.service.testCase.TestCaseService;
-import core.service.tree.ITreeService;
-import core.service.tree.TreeService;
+import ru.omsu.core.model.TestCase;
+import ru.omsu.core.service.testCase.ITestCaseService;
+import ru.omsu.core.service.testCase.TestCaseService;
 import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import web.controllers.TestCaseController;
-import web.controllers.TreeController;
-import web.model.OneLevelResponse;
-
-import java.util.UUID;
+import ru.omsu.web.controllers.TestCaseController;
 
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;

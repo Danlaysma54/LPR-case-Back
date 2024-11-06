@@ -1,8 +1,8 @@
-package core.service.tree;
+package ru.omsu.core.service.tree;
 
-import core.repository.tree.ITreeRepository;
+import ru.omsu.core.repository.tree.ITreeRepository;
 import org.springframework.stereotype.Service;
-import web.model.OneLevelResponse;
+import ru.omsu.web.model.OneLevelResponse;
 
 
 import java.util.UUID;

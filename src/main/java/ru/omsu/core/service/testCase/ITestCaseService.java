@@ -1,6 +1,6 @@
-package core.service.testCase;
+package ru.omsu.core.service.testCase;
 
-import core.model.TestCase;
+import ru.omsu.core.model.TestCase;
 
 public interface ITestCaseService {
     TestCase addTestCase(TestCase testCase);

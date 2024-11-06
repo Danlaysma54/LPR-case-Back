@@ -1,4 +1,4 @@
-package core.model;
+package ru.omsu.core.model;
 
 import java.util.UUID;
 

@@ -1,7 +1,7 @@
-package core.repository.tree;
+package ru.omsu.core.repository.tree;
 
-import core.model.CaseDTO;
-import core.model.Suite;
+import ru.omsu.core.model.CaseDTO;
+import ru.omsu.core.model.Suite;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
 

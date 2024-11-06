@@ -1,4 +1,4 @@
-package core.model;
+package ru.omsu.core.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

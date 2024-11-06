@@ -1,19 +1,12 @@
 package core.service;
 
-import core.model.CaseDTO;
-import core.model.Suite;
-import core.model.TestCase;
-import core.repository.testCase.ITestCaseRepository;
-import core.repository.testCase.TestCaseRepository;
-import core.repository.tree.ITreeRepository;
-import core.service.testCase.TestCaseService;
-import core.service.tree.TreeService;
+import ru.omsu.core.model.TestCase;
+import ru.omsu.core.repository.testCase.ITestCaseRepository;
+import ru.omsu.core.service.testCase.TestCaseService;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import web.model.OneLevelResponse;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 import static org.mockito.Mockito.*;

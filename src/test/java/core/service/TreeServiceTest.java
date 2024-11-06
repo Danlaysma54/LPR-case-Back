@@ -1,13 +1,13 @@
 package core.service;
 
-import core.model.CaseDTO;
-import core.model.Suite;
-import core.repository.tree.ITreeRepository;
-import core.service.tree.TreeService;
+import ru.omsu.core.model.CaseDTO;
+import ru.omsu.core.model.Suite;
+import ru.omsu.core.repository.tree.ITreeRepository;
+import ru.omsu.core.service.tree.TreeService;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import web.model.OneLevelResponse;
+import ru.omsu.web.model.OneLevelResponse;
 
 import java.util.ArrayList;
 import java.util.UUID;
