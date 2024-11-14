@@ -19,7 +19,7 @@ public class TreeRepository implements ITreeRepository {
 
     @Override
     public List<Suite> getOneLevelSuites(UUID projectID) {
-        return jdbcOperations.query("SELECT suite_id,suite_name from suite where suite_root_id = ?", (resultSet, i) -> {
+        return jdbcOperations.query("SELECT suite_id,suite_name from suite where suite_root_id = CAST(? AS UUID)", (resultSet, i) -> {
             UUID suiteId = resultSet.getObject("suite_id", UUID.class);
             String suiteName = resultSet.getString("suite_name");
             return new Suite(suiteName,suiteId);
@@ -28,7 +28,7 @@ public class TreeRepository implements ITreeRepository {
 
     @Override
     public List<CaseDTO> getOneLevelCases(UUID projectID) {
-        return jdbcOperations.query("SELECT test_case_id,case_name from suite where suite_id = ?", (resultSet, i) -> {
+        return jdbcOperations.query("SELECT test_case_id,test_case_name from test_case where suite_id = CAST(? AS UUID)", (resultSet, i) -> {
             UUID testCaseId = resultSet.getObject("test_case_id", UUID.class);
             String testCaseName = resultSet.getString("test_case_name");
             return new CaseDTO(testCaseName,testCaseId);

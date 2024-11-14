@@ -15,7 +15,6 @@ public class TestCase {
         return suiteId;
     }
 
-    @JsonCreator
     public TestCase(UUID testCaseId, String testCaseName, String layer, String isAutomated, UUID suiteId) {
         this.testCaseId = testCaseId;
         this.testCaseName = testCaseName;

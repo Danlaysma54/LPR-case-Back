@@ -16,7 +16,7 @@ public class TestCaseRepository implements ITestCaseRepository {
     @Override
     public UUID addTestCase(TestCase testCase) {
         UUID newID = UUID.randomUUID();
-        jdbcOperations.update("INSERT INTO test_case(test_case_id,test_case_name,suite_id,automation_status,layer) VALUES (?,?,?,?)",
+        jdbcOperations.update("INSERT INTO test_case(test_case_id,test_case_name,suite_id,automation_status,layer) VALUES (?,?,?,?,?)",
                 newID, testCase.getTestCaseName(), testCase.getSuiteId(), testCase.getIsAutomated(), testCase.getLayer());
         return newID;
     }
