@@ -1,7 +1,7 @@
 CREATE TABLE suite (
     suite_id UUID PRIMARY KEY,
     suite_name VARCHAR(128) NOT NULL,
-    suite_root_id UUID NOT NULL,
+    suite_root_id UUID NOT NULL
 );
 
 
@@ -22,7 +22,7 @@ CREATE TABLE project (
 
 
 CREATE TABLE test_plan (
-    test_plan_id PRIMARY KEY,
+    test_plan_id UUID PRIMARY KEY,
     test_plan_description VARCHAR(1024)
 );
 
