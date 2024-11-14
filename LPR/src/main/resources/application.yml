@@ -1,9 +1,0 @@
-server:
-  port: 8080
-spring:
-  datasource:
-    lpr:
-      jdbcUrl: jdbc:postgresql://localhost:5432/lpr
-      username: lpr_admin
-      password: lpr_pass
-      driver-class-name: org.postgresql.Driver
