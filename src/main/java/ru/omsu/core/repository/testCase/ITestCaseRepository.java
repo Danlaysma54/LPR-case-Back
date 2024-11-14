@@ -9,4 +9,6 @@ public interface ITestCaseRepository {
 
     TestCase getTestCase(UUID testCaseId);
 
+    void deleteTestCase(UUID testCaseId);
+
 }
