@@ -5,7 +5,7 @@ import ru.omsu.core.repository.testCase.ITestCaseRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TestCaseService implements ITestCaseService{
+public class TestCaseService implements ITestCaseService {
     private final ITestCaseRepository testCaseRepository;
 
     public TestCaseService(ITestCaseRepository testCaseRepository) {
@@ -15,5 +15,11 @@ public class TestCaseService implements ITestCaseService{
     @Override
     public TestCase addTestCase(TestCase testCase) {
         return testCaseRepository.getTestCase(testCaseRepository.addTestCase(testCase));
+    }
+
+    @Override
+    public TestCase editTestCase(TestCase testCase) {
+        testCaseRepository.editTestCase(testCase);
+        return testCaseRepository.getTestCase(testCase.getTestCaseId());
     }
 }

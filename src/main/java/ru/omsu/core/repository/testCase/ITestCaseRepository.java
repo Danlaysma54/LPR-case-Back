@@ -9,4 +9,5 @@ public interface ITestCaseRepository {
 
     TestCase getTestCase(UUID testCaseId);
 
+    void editTestCase(TestCase testCase);
 }
