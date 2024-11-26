@@ -10,6 +10,7 @@ public class TestCaseRequest {
     private final UUID layerId;
     private final UUID isAutomatedId;
 
+    @JsonCreator
     public TestCaseRequest(UUID suiteId, String testCaseName, UUID layerId, UUID isAutomatedId) {
         this.suiteId = suiteId;
         this.testCaseName = testCaseName;

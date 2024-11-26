@@ -24,15 +24,6 @@ public class TestCase {
 
     }
 
-    @JsonCreator
-    public TestCase(String testCaseName, String layer, String isAutomated, UUID suiteId) {
-        this.testCaseId = null;
-        this.testCaseName = testCaseName;
-        this.layer = layer;
-        this.isAutomated = isAutomated;
-        this.suiteId = suiteId;
-    }
-
     public UUID getTestCaseId() {
         return testCaseId;
     }
