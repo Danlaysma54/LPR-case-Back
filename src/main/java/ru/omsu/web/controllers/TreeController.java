@@ -5,7 +5,7 @@ import ru.omsu.core.service.tree.ITreeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.omsu.web.model.OneLevelResponse;
+import ru.omsu.web.model.response.OneLevelResponse;
 import java.util.UUID;
 @RestController
 @RequestMapping("/{projectId}/tree")
