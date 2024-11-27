@@ -9,5 +9,7 @@ public interface ITestCaseRepository {
 
     TestCase getTestCase(UUID testCaseId);
 
+    void deleteTestCase(UUID testCaseId);
+
     void editTestCase(TestCase testCase);
 }

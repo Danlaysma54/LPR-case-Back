@@ -4,6 +4,8 @@ import ru.omsu.core.model.TestCase;
 import ru.omsu.core.repository.testCase.ITestCaseRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class TestCaseService implements ITestCaseService {
     private final ITestCaseRepository testCaseRepository;
@@ -18,6 +20,10 @@ public class TestCaseService implements ITestCaseService {
     }
 
     @Override
+    public void deleteTestCase(UUID testCaseId) {
+        this.testCaseRepository.deleteTestCase(testCaseId);
+    }
+
     public TestCase editTestCase(TestCase testCase) {
         testCaseRepository.editTestCase(testCase);
         return testCaseRepository.getTestCase(testCase.getTestCaseId());

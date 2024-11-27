@@ -34,6 +34,13 @@ public class TestCaseRepository implements ITestCaseRepository {
     }
 
     @Override
+    public void deleteTestCase(UUID testCaseId) {
+        if (jdbcOperations.update("DELETE FROM test_case where test_case_id = CAST(? AS UUID)", testCaseId.toString()) < 1) {
+            throw new IllegalArgumentException("Test Case with this ID doesn't exist");
+        }
+    }
+
+    @Override
     public void editTestCase(TestCase testCase) {
         if (jdbcOperations.update("UPDATE test_case SET test_case_name=?,suite_id=?,automation_status=?,layer=? where test_case_id=?",
                 testCase.getTestCaseName(), testCase.getSuiteId(), testCase.getIsAutomated(), testCase.getLayer(), testCase.getTestCaseId()) < 1) {
