@@ -1,0 +1,10 @@
+server:
+  port: 8080
+spring:
+  datasource:
+      jdbc-url: jdbc:postgresql://localhost:5432/lpr
+      username: lpr_admin
+      password: lpr_pass
+      driver-class-name: org.postgresql.Driver
+  flyway:
+    baselineOnMigrate: true
