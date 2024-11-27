@@ -27,10 +27,11 @@ public class TreeControllerTest {
 
     @Test
     public void getFirstLevelTest() {
+        UUID suiteId = mock(UUID.class);
         UUID projectId = mock(UUID.class);
         OneLevelResponse mockResp = mock(OneLevelResponse.class);
         when(treeService.getOneLevel(projectId)).thenReturn(mockResp);
-        ResponseEntity<OneLevelResponse> response = treeController.getFirstLevel(projectId);
+        ResponseEntity<OneLevelResponse> response = treeController.getFirstLevel(projectId, suiteId);
         verify(treeService, times(1)).getOneLevel(projectId);
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertEquals(mockResp, response.getBody());

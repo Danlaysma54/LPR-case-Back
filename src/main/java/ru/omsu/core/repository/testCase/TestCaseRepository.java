@@ -36,5 +36,4 @@ public class TestCaseRepository implements ITestCaseRepository {
                         UUID.fromString(resultSet.getString("suite_id"))),
                 testCaseId);
     }
-
 }

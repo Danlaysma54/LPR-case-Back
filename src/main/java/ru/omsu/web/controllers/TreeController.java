@@ -6,19 +6,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.omsu.web.model.response.OneLevelResponse;
+
 import java.util.UUID;
+
 @RestController
-@RequestMapping("/{projectId}/tree")
+@RequestMapping("/{projectId}")
 public class TreeController {
     private final ITreeService treeService;
 
     public TreeController(final ITreeService treeService) {
         this.treeService = treeService;
     }
-    @GetMapping("/getFirstLevel")
+
+    @GetMapping("/{suiteId}/getOneLevel")
     @ResponseBody
-    public ResponseEntity<OneLevelResponse> getFirstLevel(@PathVariable("projectId") final UUID projectId){
-      return new ResponseEntity<>(treeService.getOneLevel(projectId), HttpStatus.OK);
+    public ResponseEntity<OneLevelResponse> getFirstLevel(@PathVariable("projectId") final UUID projectId, @PathVariable("suiteId") final UUID suiteId) {
+        return new ResponseEntity<>(treeService.getOneLevel(suiteId), HttpStatus.OK);
     }
 
 }
