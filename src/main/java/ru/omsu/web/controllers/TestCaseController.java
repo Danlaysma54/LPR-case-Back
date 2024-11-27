@@ -29,9 +29,19 @@ public class TestCaseController {
         try {
             testCaseService.deleteTestCase(testCaseId);
 
-        }catch (IllegalArgumentException e){
-            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity(HttpStatus.OK);
+    }
+    @PatchMapping("/{testCaseId}/editTestCase")
+    @ResponseBody
+    public ResponseEntity editTestCase(@RequestBody TestCase testCase, @PathVariable("testCaseId") UUID testCaseId) {
+        try {
+            testCase.setTestCaseId(testCaseId);
+            return new ResponseEntity<>(testCaseService.editTestCase(testCase), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 }

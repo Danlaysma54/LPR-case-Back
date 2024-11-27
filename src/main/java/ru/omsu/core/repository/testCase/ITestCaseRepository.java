@@ -11,4 +11,5 @@ public interface ITestCaseRepository {
 
     void deleteTestCase(UUID testCaseId);
 
+    void editTestCase(TestCase testCase);
 }

@@ -8,5 +8,6 @@ public interface ITestCaseService {
     TestCase addTestCase(TestCase testCase);
 
     void deleteTestCase(UUID testCaseId);
+    TestCase editTestCase(TestCase testCase);
 
 }

@@ -24,4 +24,8 @@ public class TestCaseService implements ITestCaseService {
         this.testCaseRepository.deleteTestCase(testCaseId);
     }
 
+    public TestCase editTestCase(TestCase testCase) {
+        testCaseRepository.editTestCase(testCase);
+        return testCaseRepository.getTestCase(testCase.getTestCaseId());
+    }
 }

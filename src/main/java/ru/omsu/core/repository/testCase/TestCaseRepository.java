@@ -40,4 +40,11 @@ public class TestCaseRepository implements ITestCaseRepository {
         }
     }
 
+    @Override
+    public void editTestCase(TestCase testCase) {
+        if (jdbcOperations.update("UPDATE test_case SET test_case_name=?,suite_id=?,automation_status=?,layer=? where test_case_id=?",
+                testCase.getTestCaseName(), testCase.getSuiteId(), testCase.getIsAutomated(), testCase.getLayer(), testCase.getTestCaseId()) < 1) {
+            throw new IllegalArgumentException("Test Case with that Id doesn't exist");
+        }
+    }
 }
