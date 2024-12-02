@@ -9,6 +9,7 @@ public interface ITestCaseService {
     TestCase addTestCase(TestCaseRequest testCaseRequest);
 
     void deleteTestCase(UUID testCaseId);
+
     TestCase editTestCase(TestCase testCase);
 
 }

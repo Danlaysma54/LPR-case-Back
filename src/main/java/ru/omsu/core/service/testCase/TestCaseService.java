@@ -25,6 +25,7 @@ public class TestCaseService implements ITestCaseService {
         this.testCaseRepository.deleteTestCase(testCaseId);
     }
 
+    @Override
     public TestCase editTestCase(TestCase testCase) {
         testCaseRepository.editTestCase(testCase);
         return testCaseRepository.getTestCase(testCase.getTestCaseId());
