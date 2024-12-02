@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import java.util.UUID;
 
 public class TestCase {
-    private final UUID testCaseId;
+    private  UUID testCaseId;
     private final String testCaseName;
     private final String layer;
     private final String isAutomated;
@@ -39,4 +39,5 @@ public class TestCase {
     public String getIsAutomated() {
         return isAutomated;
     }
+    public UUID setTestCaseId(UUID testCaseId){return this.testCaseId=testCaseId;}
 }
