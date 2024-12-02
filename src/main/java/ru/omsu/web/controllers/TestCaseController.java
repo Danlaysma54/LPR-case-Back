@@ -5,6 +5,7 @@ import ru.omsu.core.service.testCase.ITestCaseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.omsu.web.model.request.TestCaseRequest;
 
 import java.util.UUID;
 
@@ -19,8 +20,8 @@ public class TestCaseController {
 
     @PostMapping("/addTestCase")
     @ResponseBody
-    public ResponseEntity<TestCase> addTestCase(@RequestBody TestCase testCase) {
-        return new ResponseEntity<>(testCaseService.addTestCase(testCase), HttpStatus.CREATED);
+    public ResponseEntity<TestCase> addTestCase(@RequestBody TestCaseRequest testCaseRequest){
+        return new ResponseEntity<>(testCaseService.addTestCase(testCaseRequest), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{testCaseId}/deleteTestCase")

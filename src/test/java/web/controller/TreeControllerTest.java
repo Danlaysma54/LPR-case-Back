@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.omsu.web.controllers.TreeController;
 import ru.omsu.core.service.tree.TreeService;
-import ru.omsu.web.model.OneLevelResponse;
+import ru.omsu.web.model.response.OneLevelResponse;
 
 import java.util.UUID;
 
@@ -27,10 +27,11 @@ public class TreeControllerTest {
 
     @Test
     public void getFirstLevelTest() {
+        UUID suiteId = mock(UUID.class);
         UUID projectId = mock(UUID.class);
         OneLevelResponse mockResp = mock(OneLevelResponse.class);
         when(treeService.getOneLevel(projectId)).thenReturn(mockResp);
-        ResponseEntity<OneLevelResponse> response = treeController.getFirstLevel(projectId);
+        ResponseEntity<OneLevelResponse> response = treeController.getFirstLevel(projectId, suiteId);
         verify(treeService, times(1)).getOneLevel(projectId);
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertEquals(mockResp, response.getBody());

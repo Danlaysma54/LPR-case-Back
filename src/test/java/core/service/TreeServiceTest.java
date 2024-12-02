@@ -7,7 +7,7 @@ import ru.omsu.core.service.tree.TreeService;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.omsu.web.model.OneLevelResponse;
+import ru.omsu.web.model.response.OneLevelResponse;
 
 import java.util.ArrayList;
 import java.util.UUID;

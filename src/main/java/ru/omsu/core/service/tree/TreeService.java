@@ -2,7 +2,7 @@ package ru.omsu.core.service.tree;
 
 import ru.omsu.core.repository.tree.ITreeRepository;
 import org.springframework.stereotype.Service;
-import ru.omsu.web.model.OneLevelResponse;
+import ru.omsu.web.model.response.OneLevelResponse;
 
 
 import java.util.UUID;

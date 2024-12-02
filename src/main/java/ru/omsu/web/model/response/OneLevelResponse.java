@@ -1,4 +1,4 @@
-package ru.omsu.web.model;
+package ru.omsu.web.model.response;
 
 import ru.omsu.core.model.CaseDTO;
 import ru.omsu.core.model.Suite;
