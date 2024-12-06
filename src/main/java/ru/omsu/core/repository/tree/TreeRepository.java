@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.UUID;
+
 @Repository
 public class TreeRepository implements ITreeRepository {
     private final JdbcOperations jdbcOperations;
@@ -19,11 +20,15 @@ public class TreeRepository implements ITreeRepository {
 
     @Override
     public List<Suite> getOneLevelSuites(UUID projectID) {
-        return jdbcOperations.query("SELECT suite_id,suite_name from suite where suite_root_id = CAST(? AS UUID)", (resultSet, i) -> {
+        return jdbcOperations.query("SELECT suite_id,suite_name,suite_root_id," +
+                "(SELECT COUNT(*) FROM suite as inner_suite where inner_suite.suite_root_id=outer_suite.suite_id)" +
+                " as suite_child_count from suite as outer_suite where suite_root_id = CAST(? AS UUID)", (resultSet, i) -> {
             UUID suiteId = resultSet.getObject("suite_id", UUID.class);
+            UUID suiteRootId = resultSet.getObject("suite_root_id", UUID.class);
             String suiteName = resultSet.getString("suite_name");
-            return new Suite(suiteName,suiteId);
-        },projectID.toString());
+            int suiteChildNumb = resultSet.getInt("suite_child_count");
+            return new Suite(suiteName, suiteId, suiteRootId, suiteChildNumb);
+        }, projectID.toString());
     }
 
     @Override
@@ -31,7 +36,7 @@ public class TreeRepository implements ITreeRepository {
         return jdbcOperations.query("SELECT test_case_id,test_case_name from test_case where suite_id = CAST(? AS UUID)", (resultSet, i) -> {
             UUID testCaseId = resultSet.getObject("test_case_id", UUID.class);
             String testCaseName = resultSet.getString("test_case_name");
-            return new CaseDTO(testCaseName,testCaseId);
-        },projectID.toString());
+            return new CaseDTO(testCaseName, testCaseId);
+        }, projectID.toString());
     }
 }
