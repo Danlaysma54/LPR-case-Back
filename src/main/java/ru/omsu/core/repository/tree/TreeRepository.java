@@ -39,4 +39,38 @@ public class TreeRepository implements ITreeRepository {
             return new CaseDTO(testCaseName, testCaseId);
         }, projectID.toString());
     }
+
+    @Override
+    public List<Suite> getAllSuites(UUID projectID) {
+        String sql = """
+        WITH RECURSIVE suite_hierarchy AS (
+            SELECT suite_id, suite_name, suite_root_id
+            FROM suite
+            WHERE suite_root_id = CAST(? AS UUID)
+            
+            UNION ALL
+            
+            SELECT s.suite_id, s.suite_name, s.suite_root_id
+            FROM suite AS s
+            INNER JOIN suite_hierarchy AS sh ON s.suite_root_id = sh.suite_id
+        )
+        SELECT 
+            suite_id,
+            suite_name,
+            suite_root_id,
+            (SELECT COUNT(*) 
+             FROM suite AS inner_suite 
+             WHERE inner_suite.suite_root_id = sh.suite_id) AS suite_child_count
+        FROM suite_hierarchy AS sh;
+        """;
+
+        return jdbcOperations.query(sql, (resultSet, i) -> {
+            UUID suiteId = resultSet.getObject("suite_id", UUID.class);
+            UUID suiteRootId = resultSet.getObject("suite_root_id", UUID.class);
+            String suiteName = resultSet.getString("suite_name");
+            int suiteChildNumb = resultSet.getInt("suite_child_count");
+            return new Suite(suiteName, suiteId, suiteRootId, suiteChildNumb);
+        }, projectID.toString());
+    }
+
 }

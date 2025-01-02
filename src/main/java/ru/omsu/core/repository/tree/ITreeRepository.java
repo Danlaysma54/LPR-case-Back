@@ -11,4 +11,6 @@ public interface ITreeRepository {
     List<Suite> getOneLevelSuites(UUID suiteID);
 
     List<CaseDTO> getOneLevelCases(UUID suiteID);
+
+    List<Suite> getAllSuites(UUID projectID);
 }

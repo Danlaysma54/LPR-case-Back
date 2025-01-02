@@ -3,6 +3,8 @@ package ru.omsu.core.repository.testCase;
 import ru.omsu.core.model.TestCase;
 import ru.omsu.web.model.request.TestCaseRequest;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public interface ITestCaseRepository {
@@ -13,4 +15,5 @@ public interface ITestCaseRepository {
     void deleteTestCase(UUID testCaseId);
 
     void editTestCase(TestCase testCase);
+
 }
