@@ -4,11 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.UUID;
-
 @AllArgsConstructor
 @Data
-public class CaseDTO {
-    private final String caseName;
-    private final UUID caseId;
-    private final int serialNumber;
+public class SuiteDTO {
+    private final UUID suiteId;
+    private final String suiteName;
+    private final UUID suiteRootId;
 }
