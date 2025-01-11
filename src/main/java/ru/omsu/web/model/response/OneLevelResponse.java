@@ -1,24 +1,19 @@
 package ru.omsu.web.model.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import ru.omsu.core.model.CaseDTO;
 import ru.omsu.core.model.Suite;
 
 import java.util.List;
-
+import java.util.UUID;
+@AllArgsConstructor
+@Getter
+@Setter
 public class OneLevelResponse {
     List<CaseDTO> cases;
     List<Suite> suites;
-
-    public OneLevelResponse(List<CaseDTO> cases, List<Suite> suites) {
-        this.cases = cases;
-        this.suites = suites;
-    }
-
-    public List<CaseDTO> getCases() {
-        return cases;
-    }
-
-    public List<Suite> getSuites() {
-        return suites;
-    }
+    String suiteName;
+    UUID suiteId;
 }
