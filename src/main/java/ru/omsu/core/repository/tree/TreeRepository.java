@@ -26,8 +26,7 @@ public class TreeRepository implements ITreeRepository {
             UUID suiteId = resultSet.getObject("suite_id", UUID.class);
             UUID suiteRootId = resultSet.getObject("suite_root_id", UUID.class);
             String suiteName = resultSet.getString("suite_name");
-            int suiteChildNumb = resultSet.getInt("suite_child_count");
-            return new Suite(suiteName, suiteId, suiteRootId, suiteChildNumb);
+            return new Suite(suiteName, suiteId, suiteRootId);
         }, projectID.toString());
     }
 
@@ -36,8 +35,7 @@ public class TreeRepository implements ITreeRepository {
         return jdbcOperations.query("SELECT test_case_id,test_case_name, serial_number from test_case where suite_id = CAST(? AS UUID)", (resultSet, i) -> {
             UUID testCaseId = resultSet.getObject("test_case_id", UUID.class);
             String testCaseName = resultSet.getString("test_case_name");
-            int serialNumber = resultSet.getInt("serial_number");
-            return new CaseDTO(testCaseName, testCaseId, serialNumber);
+            return new CaseDTO(testCaseName, testCaseId);
         }, projectID.toString());
     }
 
@@ -69,8 +67,7 @@ public class TreeRepository implements ITreeRepository {
             UUID suiteId = resultSet.getObject("suite_id", UUID.class);
             UUID suiteRootId = resultSet.getObject("suite_root_id", UUID.class);
             String suiteName = resultSet.getString("suite_name");
-            int suiteChildNumb = resultSet.getInt("suite_child_count");
-            return new Suite(suiteName, suiteId, suiteRootId, suiteChildNumb);
+            return new Suite(suiteName, suiteId, suiteRootId);
         }, projectID.toString());
     }
 

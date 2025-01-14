@@ -3,6 +3,7 @@ package ru.omsu.config;
 import ru.omsu.core.repository.suite.ISuiteRepository;
 import ru.omsu.core.repository.testCase.ITestCaseRepository;
 import ru.omsu.core.repository.tree.ITreeRepository;
+import ru.omsu.core.service.suite.SuiteService;
 import ru.omsu.core.service.testCase.TestCaseService;
 import ru.omsu.core.service.tree.TreeService;
 import org.springframework.context.annotation.Bean;
@@ -20,4 +21,8 @@ public class ServiceConfig {
         return new TestCaseService(testCaseRepository);
     }
 
+    @Bean
+    public SuiteService suiteService(final ISuiteRepository suiteRepository) {
+        return new SuiteService(suiteRepository);
+    }
 }

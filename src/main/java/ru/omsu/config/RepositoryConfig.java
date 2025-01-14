@@ -1,6 +1,7 @@
 package ru.omsu.config;
 
 import org.springframework.context.annotation.Primary;
+import ru.omsu.core.repository.suite.SuiteRepository;
 import ru.omsu.core.repository.testCase.TestCaseRepository;
 import ru.omsu.core.repository.tree.TreeRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,5 +21,8 @@ public class RepositoryConfig {
     public TestCaseRepository TestCaseRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
         return new TestCaseRepository(jdbcOperations);
     }
-
+    @Bean
+    public SuiteRepository Repository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
+        return new SuiteRepository(jdbcOperations);
+    }
 }
