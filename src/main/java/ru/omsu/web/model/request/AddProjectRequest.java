@@ -3,6 +3,9 @@ package ru.omsu.web.model.request;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+/**
+ * request class for adding projects
+ */
 public class AddProjectRequest {
     @NotNull(message = "Project name cannot be null")
     @Size(min = 3, message = "Project name must be at least 3 characters long")

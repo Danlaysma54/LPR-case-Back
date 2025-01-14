@@ -9,20 +9,39 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcOperations;
 
+/**
+ * class for repository configuration
+ */
 @Configuration
 public class RepositoryConfig {
+    /**
+     *
+     * @param  jdbcOperations for creating repo class
+     * @return  tree Repository object
+     */
     @Primary
     @Bean
-    public TreeRepository TreeRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
+    public TreeRepository treeRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
         return new TreeRepository(jdbcOperations);
     }
 
+    /**
+     *
+     * @param jdbcOperations for creating repo class
+     * @return  test case Repository object
+     */
     @Bean
-    public TestCaseRepository TestCaseRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
+    public TestCaseRepository testCaseRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
         return new TestCaseRepository(jdbcOperations);
     }
+
+    /**
+     *
+     * @param jdbcOperations for creating repo class
+     * @return suite Repository object
+     */
     @Bean
-    public SuiteRepository Repository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
+    public SuiteRepository suiteRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
         return new SuiteRepository(jdbcOperations);
     }
 }

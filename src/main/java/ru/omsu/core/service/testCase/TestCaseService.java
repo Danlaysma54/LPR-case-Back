@@ -7,10 +7,17 @@ import ru.omsu.web.model.request.TestCaseRequest;
 
 import java.util.UUID;
 
+/**
+ * implementation class of test case service
+ */
 @Service
 public class TestCaseService implements ITestCaseService {
     private final ITestCaseRepository testCaseRepository;
 
+    /**
+     *
+     * @param testCaseRepository
+     */
     public TestCaseService(ITestCaseRepository testCaseRepository) {
         this.testCaseRepository = testCaseRepository;
     }
@@ -28,6 +35,6 @@ public class TestCaseService implements ITestCaseService {
     @Override
     public TestCase editTestCase(TestCase testCase) {
         testCaseRepository.editTestCase(testCase);
-        return testCaseRepository.getTestCase(testCase.getTestCaseId());
+        return testCaseRepository.getTestCase(testCase.testCaseId());
     }
 }

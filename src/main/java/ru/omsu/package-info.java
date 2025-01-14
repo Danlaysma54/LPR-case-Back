@@ -1,0 +1,4 @@
+/**
+ * main
+ */
+package ru.omsu;
