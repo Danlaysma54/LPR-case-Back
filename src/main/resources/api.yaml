@@ -18,7 +18,7 @@ paths:
       summary: editing test plan
       operationId: editTestPlan
       parameters:
-        - name: projectId
+        - name: project
           in: path
           description: Id of project
           required: true

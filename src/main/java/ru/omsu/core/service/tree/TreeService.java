@@ -26,17 +26,10 @@ public class TreeService implements ITreeService {
 
     @Override
     public OneLevelResponse getOneLevel(UUID suiteId) {
-        OneLevelResponse oneLevelResponse = new OneLevelResponse(
+        return new OneLevelResponse(
                 treeRepository.getOneLevelCases(suiteId),
-                treeRepository.getOneLevelSuites(suiteId),
-                null,
-                null
+                treeRepository.getOneLevelSuites(suiteId)
         );
-        SuiteDTO suiteDTO = suiteRepository.getSuite(suiteId);
-        if (suiteDTO != null) {
-            oneLevelResponse.setSuiteName(suiteDTO.getSuiteName());
-            oneLevelResponse.setSuiteId(suiteDTO.getSuiteId());
-        }
-        return oneLevelResponse;
+
     }
 }
