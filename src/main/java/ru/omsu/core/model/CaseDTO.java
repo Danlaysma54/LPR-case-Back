@@ -1,7 +1,6 @@
 package ru.omsu.core.model;
 
 
-
 import java.util.UUID;
 
 /**
@@ -10,4 +9,5 @@ import java.util.UUID;
  * @param caseId UUID of test case
  */
 public record CaseDTO(String caseName, UUID caseId) {
+
 }

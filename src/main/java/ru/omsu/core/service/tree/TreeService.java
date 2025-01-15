@@ -30,13 +30,10 @@ public class TreeService implements ITreeService {
      * @return object which consists of suites and cases
      */
     @Override
-    public OneLevelResponse getOneLevel(UUID suiteId) {
-        OneLevelResponse oneLevelResponse = new OneLevelResponse(
+    public OneLevelResponse getOneLevel(final UUID suiteId) {
+        return new OneLevelResponse(
                 treeRepository.getOneLevelCases(suiteId),
-                treeRepository.getOneLevelSuites(suiteId),
-                null,
-                null
+                treeRepository.getOneLevelSuites(suiteId)
         );
-        return oneLevelResponse;
     }
 }

@@ -32,7 +32,7 @@ public class TreeRepository implements ITreeRepository {
 
     @Override
     public List<CaseDTO> getOneLevelCases(UUID projectID) {
-        return jdbcOperations.query("SELECT test_case_id,test_case_name, serial_number from test_case where suite_id = CAST(? AS UUID)", (resultSet, i) -> {
+        return jdbcOperations.query("SELECT test_case_id,test_case_name from test_case where suite_id = CAST(? AS UUID)", (resultSet, i) -> {
             UUID testCaseId = resultSet.getObject("test_case_id", UUID.class);
             String testCaseName = resultSet.getString("test_case_name");
             return new CaseDTO(testCaseName, testCaseId);
