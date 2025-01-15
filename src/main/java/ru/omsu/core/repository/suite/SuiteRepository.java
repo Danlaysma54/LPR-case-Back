@@ -5,7 +5,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
 import ru.omsu.core.model.Suite;
-import ru.omsu.web.model.exception.RootIdNotExist;
+import ru.omsu.web.model.exception.IdNotExist;
 import ru.omsu.web.model.request.AddSuiteRequest;
 
 import java.util.UUID;
@@ -40,7 +40,7 @@ public class SuiteRepository implements ISuiteRepository {
                             UUID.fromString(resultSet.getString("suite_root_id"))),
                     suiteId);
         } catch (EmptyResultDataAccessException ignored) {
-            throw new RootIdNotExist("Suite with that id doesn't exist");
+            throw new IdNotExist("Suite with that id doesn't exist");
         }
     }
 
