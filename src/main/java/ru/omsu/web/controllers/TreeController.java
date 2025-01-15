@@ -1,14 +1,13 @@
 package ru.omsu.web.controllers;
 
 
-import ru.omsu.core.model.Suite;
 import ru.omsu.core.service.tree.ITreeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.omsu.web.model.response.OneLevelResponse;
 
-import java.util.ArrayList;
+
 import java.util.UUID;
 
 @RestController
@@ -22,8 +21,8 @@ public class TreeController {
 
     @GetMapping("/{suiteId}/getOneLevel")
     @ResponseBody
-    public ResponseEntity<OneLevelResponse> getFirstLevel(@PathVariable("projectId") final UUID projectId, @PathVariable("suiteId") final UUID suiteId) {
-        return new ResponseEntity<>(treeService.getOneLevel(suiteId), HttpStatus.OK);
+    public ResponseEntity<?> getFirstLevel(@PathVariable("projectId") final UUID projectId, @PathVariable("suiteId") final UUID suiteId) {
+        return new ResponseEntity<OneLevelResponse>(treeService.getOneLevel(suiteId), HttpStatus.OK);
     }
 
 }
