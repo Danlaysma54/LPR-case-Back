@@ -1,13 +1,13 @@
 package ru.omsu.core.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 import java.util.UUID;
-@AllArgsConstructor
-@Data
-public class SuiteDTO {
-    private final UUID suiteId;
-    private final String suiteName;
-    private final UUID suiteRootId;
+
+/**
+ *
+ * @param suiteName name of suite
+ * @param suiteRootId id of root suite
+ * @param suiteId id of suite
+ */
+public record SuiteDTO(String suiteName, UUID suiteRootId, UUID suiteId) {
 }

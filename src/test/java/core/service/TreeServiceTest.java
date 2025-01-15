@@ -33,7 +33,7 @@ public class TreeServiceTest {
         OneLevelResponse oneLevelResponse= treeService.getOneLevel(projectId);
         verify(treeRepository,times(1)).getOneLevelCases(projectId);
         verify(treeRepository,times(1)).getOneLevelSuites(projectId);
-        Assert.assertEquals(oneLevelResponse.getCases(),treeService.getOneLevel(projectId).getCases());
-        Assert.assertEquals(oneLevelResponse.getSuites(),treeService.getOneLevel(projectId).getSuites());
+        Assert.assertEquals(oneLevelResponse.cases(),treeService.getOneLevel(projectId).cases());
+        Assert.assertEquals(oneLevelResponse.suites(),treeService.getOneLevel(projectId).suites());
     }
 }

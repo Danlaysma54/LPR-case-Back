@@ -1,51 +1,63 @@
 package ru.omsu.core.service.project;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.stereotype.Service;
 import ru.omsu.core.model.CaseDTO;
 import ru.omsu.core.model.Project;
 import ru.omsu.core.model.Suite;
 import ru.omsu.core.repository.project.IProjectRepository;
-import ru.omsu.core.repository.testCase.TestCaseRepository;
 import ru.omsu.core.repository.tree.TreeRepository;
 import ru.omsu.web.model.request.AddProjectRequest;
-import ru.omsu.web.model.response.AddProjectResponse;
 import ru.omsu.web.model.response.GetProjectResponse;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ *  implementation class of project service
+ */
 @Service
 public class ProjectService implements IProjectService {
 
-    private final TestCaseRepository testCaseRepository;
     private final TreeRepository treeRepository;
-    private IProjectRepository projectRepository;
+    private final IProjectRepository projectRepository;
 
-    public ProjectService(IProjectRepository projectRepository, @Qualifier("testCaseRepository") TestCaseRepository testCaseRepository, TreeRepository treeRepository) {
+    /**
+     *
+     * @param projectRepository object of project repository
+     * @param treeRepository object of tree repository
+     */
+    public ProjectService(final IProjectRepository projectRepository, final TreeRepository treeRepository) {
         this.projectRepository = projectRepository;
-        this.testCaseRepository = testCaseRepository;
         this.treeRepository = treeRepository;
     }
 
+    /**
+     *
+     * @param project project request object to add in db
+     * @return UUID added project
+     */
     @Override
-    public UUID addProject(AddProjectRequest project) {
+    public UUID addProject(final AddProjectRequest project) {
         return projectRepository.addProject(project);
     }
 
+    /**
+     *
+     * @param projectId id of project
+     */
     @Override
-    public void deleteProject(UUID projectId) {
+    public void deleteProject(final UUID projectId) {
         projectRepository.deleteProject(projectId);
     }
 
     @Override
-    public GetProjectResponse getProjectById(UUID projectId)
-    {
+    public GetProjectResponse getProjectById(final UUID projectId) {
         Project project = projectRepository.getProjectById(projectId);
         ArrayList<Suite> projectSuites = (ArrayList<Suite>) treeRepository.getAllSuites(projectId);
         ArrayList<CaseDTO> projectCases = new ArrayList<>();
         for (Suite suite : projectSuites) {
-            projectCases.addAll(treeRepository.getOneLevelCases(suite.getSuiteId()));
+            projectCases.addAll(treeRepository.getOneLevelCases(suite.suiteId()));
         }
         return new GetProjectResponse(project, projectCases.size(), projectSuites.size());
     }

@@ -1,24 +1,14 @@
 package ru.omsu.web.model.response;
+
 import ru.omsu.core.model.CaseDTO;
 import ru.omsu.core.model.Suite;
 
 import java.util.List;
-import java.util.UUID;
 
-public class OneLevelResponse {
-    List<CaseDTO> cases;
-    List<Suite> suites;
 
-    public OneLevelResponse(List<CaseDTO> cases, List<Suite> suites) {
-        this.cases = cases;
-        this.suites = suites;
-    }
+/**
+ * class response of one level
+ */
+public record OneLevelResponse(List<CaseDTO> cases, List<Suite> suites) {
 
-    public List<CaseDTO> getCases() {
-        return cases;
-    }
-
-    public List<Suite> getSuites() {
-        return suites;
-    }
 }

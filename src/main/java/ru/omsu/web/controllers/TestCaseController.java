@@ -1,32 +1,53 @@
 package ru.omsu.web.controllers;
 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PatchMapping;
 import ru.omsu.core.model.TestCase;
 import ru.omsu.core.service.testCase.ITestCaseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import ru.omsu.web.model.request.TestCaseRequest;
 
 import java.util.UUID;
 
+/**
+ *
+ */
 @RestController
 @RequestMapping("{projectId}")
 public class TestCaseController {
     private final ITestCaseService testCaseService;
 
+    /**
+     * @param testCaseService class for test case service
+     */
     public TestCaseController(final ITestCaseService testCaseService) {
         this.testCaseService = testCaseService;
     }
 
+    /**
+     * @param testCaseRequest request object to add test case
+     * @return test case
+     */
     @PostMapping("/addTestCase")
     @ResponseBody
-    public ResponseEntity<TestCase> addTestCase(@RequestBody TestCaseRequest testCaseRequest){
+    public ResponseEntity<TestCase> addTestCase(@RequestBody final TestCaseRequest testCaseRequest) {
         return new ResponseEntity<>(testCaseService.addTestCase(testCaseRequest), HttpStatus.CREATED);
     }
 
+    /**
+     * @param testCaseId id of test case
+     * @return message
+     */
     @DeleteMapping("/deleteTestCase")
     @ResponseBody
-    public ResponseEntity<?> deleteTestCase(@PathVariable UUID testCaseId) {
+    public ResponseEntity<?> deleteTestCase(@PathVariable final UUID testCaseId) {
         try {
             testCaseService.deleteTestCase(testCaseId);
 
@@ -35,9 +56,14 @@ public class TestCaseController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    /**
+     * @param testCase test case object
+     * @return new test case
+     */
     @PatchMapping("/editTestCase")
     @ResponseBody
-    public ResponseEntity<?> editTestCase(@RequestBody TestCase testCase) {
+    public ResponseEntity<?> editTestCase(@RequestBody final TestCase testCase) {
         try {
             return new ResponseEntity<>(testCaseService.editTestCase(testCase), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
