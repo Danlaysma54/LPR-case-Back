@@ -56,7 +56,7 @@ public class SuiteRepository implements ISuiteRepository {
     @Override
     public void editSuite(final Suite suite) {
         if (jdbcOperations.update("UPDATE suite set suite_name = ?, suite_root_id = ? where suite_id = ?",
-                suite.getSuiteId(), suite.getSuiteRootId(), suite.getSuiteId()) < 1) {
+                suite.getSuiteName(), suite.getSuiteRootId(), suite.getSuiteId()) < 1) {
             throw new IdNotExist("Suite with that id doesn't exist");
         }
     }

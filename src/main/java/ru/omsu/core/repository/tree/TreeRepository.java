@@ -20,9 +20,8 @@ public class TreeRepository implements ITreeRepository {
 
     @Override
     public List<Suite> getOneLevelSuites(UUID projectID) {
-        return jdbcOperations.query("SELECT suite_id,suite_name,suite_root_id," +
-                "(SELECT COUNT(*) FROM suite as inner_suite where inner_suite.suite_root_id=outer_suite.suite_id)" +
-                " as suite_child_count from suite as outer_suite where suite_root_id = CAST(? AS UUID)", (resultSet, i) -> {
+        return jdbcOperations.query("SELECT suite_id,suite_name,suite_root_id " +
+                "from suite where suite_root_id = CAST(? AS UUID)", (resultSet, i) -> {
             UUID suiteId = resultSet.getObject("suite_id", UUID.class);
             UUID suiteRootId = resultSet.getObject("suite_root_id", UUID.class);
             String suiteName = resultSet.getString("suite_name");
@@ -46,7 +45,7 @@ public class TreeRepository implements ITreeRepository {
             SELECT suite_id, suite_name, suite_root_id
             FROM suite
             WHERE suite_root_id = CAST(? AS UUID)
-            
+
             UNION ALL
             
             SELECT s.suite_id, s.suite_name, s.suite_root_id

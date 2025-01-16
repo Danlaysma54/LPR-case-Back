@@ -16,6 +16,7 @@ public class Suite {
     private final UUID suiteId;
     @NotNull(message = "Suite id can't be null")
     private final UUID suiteRootId;
+    private boolean hasChildSuites;
 
     /**
      * @param suiteName   name of suite
@@ -26,6 +27,7 @@ public class Suite {
         this.suiteName = suiteName;
         this.suiteId = suiteId;
         this.suiteRootId = suiteRootId;
+        this.hasChildSuites = false;
     }
 
     public String getSuiteName() {
@@ -38,5 +40,13 @@ public class Suite {
 
     public UUID getSuiteRootId() {
         return suiteRootId;
+    }
+
+    public void setHasChildSuites(final boolean hasChildSuites) {
+        this.hasChildSuites = hasChildSuites;
+    }
+
+    public boolean isHasChildSuites() {
+        return hasChildSuites;
     }
 }
