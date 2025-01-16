@@ -116,7 +116,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TestCase'
+                $ref: '#/components/schemas/TestCaseId'
   /{projectId}/{suiteId}/{testCaseId}:
     patch:
       tags:
@@ -261,12 +261,18 @@ paths:
               $ref: '#/components/schemas/Suite'
         required: true
       responses:
-        '200':
+        '201':
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Suite'
+                $ref: '#/components/schemas/SuiteId'
+        '404':
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
   /{projectId}/{suiteId}:
     patch:
       tags:
@@ -312,39 +318,6 @@ paths:
         - Suite
       summary: deleting suite
       operationId: delSuite
-      parameters:
-        - name: projectId
-          in: path
-          description: ID of the project
-          required: true
-          schema:
-            type: string
-            format: UUID
-        - name: suiteId
-          in: path
-          description: ID of the suite
-          required: true
-          schema:
-            type: string
-            format: UUID
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Suite'
-        '404':
-          description: Suite not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorMessage'
-    get:
-      tags:
-        - Suite
-      summary: getting Suite
-      operationId: getSuite
       parameters:
         - name: projectId
           in: path
@@ -538,3 +511,17 @@ components:
           example: example of error message
       xml:
         name: ErrorMessage
+    TestCaseId:
+      type: object
+      properties:
+        testCaseId:
+          type: string
+          format: UUID
+          example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec9h
+    SuiteId:
+      type: object
+      properties:
+        suiteId:
+          type: string
+          format: UUID
+          example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec9h

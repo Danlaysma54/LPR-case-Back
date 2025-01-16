@@ -35,6 +35,7 @@ public class TreeController {
     @ResponseBody
     public ResponseEntity<OneLevelResponse> getFirstLevel(@PathVariable("projectId") final UUID projectId,
                                                           @PathVariable("suiteId") final UUID suiteId) {
+
         return new ResponseEntity<>(treeService.getOneLevel(suiteId), HttpStatus.OK);
     }
 

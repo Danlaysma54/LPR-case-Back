@@ -10,17 +10,25 @@ import java.util.UUID;
  */
 public interface ISuiteRepository {
     /**
-     *
      * @param suiteId id of suite
      * @return suite entity
      */
     Suite getSuite(UUID suiteId);
 
     /**
-     *
      * @param addSuiteRequest request entity to add suite
      * @return UUID of added suite
      */
     UUID addSuite(AddSuiteRequest addSuiteRequest);
 
+    /**
+     * @param suite new version of suite
+     */
+    void editSuite(Suite suite);
+
+    /**
+     *
+     * @param suiteId id of suite
+     */
+    void deleteSuite(UUID suiteId);
 }
