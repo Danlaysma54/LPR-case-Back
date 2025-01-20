@@ -13,14 +13,12 @@ import java.util.UUID;
  */
 public interface ITestCaseRepository {
     /**
-     *
      * @param testCaseRequest object for request to add test case
      * @return UUID of added test case
      */
     UUID addTestCase(TestCaseRequest testCaseRequest);
 
     /**
-     *
      * @param testCaseId id of test case
      * @return Test case entity
      */
@@ -28,19 +26,27 @@ public interface ITestCaseRepository {
     TestCase getTestCase(UUID testCaseId);
 
     /**
-     *
      * @param testCaseId id of test case
      */
 
     void deleteTestCase(UUID testCaseId);
 
     /**
-     *
      * @param testCase entity of test case
      */
 
     void editTestCase(TestCase testCase);
 
+    /**
+     * @param testCaseId id of test case
+     * @return steps of test case
+     */
+
     List<Step> getTestCaseSteps(UUID testCaseId);
 
+    /**
+     *
+     * @param step step of test case
+     */
+    void editTestStep(Step step);
 }

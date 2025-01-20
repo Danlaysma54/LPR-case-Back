@@ -4,6 +4,7 @@ import ru.omsu.core.model.Step;
 import ru.omsu.core.model.TestCase;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
+import ru.omsu.web.model.exception.IdNotExist;
 import ru.omsu.web.model.request.TestCaseRequest;
 
 import java.util.List;
@@ -79,7 +80,15 @@ public class TestCaseRepository implements ITestCaseRepository {
     public List<Step> getTestCaseSteps(UUID testCaseId) {
         return jdbcOperations.query("SELECT step_description,step_data,step_result,step_number from test_step where test_case_id=?",
                 (resultSet, i) -> new Step(resultSet.getString("step_description"), resultSet.getString("step_data"),
-                        resultSet.getString("step_result"), resultSet.getInt("step_number"))
-            , testCaseId);
+                        resultSet.getString("step_result"), resultSet.getInt("step_number"), testCaseId)
+                , testCaseId);
+    }
+
+    @Override
+    public void editTestStep(final Step step) {
+        if (jdbcOperations.update("UPDATE test_step SET step_description=?,step_data=?,step_result=?,step_number=? where test_step_id=?",
+                step.stepDescription(), step.stepData(), step.stepResult(), step.stepNumber(), step.step_case()) < 1) {
+            throw new IdNotExist("Test case step with that Id doesn't exist");
+        }
     }
 }

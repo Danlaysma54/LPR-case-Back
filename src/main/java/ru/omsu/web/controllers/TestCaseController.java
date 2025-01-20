@@ -6,6 +6,7 @@ import ru.omsu.core.service.testCase.ITestCaseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.omsu.web.model.exception.IdNotExist;
+import ru.omsu.web.model.request.EditTestCaseRequest;
 import ru.omsu.web.model.request.TestCaseRequest;
 
 import java.util.UUID;
@@ -57,7 +58,7 @@ public class TestCaseController {
      */
     @PatchMapping("/editTestCase")
     @ResponseBody
-    public ResponseEntity<?> editTestCase(@RequestBody final TestCase testCase) {
+    public ResponseEntity<?> editTestCase(@RequestBody final TestCaseRequest testCase) {
         try {
             return new ResponseEntity<>(testCaseService.editTestCase(testCase), HttpStatus.OK);
         } catch (IllegalArgumentException e) {

@@ -1,8 +1,9 @@
 package ru.omsu.core.service.testCase;
 
 import ru.omsu.core.model.TestCase;
+import ru.omsu.web.model.request.EditTestCaseRequest;
 import ru.omsu.web.model.request.TestCaseRequest;
-import ru.omsu.web.model.response.GetTestCaseResponse;
+import ru.omsu.web.model.response.TestCaseResponse;
 
 import java.util.UUID;
 
@@ -25,7 +26,7 @@ public interface ITestCaseService {
      * @param testCase test case entity
      * @return new Test case
      */
-    TestCase editTestCase(TestCase testCase);
+    TestCaseResponse editTestCase(TestCaseRequest testCase);
 
-    GetTestCaseResponse getTestCase(UUID suiteId);
+    TestCaseResponse getTestCase(UUID suiteId);
 }

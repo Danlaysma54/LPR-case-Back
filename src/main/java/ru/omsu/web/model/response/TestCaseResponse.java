@@ -5,5 +5,5 @@ import ru.omsu.core.model.TestCase;
 
 import java.util.List;
 
-public record GetTestCaseResponse(TestCase testCase, List<Step> stepList) {
+public record TestCaseResponse(TestCase testCase, List<Step> stepList) {
 }

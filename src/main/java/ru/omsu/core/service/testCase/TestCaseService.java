@@ -4,7 +4,7 @@ import ru.omsu.core.model.TestCase;
 import ru.omsu.core.repository.testCase.ITestCaseRepository;
 import org.springframework.stereotype.Service;
 import ru.omsu.web.model.request.TestCaseRequest;
-import ru.omsu.web.model.response.GetTestCaseResponse;
+import ru.omsu.web.model.response.TestCaseResponse;
 
 import java.util.UUID;
 
@@ -33,13 +33,13 @@ public class TestCaseService implements ITestCaseService {
     }
 
     @Override
-    public TestCase editTestCase(TestCase testCase) {
+    public TestCaseResponse editTestCase(TestCaseRequest testCase) {
         testCaseRepository.editTestCase(testCase);
         return testCaseRepository.getTestCase(testCase.testCaseId());
     }
 
     @Override
-    public GetTestCaseResponse getTestCase(UUID testCaseId) {
-        return new GetTestCaseResponse(testCaseRepository.getTestCase(testCaseId), testCaseRepository.getTestCaseSteps(testCaseId));
+    public TestCaseResponse getTestCase(UUID testCaseId) {
+        return new TestCaseResponse(testCaseRepository.getTestCase(testCaseId), testCaseRepository.getTestCaseSteps(testCaseId));
     }
 }
