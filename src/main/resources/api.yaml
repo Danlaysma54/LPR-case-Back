@@ -206,13 +206,6 @@ paths:
           schema:
             type: string
             format: UUID
-        - name: suiteId
-          in: path
-          description: Id of suite
-          required: true
-          schema:
-            type: string
-            format: UUID
         - name: testCaseId
           in: path
           description: Id of test case
@@ -348,7 +341,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OneLevelRepsonse'
+                $ref: '#/components/schemas/OneLevelResponse'
         '404':
           description: Suite not found
           content:
@@ -420,6 +413,11 @@ components:
           type: string
           format: UUID
           example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec93
+        steps:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/Step'
       xml:
         name: TestCase
     TestCaseRequest:
@@ -458,7 +456,7 @@ components:
           example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec92
       xml:
         name: Suite
-    OneLevelRepsonse:
+    OneLevelResponse:
       type: object
       properties:
         cases:
@@ -472,7 +470,7 @@ components:
             oneOf:
               - $ref: '#/components/schemas/Suite'
       xml:
-        name: OneLevelRepsonse
+        name: OneLevelResponse
     TestPlan:
       type: object
       properties:
@@ -511,3 +509,19 @@ components:
           type: string
           format: UUID
           example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec9h
+    Step:
+      type: object
+      properties:
+        stepDescription:
+          type: string
+          example: Description of step
+        stepData:
+          type: string
+          example: data of step
+        stepResult:
+          type: string
+          example: result of step
+        stepNumber:
+          type: number
+          example: 1
+
