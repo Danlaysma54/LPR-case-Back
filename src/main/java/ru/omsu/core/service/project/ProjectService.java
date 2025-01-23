@@ -57,7 +57,7 @@ public class ProjectService implements IProjectService {
         ArrayList<Suite> projectSuites = (ArrayList<Suite>) treeRepository.getAllSuites(projectId);
         ArrayList<CaseDTO> projectCases = new ArrayList<>();
         for (Suite suite : projectSuites) {
-            projectCases.addAll(treeRepository.getOneLevelCases(suite.getSuiteId()));
+            projectCases.addAll(treeRepository.getOneLevelCases(suite.getSuiteId(),1,1));
         }
         return new GetProjectResponse(project, projectCases.size(), projectSuites.size());
     }

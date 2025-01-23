@@ -29,15 +29,15 @@ public class TreeService implements ITreeService {
      * @return object which consists of suites and cases
      */
     @Override
-    public OneLevelResponse getOneLevel(final UUID suiteId) {
-        List<Suite> suites = treeRepository.getOneLevelSuites(suiteId);
+    public OneLevelResponse getOneLevel(final UUID suiteId, final int offset, final int limit) {
+        List<Suite> suites = treeRepository.getOneLevelSuites(suiteId, offset, limit);
         for (Suite suite : suites) {
-            if (!treeRepository.getOneLevelSuites(suite.getSuiteId()).isEmpty()) {
+            if (!treeRepository.getOneLevelSuites(suite.getSuiteId(), offset, limit).isEmpty()) {
                 suite.setHasChildSuites(true);
             }
         }
         return new OneLevelResponse(
-                treeRepository.getOneLevelCases(suiteId),
+                treeRepository.getOneLevelCases(suiteId, offset, limit),
                 suites
         );
     }

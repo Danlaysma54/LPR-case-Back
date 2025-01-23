@@ -19,48 +19,50 @@ public class TreeRepository implements ITreeRepository {
 
 
     @Override
-    public List<Suite> getOneLevelSuites(UUID projectID) {
+    public List<Suite> getOneLevelSuites(UUID suiteID, int offset, int limit) {
+        int skipsRow = limit * offset;
         return jdbcOperations.query("SELECT suite_id,suite_name,suite_root_id " +
-                "from suite where suite_root_id = CAST(? AS UUID)", (resultSet, i) -> {
+                "from suite where suite_root_id = CAST(? AS UUID) order by created_at limit ? offset ((?-1)*10)", (resultSet, i) -> {
             UUID suiteId = resultSet.getObject("suite_id", UUID.class);
             UUID suiteRootId = resultSet.getObject("suite_root_id", UUID.class);
             String suiteName = resultSet.getString("suite_name");
             return new Suite(suiteName, suiteId, suiteRootId);
-        }, projectID.toString());
+        }, suiteID.toString(),limit,offset);
     }
 
     @Override
-    public List<CaseDTO> getOneLevelCases(UUID projectID) {
-        return jdbcOperations.query("SELECT test_case_id,test_case_name from test_case where suite_id = CAST(? AS UUID)", (resultSet, i) -> {
+    public List<CaseDTO> getOneLevelCases(UUID suiteID, int offset, int limit) {
+        return jdbcOperations.query("SELECT test_case_id,test_case_name from test_case where suite_id = CAST(? AS UUID)" +
+                "order by created_at limit ? offset ((?-1)*10)", (resultSet, i) -> {
             UUID testCaseId = resultSet.getObject("test_case_id", UUID.class);
             String testCaseName = resultSet.getString("test_case_name");
             return new CaseDTO(testCaseName, testCaseId);
-        }, projectID.toString());
+        }, suiteID.toString(),limit,offset);
     }
 
     @Override
     public List<Suite> getAllSuites(UUID projectID) {
         String sql = """
-        WITH RECURSIVE suite_hierarchy AS (
-            SELECT suite_id, suite_name, suite_root_id
-            FROM suite
-            WHERE suite_root_id = CAST(? AS UUID)
+                WITH RECURSIVE suite_hierarchy AS (
+                    SELECT suite_id, suite_name, suite_root_id
+                    FROM suite
+                    WHERE suite_root_id = CAST(? AS UUID)
 
-            UNION ALL
-            
-            SELECT s.suite_id, s.suite_name, s.suite_root_id
-            FROM suite AS s
-            INNER JOIN suite_hierarchy AS sh ON s.suite_root_id = sh.suite_id
-        )
-        SELECT 
-            suite_id,
-            suite_name,
-            suite_root_id,
-            (SELECT COUNT(*) 
-             FROM suite AS inner_suite 
-             WHERE inner_suite.suite_root_id = sh.suite_id) AS suite_child_count
-        FROM suite_hierarchy AS sh;
-        """;
+                    UNION ALL
+                    
+                    SELECT s.suite_id, s.suite_name, s.suite_root_id
+                    FROM suite AS s
+                    INNER JOIN suite_hierarchy AS sh ON s.suite_root_id = sh.suite_id
+                )
+                SELECT 
+                    suite_id,
+                    suite_name,
+                    suite_root_id,
+                    (SELECT COUNT(*) 
+                     FROM suite AS inner_suite 
+                     WHERE inner_suite.suite_root_id = sh.suite_id) AS suite_child_count
+                FROM suite_hierarchy AS sh;
+                """;
 
         return jdbcOperations.query(sql, (resultSet, i) -> {
             UUID suiteId = resultSet.getObject("suite_id", UUID.class);
