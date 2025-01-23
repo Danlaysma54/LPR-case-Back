@@ -38,5 +38,4 @@ public interface ITestCaseRepository {
      */
 
     void editTestCase(TestCase testCase);
-
 }

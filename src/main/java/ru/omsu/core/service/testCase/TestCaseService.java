@@ -15,26 +15,42 @@ public class TestCaseService implements ITestCaseService {
     private final ITestCaseRepository testCaseRepository;
 
     /**
-     *
-     * @param testCaseRepository
+     * @param testCaseRepository class for working with db
      */
-    public TestCaseService(ITestCaseRepository testCaseRepository) {
+    public TestCaseService(final ITestCaseRepository testCaseRepository) {
         this.testCaseRepository = testCaseRepository;
     }
 
+    /**
+     * @param testCaseRequest object to add request
+     * @return testCase entity
+     */
     @Override
-    public TestCase addTestCase(TestCaseRequest testCaseRequest) {
+    public TestCase addTestCase(final TestCaseRequest testCaseRequest) {
         return testCaseRepository.getTestCase(testCaseRepository.addTestCase(testCaseRequest));
     }
 
+    /**
+     * @param testCaseId id of test case
+     */
     @Override
-    public void deleteTestCase(UUID testCaseId) {
+    public void deleteTestCase(final UUID testCaseId) {
         this.testCaseRepository.deleteTestCase(testCaseId);
     }
 
+    /**
+     * @param testCase test case entity
+     * @return testcase
+     */
     @Override
-    public TestCase editTestCase(TestCase testCase) {
+    public TestCase editTestCase(final TestCase testCase) {
         testCaseRepository.editTestCase(testCase);
         return testCaseRepository.getTestCase(testCase.testCaseId());
     }
+
+    @Override
+    public TestCase getTestCase(final UUID testCaseId) {
+        return testCaseRepository.getTestCase(testCaseId);
+    }
+
 }

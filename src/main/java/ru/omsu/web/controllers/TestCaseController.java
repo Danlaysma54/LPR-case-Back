@@ -1,17 +1,11 @@
 package ru.omsu.web.controllers;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.omsu.core.model.TestCase;
 import ru.omsu.core.service.testCase.ITestCaseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import ru.omsu.web.model.exception.IdNotExist;
 import ru.omsu.web.model.request.TestCaseRequest;
 
 import java.util.UUID;
@@ -67,6 +61,16 @@ public class TestCaseController {
         try {
             return new ResponseEntity<>(testCaseService.editTestCase(testCase), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{testCaseId}/getTestCase")
+    @ResponseBody
+    public ResponseEntity<?> getTestCase(@PathVariable final UUID projectId, @PathVariable final UUID testCaseId) {
+        try {
+            return new ResponseEntity<>(testCaseService.getTestCase(testCaseId), HttpStatus.OK);
+        } catch (IdNotExist e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }

@@ -10,23 +10,26 @@ import java.util.UUID;
  */
 public interface ITestCaseService {
     /**
-     *
      * @param testCaseRequest object to add request
      * @return Test case entity
      */
     TestCase addTestCase(TestCaseRequest testCaseRequest);
 
     /**
-     *
      * @param testCaseId id of test case
      */
     void deleteTestCase(UUID testCaseId);
 
     /**
-     *
      * @param testCase test case entity
      * @return new Test case
      */
     TestCase editTestCase(TestCase testCase);
 
+    /**
+     *
+     * @param testCaseId id of seek test case
+     * @return testcase entity
+     */
+    TestCase getTestCase(UUID testCaseId);
 }
