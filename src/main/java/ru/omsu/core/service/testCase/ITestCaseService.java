@@ -13,7 +13,7 @@ public interface ITestCaseService {
      * @param testCaseRequest object to add request
      * @return Test case entity
      */
-    TestCase addTestCase(TestCaseRequest testCaseRequest);
+    UUID addTestCase(TestCaseRequest testCaseRequest);
 
     /**
      * @param testCaseId id of test case
