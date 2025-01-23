@@ -31,7 +31,7 @@ public class TestCaseController {
      */
     @PostMapping("/addTestCase")
     @ResponseBody
-    public ResponseEntity<TestCase> addTestCase(@RequestBody final TestCaseRequest testCaseRequest) {
+    public ResponseEntity<UUID> addTestCase(@RequestBody final TestCaseRequest testCaseRequest) {
         return new ResponseEntity<>(testCaseService.addTestCase(testCaseRequest), HttpStatus.CREATED);
     }
 

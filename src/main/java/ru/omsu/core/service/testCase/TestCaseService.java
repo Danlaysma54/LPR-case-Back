@@ -30,8 +30,8 @@ public class TestCaseService implements ITestCaseService {
      * @return testCase entity
      */
     @Override
-    public TestCase addTestCase(final TestCaseRequest testCaseRequest) {
-        return testCaseRepository.getTestCase(testCaseRepository.addTestCase(testCaseRequest));
+    public UUID addTestCase(final TestCaseRequest testCaseRequest) {
+        return testCaseRepository.addTestCase(testCaseRequest);
     }
 
     /**
@@ -52,11 +52,15 @@ public class TestCaseService implements ITestCaseService {
         return testCaseRepository.getTestCase(testCase.testCaseId());
     }
 
+    /**
+     *
+     * @param testCaseId id of seek test case
+     * @return TestCase entity
+     */
     @Override
     public TestCase getTestCase(final UUID testCaseId) {
         TestCase testCase = testCaseRepository.getTestCase(testCaseId);
         testCase.stepList().addAll(testCaseRepository.getTestCaseSteps(testCaseId));
         return testCase;
     }
-
 }

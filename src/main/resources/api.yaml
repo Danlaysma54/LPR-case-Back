@@ -206,13 +206,6 @@ paths:
           schema:
             type: string
             format: UUID
-        - name: suiteId
-          in: path
-          description: Id of suite
-          required: true
-          schema:
-            type: string
-            format: UUID
         - name: testCaseId
           in: path
           description: Id of test case
