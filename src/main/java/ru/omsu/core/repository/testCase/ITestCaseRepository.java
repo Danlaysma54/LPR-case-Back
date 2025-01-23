@@ -41,6 +41,11 @@ public interface ITestCaseRepository {
 
     void editTestCase(TestCase testCase);
 
+    /**
+     *
+     * @param testCaseId id of test case
+     * @return list of case steps
+     */
     List<Step> getTestCaseSteps(UUID testCaseId);
 
 }

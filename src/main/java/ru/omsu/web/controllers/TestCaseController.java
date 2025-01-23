@@ -65,6 +65,12 @@ public class TestCaseController {
         }
     }
 
+    /**
+     *
+     * @param projectId id of project
+     * @param suiteId id of suite
+     * @return testCase
+     */
     @GetMapping("/{testCaseId}/getTestCase")
     @ResponseBody
     public ResponseEntity<?> getTestCase(@PathVariable("projectId") final UUID projectId, @PathVariable("testCaseId") final UUID suiteId) {

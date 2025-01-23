@@ -75,8 +75,13 @@ public class TestCaseRepository implements ITestCaseRepository {
         }
     }
 
+    /**
+     *
+     * @param testCaseId id of test case
+     * @return list of cases steps
+     */
     @Override
-    public List<Step> getTestCaseSteps(UUID testCaseId) {
+    public List<Step> getTestCaseSteps(final UUID testCaseId) {
         return jdbcOperations.query("SELECT step_description,step_data,step_result,step_number from test_step where test_case_id=?",
                 (resultSet, i) -> new Step(resultSet.getString("step_description"), resultSet.getString("step_data"),
                         resultSet.getString("step_result"), resultSet.getInt("step_number"))
