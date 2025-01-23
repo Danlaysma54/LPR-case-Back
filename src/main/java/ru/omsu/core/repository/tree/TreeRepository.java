@@ -22,21 +22,22 @@ public class TreeRepository implements ITreeRepository {
     public List<Suite> getOneLevelSuites(UUID suiteID, int offset, int limit) {
         int skipsRow = limit * offset;
         return jdbcOperations.query("SELECT suite_id,suite_name,suite_root_id " +
-                "from suite where suite_root_id = CAST(? AS UUID)", (resultSet, i) -> {
+                "from suite where suite_root_id = CAST(? AS UUID) order by created_at limit ? offset ((?-1)*10)", (resultSet, i) -> {
             UUID suiteId = resultSet.getObject("suite_id", UUID.class);
             UUID suiteRootId = resultSet.getObject("suite_root_id", UUID.class);
             String suiteName = resultSet.getString("suite_name");
             return new Suite(suiteName, suiteId, suiteRootId);
-        }, suiteID.toString());
+        }, suiteID.toString(),limit,offset);
     }
 
     @Override
     public List<CaseDTO> getOneLevelCases(UUID suiteID, int offset, int limit) {
-        return jdbcOperations.query("SELECT test_case_id,test_case_name from test_case where suite_id = CAST(? AS UUID)", (resultSet, i) -> {
+        return jdbcOperations.query("SELECT test_case_id,test_case_name from test_case where suite_id = CAST(? AS UUID)" +
+                "order by created_at limit ? offset ((?-1)*10)", (resultSet, i) -> {
             UUID testCaseId = resultSet.getObject("test_case_id", UUID.class);
             String testCaseName = resultSet.getString("test_case_name");
             return new CaseDTO(testCaseName, testCaseId);
-        }, suiteID.toString());
+        }, suiteID.toString(),limit,offset);
     }
 
     @Override
