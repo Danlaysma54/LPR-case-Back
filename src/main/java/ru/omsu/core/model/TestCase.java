@@ -2,6 +2,7 @@ package ru.omsu.core.model;
 
 
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -12,6 +13,6 @@ import java.util.UUID;
  * @param isAutomated is it automated
  * @param suiteId id of suite
  */
-public record TestCase(UUID testCaseId, String testCaseName, String layer, String isAutomated, UUID suiteId) {
+public record TestCase(UUID testCaseId, String testCaseName, String layer, String isAutomated, UUID suiteId, List<Step> stepList) {
 
 }

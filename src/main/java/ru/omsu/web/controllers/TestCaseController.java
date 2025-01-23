@@ -65,11 +65,17 @@ public class TestCaseController {
         }
     }
 
+    /**
+     *
+     * @param projectId id of project
+     * @param suiteId id of suite
+     * @return testCase
+     */
     @GetMapping("/{testCaseId}/getTestCase")
     @ResponseBody
-    public ResponseEntity<?> getTestCase(@PathVariable final UUID projectId, @PathVariable final UUID testCaseId) {
+    public ResponseEntity<?> getTestCase(@PathVariable("projectId") final UUID projectId, @PathVariable("testCaseId") final UUID suiteId) {
         try {
-            return new ResponseEntity<>(testCaseService.getTestCase(testCaseId), HttpStatus.OK);
+            return new ResponseEntity<>(testCaseService.getTestCase(suiteId), HttpStatus.OK);
         } catch (IdNotExist e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }

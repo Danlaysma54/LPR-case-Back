@@ -1,0 +1,1 @@
+alter table test_step add column step_number int;

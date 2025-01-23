@@ -1,9 +1,11 @@
 package ru.omsu.core.repository.testCase;
 
+import ru.omsu.core.model.Step;
 import ru.omsu.core.model.TestCase;
 import ru.omsu.web.model.request.TestCaseRequest;
 
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -38,4 +40,12 @@ public interface ITestCaseRepository {
      */
 
     void editTestCase(TestCase testCase);
+
+    /**
+     *
+     * @param testCaseId id of test case
+     * @return list of case steps
+     */
+    List<Step> getTestCaseSteps(UUID testCaseId);
+
 }

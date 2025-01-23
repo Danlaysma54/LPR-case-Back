@@ -15,7 +15,11 @@ public class TestCaseService implements ITestCaseService {
     private final ITestCaseRepository testCaseRepository;
 
     /**
+     * <<<<<<< HEAD
+     *
      * @param testCaseRepository class for working with db
+     *                           =======
+     * @param testCaseRepository >>>>>>> develop
      */
     public TestCaseService(final ITestCaseRepository testCaseRepository) {
         this.testCaseRepository = testCaseRepository;
@@ -50,7 +54,9 @@ public class TestCaseService implements ITestCaseService {
 
     @Override
     public TestCase getTestCase(final UUID testCaseId) {
-        return testCaseRepository.getTestCase(testCaseId);
+        TestCase testCase = testCaseRepository.getTestCase(testCaseId);
+        testCase.stepList().addAll(testCaseRepository.getTestCaseSteps(testCaseId));
+        return testCase;
     }
 
 }

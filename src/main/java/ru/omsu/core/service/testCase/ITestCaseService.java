@@ -27,9 +27,9 @@ public interface ITestCaseService {
     TestCase editTestCase(TestCase testCase);
 
     /**
-     *
      * @param testCaseId id of seek test case
      * @return testcase entity
      */
     TestCase getTestCase(UUID testCaseId);
+
 }
