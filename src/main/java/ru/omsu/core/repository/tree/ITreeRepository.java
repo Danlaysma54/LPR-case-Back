@@ -12,22 +12,24 @@ import java.util.UUID;
  */
 public interface ITreeRepository {
     /**
-     *
-     * @param suiteID id of suite root
-     * @return list of suite
+     * @param suiteID id of suite
+     * @param offset  number of page
+     * @param limit   how many suites we can get
+     * @return of suites
      */
-    List<Suite> getOneLevelSuites(UUID suiteID);
+    List<Suite> getOneLevelSuites(UUID suiteID, int offset, int limit);
 
     /**
      *
-     * @param suiteID id of suite root
-     * @return list of cases
+     * @param suiteID id of suite
+     * @param offset number of page
+     * @param limit how many suites we can get
+     * @return cases
      */
 
-    List<CaseDTO> getOneLevelCases(UUID suiteID);
+    List<CaseDTO> getOneLevelCases(UUID suiteID, int offset, int limit);
 
     /**
-     *
      * @param projectID if of project
      * @return list of suite
      */

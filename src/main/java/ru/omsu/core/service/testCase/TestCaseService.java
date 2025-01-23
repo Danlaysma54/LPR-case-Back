@@ -49,7 +49,7 @@ public class TestCaseService implements ITestCaseService {
     @Override
     public TestCase editTestCase(final TestCase testCase) {
         testCaseRepository.editTestCase(testCase);
-        return testCaseRepository.getTestCase(testCase.testCaseId());
+        return testCaseRepository.getTestCase(testCase.getTestCaseId());
     }
 
     /**
@@ -60,7 +60,7 @@ public class TestCaseService implements ITestCaseService {
     @Override
     public TestCase getTestCase(final UUID testCaseId) {
         TestCase testCase = testCaseRepository.getTestCase(testCaseId);
-        testCase.stepList().addAll(testCaseRepository.getTestCaseSteps(testCaseId));
+        testCase.getStepList().addAll(testCaseRepository.getTestCaseSteps(testCaseId));
         return testCase;
     }
 }
