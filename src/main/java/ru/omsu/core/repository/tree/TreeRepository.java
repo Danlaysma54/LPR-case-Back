@@ -20,7 +20,6 @@ public class TreeRepository implements ITreeRepository {
 
     @Override
     public List<Suite> getOneLevelSuites(UUID suiteID, int offset, int limit) {
-        int skipsRow = limit * offset;
         return jdbcOperations.query("SELECT suite_id,suite_name,suite_root_id " +
                 "from suite inner join project on suite.suite_id != project.project_id where suite_root_id = CAST(? AS UUID)  order by created_at limit ? offset ((?-1)*10)", (resultSet, i) -> {
             UUID suiteId = resultSet.getObject("suite_id", UUID.class);

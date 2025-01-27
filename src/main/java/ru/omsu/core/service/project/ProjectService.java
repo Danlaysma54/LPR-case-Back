@@ -53,12 +53,6 @@ public class ProjectService implements IProjectService {
 
     @Override
     public GetProjectResponse getProjectById(final UUID projectId) {
-        Project project = projectRepository.getProjectById(projectId);
-        ArrayList<Suite> projectSuites = (ArrayList<Suite>) treeRepository.getAllSuites(projectId);
-        ArrayList<CaseDTO> projectCases = new ArrayList<>();
-        for (Suite suite : projectSuites) {
-            projectCases.addAll(treeRepository.getOneLevelCases(suite.getSuiteId(),1,1));
-        }
-        return new GetProjectResponse(project, projectCases.size(), projectSuites.size());
+        return new GetProjectResponse(projectRepository.getProjectById(projectId),0,0);
     }
 }

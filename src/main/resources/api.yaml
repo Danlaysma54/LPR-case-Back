@@ -83,7 +83,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TestCaseTypes'
-  /{projectId}/addTestCase:
+  /{projectId}/{suiteId}/addTestCase:
     post:
       tags:
         - Test case
@@ -93,6 +93,13 @@ paths:
         - name: projectId
           in: path
           description: Id of project
+          required: true
+          schema:
+            type: string
+            format: UUID
+        - name: suiteId
+          in: path
+          description: Id of suite
           required: true
           schema:
             type: string
@@ -206,6 +213,13 @@ paths:
           schema:
             type: string
             format: UUID
+        - name: suiteId
+          in: path
+          description: Id of suite
+          required: true
+          schema:
+            type: string
+            format: UUID
         - name: testCaseId
           in: path
           description: Id of test case
@@ -244,7 +258,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SuiteRequest'
+              $ref: '#/components/schemas/Suite'
         required: true
       responses:
         '201':
@@ -259,7 +273,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
-  /{projectId}/editSuite:
+  /{projectId}/{suiteId}/editSuite:
     patch:
       tags:
         - Suite
@@ -273,7 +287,19 @@ paths:
           schema:
             type: string
             format: UUID
-
+        - name: suiteId
+          in: path
+          description: ID of the suite
+          required: true
+          schema:
+            type: string
+            format: UUID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Suite'
+        required: true
       responses:
         '200':
           description: Successful operation
@@ -328,6 +354,18 @@ paths:
       summary: Get one level of suites and cases
       operationId: getOneLevel
       parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+          required: true
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The numbers of items to return
+          required: true
         - name: projectId
           in: path
           description: ID of the project
@@ -341,7 +379,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OneLevelResponse'
+                $ref: '#/components/schemas/OneLevelRepsonse'
         '404':
           description: Suite not found
           content:
@@ -413,11 +451,6 @@ components:
           type: string
           format: UUID
           example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec93
-        steps:
-          type: array
-          items:
-            oneOf:
-              - $ref: '#/components/schemas/Step'
       xml:
         name: TestCase
     TestCaseRequest:
@@ -431,10 +464,6 @@ components:
           format: UUID
           example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec92
         isAutomatedId:
-          type: string
-          format: UUID
-          example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec93
-        suiteID:
           type: string
           format: UUID
           example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec93
@@ -456,7 +485,7 @@ components:
           example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec92
       xml:
         name: Suite
-    OneLevelResponse:
+    OneLevelRepsonse:
       type: object
       properties:
         cases:
@@ -470,7 +499,7 @@ components:
             oneOf:
               - $ref: '#/components/schemas/Suite'
       xml:
-        name: OneLevelResponse
+        name: OneLevelRepsonse
     TestPlan:
       type: object
       properties:
@@ -506,31 +535,6 @@ components:
       type: object
       properties:
         suiteId:
-          type: string
-          format: UUID
-          example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec9h
-    Step:
-      type: object
-      properties:
-        stepDescription:
-          type: string
-          example: Description of step
-        stepData:
-          type: string
-          example: data of step
-        stepResult:
-          type: string
-          example: result of step
-        stepNumber:
-          type: number
-          example: 1
-    SuiteRequest:
-      type: object
-      properties:
-        suiteName:
-          type: string
-          example: name of the suite
-        suiteRootId:
           type: string
           format: UUID
           example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec9h
