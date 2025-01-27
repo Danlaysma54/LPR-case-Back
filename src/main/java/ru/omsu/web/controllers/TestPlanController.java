@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.*;
 import ru.omsu.core.service.testPlan.ITestPlanService;
 import ru.omsu.web.model.request.AddTestPlanRequest;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("{projectId}")
 public class TestPlanController {
@@ -17,13 +21,13 @@ public class TestPlanController {
 
     @PostMapping("/addTestPlan")
     @ResponseBody
-    public ResponseEntity<?> addTestPlan(AddTestPlanRequest testPlanRequest) {
+    public ResponseEntity<?> addTestPlan(@RequestBody AddTestPlanRequest testPlanRequest) {
         return new ResponseEntity<>(testPlanService.addTestPlan(testPlanRequest), HttpStatus.CREATED);
     }
 
     @GetMapping("/getTestPlans")
     @ResponseBody
     public ResponseEntity<?> getTestPlans() {
-        return null;
+        return new ResponseEntity<>(new AddTestPlanRequest("", List.of(UUID.randomUUID())),HttpStatus.OK);
     }
 }
