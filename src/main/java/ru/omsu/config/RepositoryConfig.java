@@ -3,6 +3,7 @@ package ru.omsu.config;
 import org.springframework.context.annotation.Primary;
 import ru.omsu.core.repository.suite.SuiteRepository;
 import ru.omsu.core.repository.testCase.TestCaseRepository;
+import ru.omsu.core.repository.testPlan.TestPlanRepository;
 import ru.omsu.core.repository.tree.TreeRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +16,8 @@ import org.springframework.jdbc.core.JdbcOperations;
 @Configuration
 public class RepositoryConfig {
     /**
-     *
-     * @param  jdbcOperations for creating repo class
-     * @return  tree Repository object
+     * @param jdbcOperations for creating repo class
+     * @return tree Repository object
      */
     @Primary
     @Bean
@@ -26,9 +26,8 @@ public class RepositoryConfig {
     }
 
     /**
-     *
      * @param jdbcOperations for creating repo class
-     * @return  test case Repository object
+     * @return test case Repository object
      */
     @Bean
     public TestCaseRepository testCaseRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
@@ -36,12 +35,16 @@ public class RepositoryConfig {
     }
 
     /**
-     *
      * @param jdbcOperations for creating repo class
      * @return suite Repository object
      */
     @Bean
     public SuiteRepository suiteRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
         return new SuiteRepository(jdbcOperations);
+    }
+
+    @Bean
+    public TestPlanRepository testPlanRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
+        return new TestPlanRepository(jdbcOperations);
     }
 }

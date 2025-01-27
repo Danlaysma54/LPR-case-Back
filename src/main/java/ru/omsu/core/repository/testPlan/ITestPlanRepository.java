@@ -5,7 +5,7 @@ import ru.omsu.web.model.request.AddTestPlanRequest;
 import java.util.UUID;
 
 /**
- *  interface for working
+ * interface for working
  */
 public interface ITestPlanRepository {
     /**
@@ -13,4 +13,6 @@ public interface ITestPlanRepository {
      * @return id of added test plan
      */
     UUID addTestPlan(AddTestPlanRequest addTestPlanRequest);
+
+    void addTestCasesInTestPlan(UUID testCaseId, UUID projectId);
 }
