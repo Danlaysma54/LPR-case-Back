@@ -244,7 +244,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Suite'
+              $ref: '#/components/schemas/SuiteRequest'
         required: true
       responses:
         '201':
@@ -524,4 +524,13 @@ components:
         stepNumber:
           type: number
           example: 1
-
+    SuiteRequest:
+      type: object
+      properties:
+        suiteName:
+          type: string
+          example: name of the suite
+        suiteRootId:
+          type: string
+          format: UUID
+          example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec9h
