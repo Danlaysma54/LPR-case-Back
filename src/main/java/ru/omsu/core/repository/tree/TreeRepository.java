@@ -22,7 +22,7 @@ public class TreeRepository implements ITreeRepository {
     public List<Suite> getOneLevelSuites(UUID suiteID, int offset, int limit) {
         int skipsRow = limit * offset;
         return jdbcOperations.query("SELECT suite_id,suite_name,suite_root_id " +
-                "from suite where suite_root_id = CAST(? AS UUID) order by created_at limit ? offset ((?-1)*10)", (resultSet, i) -> {
+                "from suite inner join project on suite.suite_id != project.project_id where suite_root_id = CAST(? AS UUID)  order by created_at limit ? offset ((?-1)*10)", (resultSet, i) -> {
             UUID suiteId = resultSet.getObject("suite_id", UUID.class);
             UUID suiteRootId = resultSet.getObject("suite_root_id", UUID.class);
             String suiteName = resultSet.getString("suite_name");

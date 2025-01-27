@@ -10,20 +10,20 @@ public interface ITestPlanRepository {
      * @param testPlanRequest request for test plan
      * @return added test plan
      */
-    UUID addTestPlan(TestPlanRequest testPlanRequest);
+  //  UUID addTestPlan(TestPlanRequest testPlanRequest);
 
     /**
      * @param testPlanId id of plan
      * @return testPlan entity
      */
-    TestPlan getTestPlan(UUID testPlanId);
+  //  TestPlan getTestPlan(UUID testPlanId);
 
     /**
      *
      * @param testPlan new version of test plan
      * @return test plan of db
      */
-    TestPlan editTestPlan(TestPlan testPlan);
+  //  TestPlan editTestPlan(TestPlan testPlan);
 
     /**
      *

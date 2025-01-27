@@ -5,25 +5,25 @@ import java.util.UUID;
 /**
  * Class for working with db for test plan repository
  */
-public class TestPlanRepository implements ITestPlanRepository {
+public class TestPlanRepository  {
 
-    @Override
-    public UUID addTestPlan(TestPlanRequest testPlanRequest) {
-
-    }
-
-    @Override
-    public TestPlan getTestPlan(UUID testPlanId) {
-        return null;
-    }
-
-    @Override
-    public TestPlan editTestPlan(TestPlan testPlan) {
-        return null;
-    }
-
-    @Override
-    public void deleteTestPlan(UUID testPlanId) {
-
-    }
+//    @Override
+//    public UUID addTestPlan(TestPlanRequest testPlanRequest) {
+//
+//    }
+//
+//    @Override
+//    public TestPlan getTestPlan(UUID testPlanId) {
+//        return null;
+//    }
+//
+//    @Override
+//    public TestPlan editTestPlan(TestPlan testPlan) {
+//        return null;
+//    }
+//
+//    @Override
+//    public void deleteTestPlan(UUID testPlanId) {
+//
+//    }
 }
