@@ -96,4 +96,12 @@ public class SuiteController {
             return new ResponseEntity<>(new ErrorResponse(e.getMessage()), HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/getAllSuitesInProject")
+    @ResponseBody
+    public ResponseEntity<?> getAllSuitesInProject(@PathVariable("projectId") final UUID projectId) {
+        try {
+
+        }
+    }
 }

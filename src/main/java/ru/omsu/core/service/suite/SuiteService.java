@@ -5,6 +5,7 @@ import ru.omsu.core.repository.suite.ISuiteRepository;
 import ru.omsu.web.model.exception.IdNotExist;
 import ru.omsu.web.model.request.AddSuiteRequest;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -45,5 +46,11 @@ public class SuiteService implements ISuiteService {
     @Override
     public void deleteSuite(final UUID suiteId) throws IdNotExist {
         suiteRepository.deleteSuite(suiteId);
+    }
+
+    @Override
+    public List<Suite> getAllSuitesByProjectId(UUID projectId) {
+        suiteRepository.getAllSuitesInProject(projectId);
+        return null;
     }
 }
