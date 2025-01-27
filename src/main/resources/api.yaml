@@ -350,7 +350,7 @@ paths:
   /{projectId}/getAllSuitesInProject:
     get:
       tags:
-        - Suite
+        - Tree
       summary: getting all suites in project
       operationId: getAllStutesInProject
       parameters:
@@ -370,7 +370,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                    - $ref: '#/components/schemas/Suite'
+                    - $ref: '#/components/schemas/AllSuitesInProject'
   /{projectId}/getOneLevel:
     get:
       tags:
@@ -562,3 +562,18 @@ components:
           type: string
           format: UUID
           example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec9h
+    AllSuitesInProject:
+      type: object
+      properties:
+        suiteName:
+          type: string
+          example: Example of the suite name
+        suiteId:
+          type: string
+          format: UUID
+          example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec9h
+        children:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/AllSuitesInProject'

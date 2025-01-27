@@ -26,11 +26,4 @@ public interface ISuiteService {
      * @param suiteId id of suite
      */
     void deleteSuite(UUID suiteId);
-
-    /**
-     *
-     * @param projectId id of project
-     * @return all suites, which are in project
-     */
-    List<Suite> getAllSuitesByProjectId(UUID projectId);
 }

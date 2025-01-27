@@ -2,11 +2,13 @@ package ru.omsu.core.service.tree;
 
 
 import ru.omsu.core.model.Suite;
+import ru.omsu.core.model.AllSuitesInProject;
 import ru.omsu.core.repository.tree.ITreeRepository;
 import org.springframework.stereotype.Service;
 import ru.omsu.web.model.response.OneLevelResponse;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,5 +42,25 @@ public class TreeService implements ITreeService {
                 treeRepository.getOneLevelCases(suiteId, offset, limit),
                 suites
         );
+    }
+
+    @Override
+    public AllSuitesInProject getAllSuites(UUID suiteId) {
+        AllSuitesInProject AllSuitesInProject = new AllSuitesInProject("Project Root", suiteId, new ArrayList<>());
+        insertSuites(suiteId, AllSuitesInProject);
+        return AllSuitesInProject;
+    }
+
+    private void insertSuites(final UUID suiteId, AllSuitesInProject AllSuitesInProject) {
+        List<Suite> suites = treeRepository.getOneLevelSuites(suiteId, 1, 1000);
+        if (!suites.isEmpty()) {
+            for (Suite suite : suites) {
+                AllSuitesInProject childSuite = new AllSuitesInProject(suite.getSuiteName(), suite.getSuiteId(), new ArrayList<>());
+                AllSuitesInProject.children().add(childSuite);
+                insertSuites(suite.getSuiteId(), childSuite);
+            }
+        } else {
+            return;
+        }
     }
 }
