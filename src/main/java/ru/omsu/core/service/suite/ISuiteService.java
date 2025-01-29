@@ -3,6 +3,7 @@ package ru.omsu.core.service.suite;
 import ru.omsu.core.model.Suite;
 import ru.omsu.web.model.request.AddSuiteRequest;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -22,7 +23,6 @@ public interface ISuiteService {
     Suite editSuite(Suite suite);
 
     /**
-     *
      * @param suiteId id of suite
      */
     void deleteSuite(UUID suiteId);

@@ -18,7 +18,7 @@ paths:
       summary: editing test plan
       operationId: editTestPlan
       parameters:
-        - name: project
+        - name: projectId
           in: path
           description: Id of project
           required: true
@@ -347,6 +347,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+  /{projectId}/getAllSuitesInProject:
+    get:
+      tags:
+        - Tree
+      summary: getting all suites in project
+      operationId: getAllStutesInProject
+      parameters:
+        - name: projectId
+          in: path
+          description: ID of the project
+          required: true
+          schema:
+            type: string
+            format: UUID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/AllSuitesInProject'
   /{projectId}/getOneLevel:
     get:
       tags:
@@ -538,3 +562,18 @@ components:
           type: string
           format: UUID
           example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec9h
+    AllSuitesInProject:
+      type: object
+      properties:
+        suiteName:
+          type: string
+          example: Example of the suite name
+        suiteId:
+          type: string
+          format: UUID
+          example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec9h
+        children:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/AllSuitesInProject'

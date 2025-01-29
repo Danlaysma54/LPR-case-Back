@@ -25,8 +25,8 @@ public class TreeController {
     /**
      * @param projectId id of project
      * @param suiteId   id of suite
-     * @param limit numb of suites and cases
-     * @param offset number of page
+     * @param limit     numb of suites and cases
+     * @param offset    number of page
      * @return suites and cases
      */
     @GetMapping("/{suiteId}/getOneLevel")
@@ -36,6 +36,12 @@ public class TreeController {
                                                           @RequestParam("offset") final int offset,
                                                           @RequestParam("limit") final int limit) {
         return new ResponseEntity<>(treeService.getOneLevel(suiteId, offset, limit), HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllSuitesInProject")
+    @ResponseBody
+    public ResponseEntity<?> getAllSuitesInProject(@PathVariable("projectId") final UUID projectId) {
+        return new ResponseEntity<>(treeService.getAllSuites(projectId), HttpStatus.OK);
     }
 
 }

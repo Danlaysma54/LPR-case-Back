@@ -8,6 +8,7 @@ import ru.omsu.core.model.Suite;
 import ru.omsu.web.model.exception.IdNotExist;
 import ru.omsu.web.model.request.AddSuiteRequest;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -67,5 +68,12 @@ public class SuiteRepository implements ISuiteRepository {
                 suiteId) < 1) {
             throw new IdNotExist("Suite with that id doesn't exist");
         }
+    }
+
+    @Override
+    public List<UUID> getAllSuitesInProject(UUID projectId) {
+        return jdbcOperations.query("select suite_id from suites_in_project where project_id=?",
+                (resultSet,i)->
+           UUID.fromString(resultSet.getString("suite_id")),projectId.toString());
     }
 }
