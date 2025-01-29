@@ -40,7 +40,7 @@ public class TreeController {
 
     @GetMapping("/getAllSuitesInProject")
     @ResponseBody
-    public ResponseEntity<?> getTest(@PathVariable("projectId") final UUID projectId) {
+    public ResponseEntity<?> getAllSuitesInProject(@PathVariable("projectId") final UUID projectId) {
         return new ResponseEntity<>(treeService.getAllSuites(projectId), HttpStatus.OK);
     }
 
