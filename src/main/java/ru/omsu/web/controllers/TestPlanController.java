@@ -2,12 +2,7 @@ package ru.omsu.web.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import ru.omsu.core.service.testPlan.ITestPlanService;
 import ru.omsu.web.model.request.AddTestPlanRequest;
 
@@ -42,7 +37,8 @@ public class TestPlanController {
 
     @GetMapping("/getTestPlans")
     @ResponseBody
-    public ResponseEntity<?> getTestPlans() {
-        return new ResponseEntity<>(new AddTestPlanRequest("", List.of(UUID.randomUUID())), HttpStatus.OK);
+    public ResponseEntity<?> getTestPlans(@RequestParam("projectId") final UUID projectId,@RequestParam("offset") final int offset,
+                                          @RequestParam("limit") final int limit) {
+        return new ResponseEntity<>(testPlanService.getTestPlansInProject(projectId, offset, limit), HttpStatus.OK);
     }
 }

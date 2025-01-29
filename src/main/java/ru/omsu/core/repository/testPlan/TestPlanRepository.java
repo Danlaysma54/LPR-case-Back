@@ -1,12 +1,14 @@
 package ru.omsu.core.repository.testPlan;
 
 import org.springframework.jdbc.core.JdbcOperations;
+import ru.omsu.core.model.TestPlan;
 import ru.omsu.web.model.request.AddTestPlanRequest;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
- *  class test plan for repository
+ * class test plan for repository
  */
 public class TestPlanRepository implements ITestPlanRepository {
     private final JdbcOperations jdbcOperations;
@@ -22,7 +24,7 @@ public class TestPlanRepository implements ITestPlanRepository {
     public UUID addTestPlan(AddTestPlanRequest addTestPlanRequest) {
         return jdbcOperations.queryForObject("INSERT INTO test_plan(test_plan_name) VALUES (?) RETURNING test_plan_id",
                 (resultSet, i) -> UUID.fromString(resultSet.getString("test_plan_id")),
-                 addTestPlanRequest.testPlanName());
+                addTestPlanRequest.testPlanName());
     }
 
     @Override
@@ -31,4 +33,8 @@ public class TestPlanRepository implements ITestPlanRepository {
                 testCaseId);
     }
 
+    @Override
+    public List<TestPlan> getTestPlansInProject(UUID projectId, int limit, int offset) {
+        return jdbcOperations.query("SELECT ");
+    }
 }

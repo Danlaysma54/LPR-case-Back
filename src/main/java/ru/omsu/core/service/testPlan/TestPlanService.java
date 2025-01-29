@@ -4,6 +4,7 @@ import ru.omsu.core.model.TestPlan;
 import ru.omsu.core.repository.testPlan.ITestPlanRepository;
 import ru.omsu.web.model.request.AddTestPlanRequest;
 import ru.omsu.web.model.response.AddTestPlanResponse;
+import ru.omsu.web.model.response.GetTestPlansInProjectResponse;
 
 import java.util.List;
 import java.util.UUID;
@@ -34,5 +35,10 @@ public class TestPlanService implements ITestPlanService {
     @Override
     public List<TestPlan> getTestPlansById(final UUID projectId) {
         return List.of();
+    }
+
+    @Override
+    public GetTestPlansInProjectResponse getTestPlansInProject(UUID projectId, int limit, int offset) {
+        return null;
     }
 }
