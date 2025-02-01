@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
  * class controller for suite
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("{projectId}")
 public class SuiteController {
     private final ISuiteService suiteService;
