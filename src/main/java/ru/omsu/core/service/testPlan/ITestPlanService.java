@@ -16,7 +16,7 @@ public interface ITestPlanService {
      * @param testPlanRequest request to add test plan
      * @return id of added test plan
      */
-    AddTestPlanResponse addTestPlan(AddTestPlanRequest testPlanRequest);
+    AddTestPlanResponse addTestPlan(UUID projectId,AddTestPlanRequest testPlanRequest);
 
     /**
      * @param projectId id of project

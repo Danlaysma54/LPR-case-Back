@@ -1,6 +1,7 @@
 package ru.omsu.core.repository.testPlan;
 
 import ru.omsu.core.model.TestPlan;
+import ru.omsu.core.model.TestPlanDTO;
 import ru.omsu.web.model.request.AddTestPlanRequest;
 
 import java.util.List;
@@ -18,5 +19,9 @@ public interface ITestPlanRepository {
 
     void addTestCasesInTestPlan(UUID testCaseId, UUID projectId);
 
-    List<TestPlan> getTestPlansInProject(UUID projectId, int limit, int offset);
+    List<UUID> getTestPlansIdInProject(UUID projectId, int limit, int offset);
+
+    TestPlanDTO getTestPlane(UUID testPlanId);
+
+    void addTestPlanForProject(UUID testPlanId,UUID projectId);
 }

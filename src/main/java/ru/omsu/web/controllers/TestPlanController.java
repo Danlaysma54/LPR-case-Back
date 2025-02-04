@@ -31,14 +31,14 @@ public class TestPlanController {
      */
     @PostMapping("/addTestPlan")
     @ResponseBody
-    public ResponseEntity<?> addTestPlan(final @RequestBody AddTestPlanRequest testPlanRequest) {
-        return new ResponseEntity<>(testPlanService.addTestPlan(testPlanRequest), HttpStatus.CREATED);
+    public ResponseEntity<?> addTestPlan(@PathVariable UUID projectId, @RequestBody AddTestPlanRequest testPlanRequest) {
+        return new ResponseEntity<>(testPlanService.addTestPlan(projectId,testPlanRequest), HttpStatus.CREATED);
     }
 
     @GetMapping("/getTestPlans")
     @ResponseBody
-    public ResponseEntity<?> getTestPlans(@RequestParam("projectId") final UUID projectId,@RequestParam("offset") final int offset,
+    public ResponseEntity<?> getTestPlans(@PathVariable("projectId") final UUID projectId,@RequestParam("offset") final int offset,
                                           @RequestParam("limit") final int limit) {
-        return new ResponseEntity<>(testPlanService.getTestPlansInProject(projectId, offset, limit), HttpStatus.OK);
+        return new ResponseEntity<>(testPlanService.getTestPlansInProject(projectId, limit, offset), HttpStatus.OK);
     }
 }
