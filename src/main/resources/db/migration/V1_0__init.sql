@@ -23,20 +23,20 @@ CREATE TABLE project (
 
 CREATE TABLE test_plan (
     test_plan_id UUID PRIMARY KEY,
-    test_plan_description VARCHAR(1024)
+    test_plan_name VARCHAR(1024)
 );
 
 
 CREATE TABLE test_run (
     test_run_id UUID  PRIMARY KEY,
     test_name VARCHAR(128),
-    test_plan UUID REFERENCES test_plan(test_plan_id) ON DELETE SET NULL
+    test_plan_id UUID REFERENCES test_plan(test_plan_id) ON DELETE SET NULL
 );
 
 CREATE TABLE test_cases_in_test_plan (
-    test_run_id UUID REFERENCES test_run(test_run_id) ON DELETE CASCADE,
+    test_plan_id UUID REFERENCES test_plan(test_plan_id) ON DELETE CASCADE,
     test_case_id UUID REFERENCES test_case(test_case_id) ON DELETE CASCADE,
-    PRIMARY KEY (test_run_id, test_case_id)
+    PRIMARY KEY (test_plan_id, test_case_id)
 );
 
 

@@ -52,7 +52,7 @@ public class TreeService implements ITreeService {
     }
 
     private void insertSuites(final UUID suiteId, AllSuitesInProject AllSuitesInProject) {
-        List<Suite> suites = treeRepository.getOneLevelSuites(suiteId, 1, 1000);
+        List<Suite> suites = treeRepository.getOneLevelSuites(suiteId, 1, 100);
         if (!suites.isEmpty()) {
             for (Suite suite : suites) {
                 AllSuitesInProject childSuite = new AllSuitesInProject(suite.getSuiteName(), suite.getSuiteId(), new ArrayList<>());

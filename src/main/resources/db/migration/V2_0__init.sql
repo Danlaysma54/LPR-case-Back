@@ -1,1 +1,0 @@
-DROP table suites_in_project;
