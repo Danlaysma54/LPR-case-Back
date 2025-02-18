@@ -2,6 +2,7 @@ package ru.omsu.core.service.testCase;
 
 import ru.omsu.core.model.TestCase;
 import ru.omsu.web.model.request.TestCaseRequest;
+import ru.omsu.web.model.response.AddTestCaseResponse;
 
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public interface ITestCaseService {
      * @param testCaseRequest object to add request
      * @return Test case entity
      */
-    UUID addTestCase(TestCaseRequest testCaseRequest);
+    AddTestCaseResponse addTestCase(TestCaseRequest testCaseRequest);
 
     /**
      * @param testCaseId id of test case
