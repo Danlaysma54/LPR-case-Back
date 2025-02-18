@@ -83,7 +83,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TestCaseTypes'
-  /{projectId}/{suiteId}/addTestCase:
+  /{projectId}/addTestCase:
     post:
       tags:
         - Test case
@@ -93,13 +93,6 @@ paths:
         - name: projectId
           in: path
           description: Id of project
-          required: true
-          schema:
-            type: string
-            format: UUID
-        - name: suiteId
-          in: path
-          description: Id of suite
           required: true
           schema:
             type: string
