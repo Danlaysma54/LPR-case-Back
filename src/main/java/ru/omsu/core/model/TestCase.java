@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
+/**
+ * test case
+ */
 public class TestCase {
     private final UUID testCaseId;
     private final String testCaseName;
@@ -21,7 +23,7 @@ public class TestCase {
      * @param isAutomated  is it automated
      * @param suiteId      id of suite
      */
-    public TestCase(UUID testCaseId, String testCaseName, String layer, String isAutomated, UUID suiteId) {
+    public TestCase(final UUID testCaseId, final String testCaseName, final String layer, final String isAutomated, final UUID suiteId) {
         this.testCaseId = testCaseId;
         this.testCaseName = testCaseName;
         this.layer = layer;

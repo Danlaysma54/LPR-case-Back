@@ -3,6 +3,7 @@ package ru.omsu.core.service.testCase;
 import ru.omsu.core.model.TestCase;
 import ru.omsu.web.model.request.TestCaseRequest;
 import ru.omsu.web.model.response.AddTestCaseResponse;
+import ru.omsu.web.model.response.TestCaseTypes;
 
 import java.util.UUID;
 
@@ -33,4 +34,9 @@ public interface ITestCaseService {
      */
     TestCase getTestCase(UUID testCaseId);
 
+    /**
+     *
+     * @return all test case types
+     */
+    TestCaseTypes getTestCaseTypes();
 }

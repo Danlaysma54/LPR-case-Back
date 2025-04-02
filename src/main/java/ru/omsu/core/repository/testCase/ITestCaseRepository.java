@@ -1,7 +1,10 @@
 package ru.omsu.core.repository.testCase;
 
+import ru.omsu.core.model.Automation;
+import ru.omsu.core.model.Layer;
 import ru.omsu.core.model.Step;
 import ru.omsu.core.model.TestCase;
+import ru.omsu.web.model.request.StepsRequest;
 import ru.omsu.web.model.request.TestCaseRequest;
 
 
@@ -48,4 +51,17 @@ public interface ITestCaseRepository {
      */
     List<Step> getTestCaseSteps(UUID testCaseId);
 
+    /**
+     *
+     * @return all types of test case
+     */
+    List<Layer> getTestCaseLayers();
+
+    /**
+     *
+     * @return all types of automations
+     */
+    List<Automation> getTestCaseAutomation();
+
+    void addTestSteps(StepsRequest step, UUID testCaseId);
 }

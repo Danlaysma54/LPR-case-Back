@@ -67,9 +67,8 @@ public class TestCaseController {
     }
 
     /**
-     *
      * @param projectId id of project
-     * @param suiteId id of suite
+     * @param suiteId   id of suite
      * @return testCase
      */
     @GetMapping("/{testCaseId}/getTestCase")
@@ -80,5 +79,11 @@ public class TestCaseController {
         } catch (IdNotExist e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/getTestCaseTypes")
+    @ResponseBody
+    public ResponseEntity<?> getTestCaseTypes() {
+        return new ResponseEntity<>(testCaseService.getTestCaseTypes(), HttpStatus.OK);
     }
 }

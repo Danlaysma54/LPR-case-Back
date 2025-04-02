@@ -1,10 +1,14 @@
 package ru.omsu.core.repository.testCase;
 
+import ru.omsu.core.model.Automation;
+import ru.omsu.core.model.Layer;
 import ru.omsu.core.model.Step;
 import ru.omsu.core.model.TestCase;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
+import ru.omsu.web.model.request.StepsRequest;
 import ru.omsu.web.model.request.TestCaseRequest;
+import ru.omsu.web.model.response.TestCaseTypes;
 
 import java.util.List;
 import java.util.UUID;
@@ -76,15 +80,37 @@ public class TestCaseRepository implements ITestCaseRepository {
     }
 
     /**
-     *
      * @param testCaseId id of test case
      * @return list of cases steps
      */
     @Override
     public List<Step> getTestCaseSteps(final UUID testCaseId) {
-        return jdbcOperations.query("SELECT step_description,step_data,step_result,step_number from test_step where test_case_id=?",
-                (resultSet, i) -> new Step(resultSet.getString("step_description"), resultSet.getString("step_data"),
+        return jdbcOperations.query("SELECT test_step_id,step_description,step_data,step_result,step_number from test_step where test_case_id=?",
+                (resultSet, i) -> new Step(UUID.fromString(resultSet.getString("test_step_id")),resultSet.getString("step_description"), resultSet.getString("step_data"),
                         resultSet.getString("step_result"), resultSet.getInt("step_number"))
-            , testCaseId);
+                , testCaseId);
+    }
+
+    @Override
+    public List<Layer> getTestCaseLayers() {
+        return jdbcOperations.query("SELECT layer_id,layer_name from layer",
+                (resultSet, i) ->
+                        new Layer(resultSet.getString("layer_name"), UUID.fromString(resultSet.getString("layer_id"))));
+    }
+
+    @Override
+    public List<Automation> getTestCaseAutomation() {
+        return jdbcOperations.query("SELECT automation_status_id,automation_name from automation_status", (resultSet, i) ->
+                new Automation(resultSet.getString("automation_name"), UUID.fromString(resultSet.getString("automation_status_id"))));
+    }
+
+    @Override
+    public void addTestSteps(final StepsRequest step, final UUID testCaseId) {
+        jdbcOperations.update("INSERT INTO test_step(step_description,test_case_id,step_data,step_result,step_number) VALUES(?,?,?,?,?)",
+                step.getStepDescription(),
+                testCaseId,
+                step.getStepData(),
+                step.getStepResult(),
+                step.getStepNumber());
     }
 }
