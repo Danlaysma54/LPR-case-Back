@@ -20,9 +20,6 @@ public class TestPlanService implements ITestPlanService {
         this.testPlanRepository = testPlanRepository;
     }
 
-    public ITestPlanRepository getTestPlanRepository() {
-        return testPlanRepository;
-    }
 
     @Override
     public GetTestPlansResponse getTestPlans(UUID projectId) {
@@ -48,10 +45,14 @@ public class TestPlanService implements ITestPlanService {
     }
 
     @Override
-    public TestPlan editTestPlan(TestPlan testPlan) {
+    public void editTestPlan(TestPlan testPlan) {
+        List<UUID> newTestCasesId = new ArrayList<>();
+        for (CaseDTO caseDTO : testPlan.getTestCases()) {
+            newTestCasesId.add(caseDTO.caseId());
+        }
         testPlanRepository.editTestPlanName(testPlan);
         testPlanRepository.deleteAllTestCasesInTestPlan(testPlan.getTestPlanId());
-        addingTestCaseInTestPlan();
+        addingTestCaseInTestPlan(newTestCasesId, testPlan.getTestPlanId());
     }
 
     private void addingTestCaseInTestPlan(List<UUID> testcases, UUID addedTestPlan) {

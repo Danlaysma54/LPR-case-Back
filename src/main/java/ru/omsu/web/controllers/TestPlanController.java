@@ -36,12 +36,14 @@ public class TestPlanController {
     @DeleteMapping("/{testPlanId}/deleteTestPlan")
     @ResponseBody
     public ResponseEntity<?> deleteTestPlan(@PathVariable UUID testPlanId, @PathVariable UUID projectId) {
-        testPlanService.deleteTestPlan(testPlanId,projectId);
+        testPlanService.deleteTestPlan(testPlanId, projectId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @PatchMapping("/editTestPlan")
     @ResponseBody
-    public ResponseEntity<?> editTestPlan(@PathVariable UUID projectId, @RequestBody TestPlan testPlan){
-       return new ResponseEntity<>(testPlanService.editTestPlan(testPlan),HttpStatus.OK);
+    public ResponseEntity<?> editTestPlan(@PathVariable UUID projectId, @RequestBody TestPlan testPlan) {
+        testPlanService.editTestPlan(testPlan);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -17,5 +17,5 @@ public interface ITestPlanService {
 
     void deleteTestPlan(UUID testPlanId, UUID projectId);
 
-    TestPlan editTestPlan(TestPlan testPlan);
+    void editTestPlan(TestPlan testPlan);
 }
