@@ -3,6 +3,7 @@ package ru.omsu.config;
 import org.springframework.context.annotation.Primary;
 import ru.omsu.core.repository.suite.SuiteRepository;
 import ru.omsu.core.repository.testCase.TestCaseRepository;
+import ru.omsu.core.repository.testPlan.TestPlanRepository;
 import ru.omsu.core.repository.tree.TreeRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -43,5 +44,9 @@ public class RepositoryConfig {
     @Bean
     public SuiteRepository suiteRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
         return new SuiteRepository(jdbcOperations);
+    }
+    @Bean
+    public TestPlanRepository TestPLanRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
+        return new TestPlanRepository(jdbcOperations);
     }
 }

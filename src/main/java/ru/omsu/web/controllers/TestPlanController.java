@@ -1,7 +1,13 @@
 package ru.omsu.web.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import ru.omsu.core.model.TestPlan;
+import ru.omsu.core.service.testPlan.ITestPlanService;
+import ru.omsu.web.model.request.TestPlanRequest;
+
+import java.util.UUID;
 
 /**
  * class for controller for test plan entity
@@ -9,6 +15,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("{projectId}")
 public class TestPlanController {
- //   private final ITestPlanService testPlanService;
+    private final ITestPlanService testPlanService;
 
+    public TestPlanController(ITestPlanService testPlanService) {
+        this.testPlanService = testPlanService;
+    }
+
+    @GetMapping("/getTestPlans")
+    @ResponseBody
+    public ResponseEntity<?> getTestPlans(@PathVariable UUID projectId) {
+        return new ResponseEntity<>(testPlanService.getTestPlans(projectId), HttpStatus.OK);
+    }
+
+    @PostMapping("/addTestPlan")
+    @ResponseBody
+    public ResponseEntity<?> addTestPlan(@PathVariable UUID projectId, @RequestBody TestPlanRequest testPlanRequest) {
+        return new ResponseEntity<>(testPlanService.addTestPlan(testPlanRequest), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{testPlanId}/deleteTestPlan")
+    @ResponseBody
+    public ResponseEntity<?> deleteTestPlan(@PathVariable UUID testPlanId, @PathVariable UUID projectId) {
+        testPlanService.deleteTestPlan(testPlanId,projectId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PatchMapping("/editTestPlan")
+    @ResponseBody
+    public ResponseEntity<?> editTestPlan(@PathVariable UUID projectId, @RequestBody TestPlan testPlan){
+       return new ResponseEntity<>(testPlanService.editTestPlan(testPlan),HttpStatus.OK);
+    }
 }

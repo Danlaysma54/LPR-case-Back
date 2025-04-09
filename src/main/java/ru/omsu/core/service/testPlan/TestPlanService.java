@@ -1,8 +1,62 @@
 package ru.omsu.core.service.testPlan;
 
+import ru.omsu.core.model.CaseDTO;
+import ru.omsu.core.model.TestPlan;
+import ru.omsu.core.model.TestPlanDTO;
+import ru.omsu.core.repository.testPlan.ITestPlanRepository;
+import ru.omsu.web.model.request.TestPlanRequest;
+import ru.omsu.web.model.response.AddTestPlanResponse;
+import ru.omsu.web.model.response.GetTestPlansResponse;
+
+import java.util.*;
+
 /**
  * test plan service
  */
-public class TestPlanService {
+public class TestPlanService implements ITestPlanService {
+    private final ITestPlanRepository testPlanRepository;
 
+    public TestPlanService(ITestPlanRepository testPlanRepository) {
+        this.testPlanRepository = testPlanRepository;
+    }
+
+    public ITestPlanRepository getTestPlanRepository() {
+        return testPlanRepository;
+    }
+
+    @Override
+    public GetTestPlansResponse getTestPlans(UUID projectId) {
+        List<TestPlan> testPlans = new ArrayList<>();
+        List<TestPlanDTO> testPlanDTOList = testPlanRepository.getTestPlans(projectId);
+        for (TestPlanDTO testPlanDTO : testPlanDTOList) {
+            testPlans.add(new TestPlan(testPlanDTO.getTestPlanId(), testPlanDTO.getTestPlanName(),
+                    testPlanRepository.getCaseInTestPlans(testPlanDTO.getTestPlanId())));
+        }
+        return new GetTestPlansResponse(testPlans);
+    }
+
+    @Override
+    public AddTestPlanResponse addTestPlan(TestPlanRequest testPlanRequest) {
+        UUID addedTestPlan = testPlanRepository.addTestPlan(testPlanRequest);
+        addingTestCaseInTestPlan(testPlanRequest.getTestCases(), addedTestPlan);
+        return new AddTestPlanResponse(addedTestPlan);
+    }
+
+    @Override
+    public void deleteTestPlan(UUID testPlanId, UUID projectId) {
+        testPlanRepository.deleteTestPlan(testPlanId);
+    }
+
+    @Override
+    public TestPlan editTestPlan(TestPlan testPlan) {
+        testPlanRepository.editTestPlanName(testPlan);
+        testPlanRepository.deleteAllTestCasesInTestPlan(testPlan.getTestPlanId());
+        addingTestCaseInTestPlan();
+    }
+
+    private void addingTestCaseInTestPlan(List<UUID> testcases, UUID addedTestPlan) {
+        for (UUID testCaseId : testcases) {
+            testPlanRepository.addTestCaseInTestPlan(testCaseId, addedTestPlan);
+        }
+    }
 }
