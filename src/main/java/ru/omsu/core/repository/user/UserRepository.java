@@ -3,6 +3,7 @@ package ru.omsu.core.repository.user;
 import org.springframework.jdbc.core.JdbcOperations;
 import ru.omsu.core.model.User;
 
+import java.util.List;
 import java.util.UUID;
 
 public class UserRepository implements IUserRepository {
@@ -14,21 +15,25 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public boolean existsByUsername(String username) {
-        int exists = Integer.getInteger(jdbcOperations.queryForObject("SELECT count(userID) as numb from users where username=?",
-                (resultset, i) -> resultset.getString("numb")));
-        return exists > 0;
+        List<String> res = jdbcOperations.query("SELECT userID from users where username=?",
+                (resultset, i) -> resultset.getString("userID"), username);
+        return !res.isEmpty();
     }
 
     @Override
-    public void save(User user) {
-        return jdbcOperations.queryForObject("INSERT INTO users (test_case_name,suite_id,automation_status_id,layer_id) VALUES (?,?,?,?) RETURNING test_case_id",
-                (resultSet, i) -> UUID.fromString(resultSet.getString("test_case_id")),
-                testCaseRequest.testCaseName(), testCaseRequest.suiteId(),
-                testCaseRequest.isAutomatedId(), testCaseRequest.layerId());
+    public UUID save(User user) {
+        return jdbcOperations.queryForObject("INSERT INTO users (username,password) VALUES (?,?) RETURNING userID",
+                (resultSet, i) -> UUID.fromString(resultSet.getString("userID")),
+                user.getUsername(), user.getPassword());
     }
 
     @Override
     public User getUser(UUID userID) {
-        return null;
+        return jdbcOperations.queryForObject("select userID,username,password from users where userID=?",
+                (resultSet, i) -> new User(
+                        UUID.fromString(resultSet.getString("userID")),
+                        resultSet.getString("userName"),
+                        resultSet.getString("password")
+                ),userID);
     }
 }
