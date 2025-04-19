@@ -8,3 +8,7 @@ spring:
       driver-class-name: org.postgresql.Driver
   flyway:
     baselineOnMigrate: true
+jwt:
+  private-key: classpath:jwt/app.key
+  public-key: classpath:jwt/app.pub
+  ttl: 15m
