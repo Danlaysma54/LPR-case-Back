@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.JdbcOperations;
 import ru.omsu.core.model.User;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class UserRepository implements IUserRepository {
@@ -34,6 +35,16 @@ public class UserRepository implements IUserRepository {
                         UUID.fromString(resultSet.getString("userID")),
                         resultSet.getString("userName"),
                         resultSet.getString("password")
-                ),userID);
+                ), userID);
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return Optional.ofNullable(jdbcOperations.queryForObject("select userID,username,password from users where username=?",
+                (resultSet, i) -> new User(
+                        UUID.fromString(resultSet.getString("userID")),
+                        resultSet.getString("userName"),
+                        resultSet.getString("password")
+                ), username));
     }
 }
