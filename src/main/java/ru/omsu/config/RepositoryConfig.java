@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcOperations;
+import ru.omsu.core.repository.user.UserRepository;
 
 /**
  * class for repository configuration
@@ -16,9 +17,8 @@ import org.springframework.jdbc.core.JdbcOperations;
 @Configuration
 public class RepositoryConfig {
     /**
-     *
-     * @param  jdbcOperations for creating repo class
-     * @return  tree Repository object
+     * @param jdbcOperations for creating repo class
+     * @return tree Repository object
      */
     @Primary
     @Bean
@@ -27,9 +27,8 @@ public class RepositoryConfig {
     }
 
     /**
-     *
      * @param jdbcOperations for creating repo class
-     * @return  test case Repository object
+     * @return test case Repository object
      */
     @Bean
     public TestCaseRepository testCaseRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
@@ -37,7 +36,6 @@ public class RepositoryConfig {
     }
 
     /**
-     *
      * @param jdbcOperations for creating repo class
      * @return suite Repository object
      */
@@ -45,8 +43,14 @@ public class RepositoryConfig {
     public SuiteRepository suiteRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
         return new SuiteRepository(jdbcOperations);
     }
+
     @Bean
     public TestPlanRepository TestPLanRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
         return new TestPlanRepository(jdbcOperations);
+    }
+
+    @Bean
+    public UserRepository userRepository(@Qualifier("lprJdbcOperations") final JdbcOperations jdbcOperations) {
+        return new UserRepository(jdbcOperations);
     }
 }
