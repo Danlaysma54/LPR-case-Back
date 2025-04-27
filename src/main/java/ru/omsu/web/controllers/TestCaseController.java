@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.omsu.web.model.exception.IdNotExist;
 import ru.omsu.web.model.request.TestCaseRequest;
-import ru.omsu.web.model.response.AddTestCaseResponse;
 
 import java.util.UUID;
 
@@ -32,7 +31,7 @@ public class TestCaseController {
      */
     @PostMapping("/addTestCase")
     @ResponseBody
-    public ResponseEntity<AddTestCaseResponse> addTestCase(@RequestBody final TestCaseRequest testCaseRequest) {
+    public ResponseEntity<?> addTestCase(@RequestBody final TestCaseRequest testCaseRequest) {
         return new ResponseEntity<>(testCaseService.addTestCase(testCaseRequest), HttpStatus.CREATED);
     }
 

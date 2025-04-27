@@ -5,7 +5,7 @@ import ru.omsu.core.model.TestPlan;
 import ru.omsu.core.model.TestPlanDTO;
 import ru.omsu.core.repository.testPlan.ITestPlanRepository;
 import ru.omsu.web.model.request.TestPlanRequest;
-import ru.omsu.web.model.response.AddTestPlanResponse;
+import ru.omsu.web.model.response.AddedEntityResponse;
 import ru.omsu.web.model.response.GetTestPlansResponse;
 
 import java.util.*;
@@ -33,10 +33,10 @@ public class TestPlanService implements ITestPlanService {
     }
 
     @Override
-    public AddTestPlanResponse addTestPlan(TestPlanRequest testPlanRequest) {
+    public AddedEntityResponse addTestPlan(TestPlanRequest testPlanRequest) {
         UUID addedTestPlan = testPlanRepository.addTestPlan(testPlanRequest);
         addingTestCaseInTestPlan(testPlanRequest.getTestCases(), addedTestPlan);
-        return new AddTestPlanResponse(addedTestPlan);
+        return new AddedEntityResponse(addedTestPlan);
     }
 
     @Override

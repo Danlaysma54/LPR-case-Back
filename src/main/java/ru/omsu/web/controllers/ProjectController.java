@@ -14,7 +14,7 @@ import ru.omsu.core.service.project.IProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.omsu.web.model.request.AddProjectRequest;
-import ru.omsu.web.model.response.AddProjectResponse;
+import ru.omsu.web.model.response.AddedEntityResponse;
 
 import java.util.UUID;
 
@@ -41,8 +41,8 @@ public class ProjectController {
      */
     @PostMapping("/addProject")
     @ResponseBody
-    public ResponseEntity<AddProjectResponse> addProject(@RequestBody @Validated final AddProjectRequest addProjectRequest) {
-        return new ResponseEntity<>(new AddProjectResponse(projectService.addProject(addProjectRequest)), HttpStatus.CREATED);
+    public ResponseEntity<AddedEntityResponse> addProject(@RequestBody @Validated final AddProjectRequest addProjectRequest) {
+        return new ResponseEntity<>(new AddedEntityResponse(projectService.addProject(addProjectRequest)), HttpStatus.CREATED);
     }
 
     /**

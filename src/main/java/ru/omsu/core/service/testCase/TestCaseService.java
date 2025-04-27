@@ -5,7 +5,7 @@ import ru.omsu.core.repository.testCase.ITestCaseRepository;
 import org.springframework.stereotype.Service;
 import ru.omsu.web.model.request.StepsRequest;
 import ru.omsu.web.model.request.TestCaseRequest;
-import ru.omsu.web.model.response.AddTestCaseResponse;
+import ru.omsu.web.model.response.AddedEntityResponse;
 import ru.omsu.web.model.response.TestCaseTypes;
 
 import java.util.UUID;
@@ -30,12 +30,12 @@ public class TestCaseService implements ITestCaseService {
      * @return testCase entity
      */
     @Override
-    public AddTestCaseResponse addTestCase(final TestCaseRequest testCaseRequest) {
+    public AddedEntityResponse addTestCase(final TestCaseRequest testCaseRequest) {
         UUID testCaseID = testCaseRepository.addTestCase(testCaseRequest);
         for (StepsRequest steps : testCaseRequest.steps()) {
             testCaseRepository.addTestSteps(steps, testCaseID);
         }
-        return new AddTestCaseResponse(testCaseID);
+        return new AddedEntityResponse(testCaseID);
     }
 
     /**

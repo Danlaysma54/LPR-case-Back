@@ -8,7 +8,7 @@ import ru.omsu.core.model.Suite;
 import ru.omsu.core.service.suite.ISuiteService;
 import ru.omsu.web.model.exception.IdNotExist;
 import ru.omsu.web.model.request.AddSuiteRequest;
-import ru.omsu.web.model.response.AddSuiteResponse;
+import ru.omsu.web.model.response.AddedEntityResponse;
 import ru.omsu.web.model.response.ErrorResponse;
 
 import java.util.Set;
@@ -51,7 +51,7 @@ public class SuiteController {
                                 .collect(Collectors.joining(","))), HttpStatus.BAD_REQUEST);
 
             }
-            return new ResponseEntity<AddSuiteResponse>(new AddSuiteResponse(suiteService.addSuite(suiteRequest)), HttpStatus.CREATED);
+            return new ResponseEntity<>(new AddedEntityResponse(suiteService.addSuite(suiteRequest)), HttpStatus.CREATED);
         } catch (IdNotExist e) {
             return new ResponseEntity<>(new ErrorResponse(e.getMessage()), HttpStatus.NOT_FOUND);
         }

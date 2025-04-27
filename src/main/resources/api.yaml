@@ -69,7 +69,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TestPlan'
+                $ref: '#/components/schemas/AddedEntity'
   /getTestCaseTypes:
     get:
       tags:
@@ -116,7 +116,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TestCaseId'
+                $ref: '#/components/schemas/AddedEntity'
   /{projectId}/{suiteId}/{testCaseId}:
     patch:
       tags:
@@ -266,7 +266,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuiteId'
+                $ref: '#/components/schemas/AddedEntity'
         '404':
           description: Failed operation
           content:
@@ -548,17 +548,11 @@ components:
           example: example of error message
       xml:
         name: ErrorMessage
-    TestCaseId:
+
+    AddedEntity:
       type: object
       properties:
-        testCaseId:
-          type: string
-          format: UUID
-          example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec9h
-    SuiteId:
-      type: object
-      properties:
-        suiteId:
+        addedEntityId:
           type: string
           format: UUID
           example: 9a4f3f8-41cf-4ad0-83a9-a268ec43ec9h
