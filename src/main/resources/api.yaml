@@ -11,7 +11,7 @@ tags:
   - name: Tree
   - name: Test plan
 paths:
-  /{projectId}/{testPlanId}:
+  /{projectId}/{testPlanId}/editTestPlan:
     patch:
       tags:
         - Test plan
@@ -27,7 +27,7 @@ paths:
             format: UUID
         - name: testPlanId
           in: path
-          description: Id of testPlan
+          description: Id of project
           required: true
           schema:
             type: string
@@ -70,6 +70,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddedEntity'
+
+  /{projectId}/{testPlanId}/deleteTestPlan:
+    delete:
+      tags:
+        - Test plan
+      summary: deleting test plan
+      operationId: deleteTestPlan
+      parameters:
+        - name: projectId
+          in: path
+          description: Id of project
+          required: true
+          schema:
+            type: string
+            format: UUID
+        - name: testPlanId
+          in: path
+          description: Id of project
+          required: true
+          schema:
+            type: string
+            format: UUID
+      responses:
+        '200':
+          description: Successful operation
   /getTestCaseTypes:
     get:
       tags:
