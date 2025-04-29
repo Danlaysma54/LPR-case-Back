@@ -46,4 +46,9 @@ public class TestRunController {
         testRunService.deleteTestRun(testRunId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @PatchMapping
+    @RequestMapping("/updateTestCaseStatus")
+    public ResponseEntity<?> updateTestCaseStatus(UpdateTestCaseStatusRequest request){
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
