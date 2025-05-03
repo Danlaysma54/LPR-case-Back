@@ -1,4 +1,4 @@
-  openapi: 3.0.3
+openapi: 3.0.3
 info:
   title: LPR
   description: API для проекта LPR, который представляет из себя TMS
@@ -44,6 +44,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TestPlan'
+  /{projectId}/testPlans/{testPlanId}:
+    get:
+      tags:
+        - Test plan
+      summary: get test plan by id
+      operationId: getTestPlanById
+      parameters:
+        - name: projectId
+          in: path
+          description: Id of project
+          required: true
+          schema:
+            type: string
+            format: UUID
+        - name: testPlanId
+          in: path
+          description: Id of project
+          required: true
+          schema:
+            type: string
+            format: UUID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  testPlan:
+                    $ref: '#/components/schemas/TestPlan'
   /{projectId}/addTestPlan:
     post:
       tags:
