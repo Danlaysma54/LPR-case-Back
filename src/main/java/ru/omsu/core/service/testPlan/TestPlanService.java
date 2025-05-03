@@ -4,8 +4,10 @@ import ru.omsu.core.model.CaseDTO;
 import ru.omsu.core.model.TestPlan;
 import ru.omsu.core.model.TestPlanDTO;
 import ru.omsu.core.repository.testPlan.ITestPlanRepository;
+import ru.omsu.web.model.exception.IdNotExist;
 import ru.omsu.web.model.request.TestPlanRequest;
 import ru.omsu.web.model.response.AddedEntityResponse;
+import ru.omsu.web.model.response.GetTestPlanByIdResponse;
 import ru.omsu.web.model.response.GetTestPlansResponse;
 
 import java.util.*;
@@ -53,6 +55,15 @@ public class TestPlanService implements ITestPlanService {
         testPlanRepository.editTestPlanName(testPlan);
         testPlanRepository.deleteAllTestCasesInTestPlan(testPlan.getTestPlanId());
         addingTestCaseInTestPlan(newTestCasesId, testPlan.getTestPlanId());
+    }
+
+    @Override
+    public GetTestPlanByIdResponse getTestPlanById(final UUID projectId, final UUID testPlanId) throws IdNotExist {
+        try {
+            return new GetTestPlanByIdResponse(testPlanRepository.getTestPlanById(projectId, testPlanId));
+        } catch (IdNotExist e) {
+            throw new IdNotExist("Test plan with id " + testPlanId + " not found");
+        }
     }
 
     private void addingTestCaseInTestPlan(List<UUID> testcases, UUID addedTestPlan) {
