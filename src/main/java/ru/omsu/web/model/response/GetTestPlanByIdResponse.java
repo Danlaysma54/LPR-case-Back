@@ -1,15 +1,16 @@
 package ru.omsu.web.model.response;
 
 import ru.omsu.core.model.TestPlan;
+import ru.omsu.core.model.TestPlanWithSuitesId;
 
 public class GetTestPlanByIdResponse {
-    private final TestPlan testPlan;
+    private final TestPlanWithSuitesId testPlan;
 
-    public GetTestPlanByIdResponse(TestPlan testPlan) {
+    public GetTestPlanByIdResponse(TestPlanWithSuitesId testPlan) {
         this.testPlan = testPlan;
     }
 
-    public TestPlan getTestPlan() {
+    public TestPlanWithSuitesId getTestPlan() {
         return testPlan;
     }
 }

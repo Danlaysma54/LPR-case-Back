@@ -2,9 +2,7 @@ package ru.omsu.core.repository.testPlan;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcOperations;
-import ru.omsu.core.model.CaseDTO;
-import ru.omsu.core.model.TestPlan;
-import ru.omsu.core.model.TestPlanDTO;
+import ru.omsu.core.model.*;
 import ru.omsu.web.model.exception.IdNotExist;
 import ru.omsu.web.model.request.TestPlanRequest;
 
@@ -49,6 +47,20 @@ public class TestPlanRepository implements ITestPlanRepository {
                         UUID.fromString(resultSet.getString("test_case_id")))), testPlanId);
     }
 
+    @Override
+    public List<CaseForPlanDTO> getCaseWithSuitesInTestPlans(UUID testPlanId) {
+        return jdbcOperations.query("select test_case.test_case_id,test_case_name, suite_id from" +
+                        " test_case inner join test_cases_in_test_plan on test_case.test_case_id=test_cases_in_test_plan.test_case_id" +
+                        " where test_cases_in_test_plan.test_plan_id = ?",
+                (resultSet, i) -> (
+                        new CaseForPlanDTO(
+                                resultSet.getString("test_case_name"),
+                                UUID.fromString(resultSet.getString("test_case_id")),
+                                UUID.fromString(resultSet.getString("suite_id"))
+                        )
+                ), testPlanId);
+    }
+
 
     @Override
     public void deleteTestPlan(UUID testPlanId) {
@@ -73,12 +85,12 @@ public class TestPlanRepository implements ITestPlanRepository {
     }
 
     @Override
-    public TestPlan getTestPlanById(UUID projectId, UUID testPlanId) {
+    public TestPlanWithSuitesId getTestPlanById(UUID projectId, UUID testPlanId) {
         try {
-            List<CaseDTO> testCasesInPlan = getCaseInTestPlans(testPlanId);
+            List<CaseForPlanDTO> testCasesInPlan = getCaseWithSuitesInTestPlans(testPlanId);
             return jdbcOperations.queryForObject("SELECT test_plan_id,test_plan_name from test_plan where test_plan_id=?",
                     (resultSet, i) -> (
-                            new TestPlan(UUID.fromString(resultSet.getString("test_plan_id")),
+                            new TestPlanWithSuitesId(UUID.fromString(resultSet.getString("test_plan_id")),
                                     resultSet.getString("test_plan_name"), testCasesInPlan)
                     ), testPlanId);
         } catch (EmptyResultDataAccessException e) {
