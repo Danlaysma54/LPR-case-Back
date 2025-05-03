@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.omsu.core.model.TestPlan;
 import ru.omsu.core.service.testPlan.ITestPlanService;
 import ru.omsu.web.model.request.TestPlanRequest;
+import ru.omsu.web.model.response.GetTestPlanByIdResponse;
 
 import java.util.UUID;
 
@@ -45,5 +46,12 @@ public class TestPlanController {
     public ResponseEntity<?> editTestPlan(@PathVariable UUID projectId, @RequestBody TestPlan testPlan) {
         testPlanService.editTestPlan(testPlan);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/testPlans/{testPlanId}")
+    @ResponseBody
+    public ResponseEntity<?> getTestPlanById(@PathVariable UUID projectId, @PathVariable UUID testPlanId) {
+        GetTestPlanByIdResponse testPlan = testPlanService.getTestPlanById(projectId, testPlanId);
+        return new ResponseEntity<>(testPlan, HttpStatus.OK);
     }
 }

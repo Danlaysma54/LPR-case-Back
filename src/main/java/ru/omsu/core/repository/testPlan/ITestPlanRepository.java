@@ -18,10 +18,10 @@ public interface ITestPlanRepository {
      */
     UUID addTestPlan(TestPlanRequest testPlanRequest);
 
-    void addTestCaseInTestPlan(UUID testCaseId,UUID testPlanId);
+    void addTestCaseInTestPlan(UUID testCaseId, UUID testPlanId);
 
     /**
-     * @param  projectId of plan
+     * @param projectId of plan
      * @return testPlanDTO entity
      */
     List<TestPlanDTO> getTestPlans(UUID projectId);
@@ -29,13 +29,11 @@ public interface ITestPlanRepository {
     List<CaseDTO> getCaseInTestPlans(UUID testPlanId);
 
     /**
-     *
      * @param testPlan new version of test plan
      */
     void editTestPlanName(TestPlan testPlan);
 
     /**
-     *
      * @param testPlanId id of test plan
      */
     void deleteTestPlan(UUID testPlanId);
@@ -43,4 +41,6 @@ public interface ITestPlanRepository {
     void editTestCasesInTestPlan(UUID testCaseId);
 
     void deleteAllTestCasesInTestPlan(UUID testPlanId);
+
+    TestPlan getTestPlanById(UUID testPlanId, UUID projectId);
 }

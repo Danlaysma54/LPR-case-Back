@@ -1,9 +1,11 @@
 package ru.omsu.core.repository.testPlan;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcOperations;
 import ru.omsu.core.model.CaseDTO;
 import ru.omsu.core.model.TestPlan;
 import ru.omsu.core.model.TestPlanDTO;
+import ru.omsu.web.model.exception.IdNotExist;
 import ru.omsu.web.model.request.TestPlanRequest;
 
 import java.util.List;
@@ -68,6 +70,20 @@ public class TestPlanRepository implements ITestPlanRepository {
     @Override
     public void deleteAllTestCasesInTestPlan(UUID testPlanId) {
         jdbcOperations.update("delete from test_cases_in_test_plan where test_plan=?");
+    }
+
+    @Override
+    public TestPlan getTestPlanById(UUID projectId, UUID testPlanId) {
+        try {
+            List<CaseDTO> testCasesInPlan = getCaseInTestPlans(testPlanId);
+            return jdbcOperations.queryForObject("SELECT test_plan_id,test_plan_name from test_plan where test_plan_id=?",
+                    (resultSet, i) -> (
+                            new TestPlan(UUID.fromString(resultSet.getString("test_plan_id")),
+                                    resultSet.getString("test_plan_name"), testCasesInPlan)
+                    ), testPlanId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new IdNotExist("Test plan with that id doesn't exist");
+        }
     }
 
 }
