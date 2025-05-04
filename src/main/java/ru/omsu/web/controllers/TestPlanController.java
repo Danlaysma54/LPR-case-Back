@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.omsu.core.model.TestPlan;
 import ru.omsu.core.service.testPlan.ITestPlanService;
+import ru.omsu.web.model.request.EditTestPlanRequest;
 import ru.omsu.web.model.request.TestPlanRequest;
 import ru.omsu.web.model.response.GetTestPlanByIdResponse;
 
@@ -34,7 +35,7 @@ public class TestPlanController {
         return new ResponseEntity<>(testPlanService.addTestPlan(testPlanRequest), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{testPlanId}/deleteTestPlan")
+        @DeleteMapping("/{testPlanId}/deleteTestPlan")
     @ResponseBody
     public ResponseEntity<?> deleteTestPlan(@PathVariable UUID testPlanId, @PathVariable UUID projectId) {
         testPlanService.deleteTestPlan(testPlanId, projectId);
@@ -43,7 +44,7 @@ public class TestPlanController {
 
     @PatchMapping("/editTestPlan")
     @ResponseBody
-    public ResponseEntity<?> editTestPlan(@PathVariable UUID projectId, @RequestBody TestPlan testPlan) {
+    public ResponseEntity<?> editTestPlan(@PathVariable UUID projectId, @RequestBody EditTestPlanRequest testPlan) {
         testPlanService.editTestPlan(testPlan);
         return new ResponseEntity<>(HttpStatus.OK);
     }

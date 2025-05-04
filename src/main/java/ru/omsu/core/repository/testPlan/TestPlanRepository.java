@@ -4,6 +4,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcOperations;
 import ru.omsu.core.model.*;
 import ru.omsu.web.model.exception.IdNotExist;
+import ru.omsu.web.model.request.EditTestPlanRequest;
 import ru.omsu.web.model.request.TestPlanRequest;
 
 import java.util.List;
@@ -73,7 +74,7 @@ public class TestPlanRepository implements ITestPlanRepository {
     }
 
     @Override
-    public void editTestPlanName(TestPlan testPlan) {
+    public void editTestPlanName(EditTestPlanRequest testPlan) {
         jdbcOperations.update("UPDATE test_plan set test_plan_name=? where test_plan_id=?",
                 testPlan.getTestPlanName(),
                 testPlan.getTestPlanId());
@@ -81,7 +82,7 @@ public class TestPlanRepository implements ITestPlanRepository {
 
     @Override
     public void deleteAllTestCasesInTestPlan(UUID testPlanId) {
-        jdbcOperations.update("delete from test_cases_in_test_plan where test_plan=?");
+        jdbcOperations.update("delete from test_cases_in_test_plan where test_plan_id=?", testPlanId);
     }
 
     @Override

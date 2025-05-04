@@ -1,6 +1,7 @@
 package ru.omsu.core.service.testPlan;
 
 import ru.omsu.core.model.TestPlan;
+import ru.omsu.web.model.request.EditTestPlanRequest;
 import ru.omsu.web.model.request.TestPlanRequest;
 import ru.omsu.web.model.response.AddedEntityResponse;
 import ru.omsu.web.model.response.GetTestPlanByIdResponse;
@@ -18,7 +19,7 @@ public interface ITestPlanService {
 
     void deleteTestPlan(UUID testPlanId, UUID projectId);
 
-    void editTestPlan(TestPlan testPlan);
+    void editTestPlan(EditTestPlanRequest testPlan);
 
     GetTestPlanByIdResponse getTestPlanById(UUID projectId, UUID testPlanId);
 }
