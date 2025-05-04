@@ -5,6 +5,7 @@ import ru.omsu.core.model.TestPlan;
 import ru.omsu.core.model.TestPlanDTO;
 import ru.omsu.core.repository.testPlan.ITestPlanRepository;
 import ru.omsu.web.model.exception.IdNotExist;
+import ru.omsu.web.model.request.EditTestPlanRequest;
 import ru.omsu.web.model.request.TestPlanRequest;
 import ru.omsu.web.model.response.AddedEntityResponse;
 import ru.omsu.web.model.response.GetTestPlanByIdResponse;
@@ -47,11 +48,8 @@ public class TestPlanService implements ITestPlanService {
     }
 
     @Override
-    public void editTestPlan(TestPlan testPlan) {
-        List<UUID> newTestCasesId = new ArrayList<>();
-        for (CaseDTO caseDTO : testPlan.getTestCases()) {
-            newTestCasesId.add(caseDTO.caseId());
-        }
+    public void editTestPlan(EditTestPlanRequest testPlan) {
+        List<UUID> newTestCasesId = testPlan.getTestCases();
         testPlanRepository.editTestPlanName(testPlan);
         testPlanRepository.deleteAllTestCasesInTestPlan(testPlan.getTestPlanId());
         addingTestCaseInTestPlan(newTestCasesId, testPlan.getTestPlanId());
