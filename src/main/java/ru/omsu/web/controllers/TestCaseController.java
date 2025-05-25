@@ -1,5 +1,6 @@
 package ru.omsu.web.controllers;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.omsu.core.model.TestCase;
 import ru.omsu.core.service.testCase.ITestCaseService;
@@ -31,7 +32,7 @@ public class TestCaseController {
      */
     @PostMapping("/addTestCase")
     @ResponseBody
-    public ResponseEntity<?> addTestCase(@RequestBody final TestCaseRequest testCaseRequest) {
+    public ResponseEntity<?> addTestCase(@Validated @RequestBody final TestCaseRequest testCaseRequest) {
         return new ResponseEntity<>(testCaseService.addTestCase(testCaseRequest), HttpStatus.CREATED);
     }
 
@@ -41,7 +42,7 @@ public class TestCaseController {
      */
     @DeleteMapping("/deleteTestCase")
     @ResponseBody
-    public ResponseEntity<?> deleteTestCase(@PathVariable final UUID testCaseId) {
+    public ResponseEntity<?> deleteTestCase(@Validated @PathVariable final UUID testCaseId) {
         try {
             testCaseService.deleteTestCase(testCaseId);
 
@@ -57,7 +58,7 @@ public class TestCaseController {
      */
     @PatchMapping("/editTestCase")
     @ResponseBody
-    public ResponseEntity<?> editTestCase(@RequestBody final TestCase testCase) {
+    public ResponseEntity<?> editTestCase(@Validated @RequestBody final TestCase testCase) {
         try {
             return new ResponseEntity<>(testCaseService.editTestCase(testCase), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
@@ -72,7 +73,7 @@ public class TestCaseController {
      */
     @GetMapping("/{testCaseId}/getTestCase")
     @ResponseBody
-    public ResponseEntity<?> getTestCase(@PathVariable("projectId") final UUID projectId, @PathVariable("testCaseId") final UUID suiteId) {
+    public ResponseEntity<?> getTestCase(@Validated @PathVariable("projectId") final UUID projectId, @Validated @PathVariable("testCaseId") final UUID suiteId) {
         try {
             return new ResponseEntity<>(testCaseService.getTestCase(suiteId), HttpStatus.OK);
         } catch (IdNotExist e) {

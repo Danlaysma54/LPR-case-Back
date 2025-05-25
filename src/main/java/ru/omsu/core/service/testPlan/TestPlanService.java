@@ -58,7 +58,7 @@ public class TestPlanService implements ITestPlanService {
     @Override
     public GetTestPlanByIdResponse getTestPlanById(final UUID projectId, final UUID testPlanId) throws IdNotExist {
         try {
-            return new GetTestPlanByIdResponse(testPlanRepository.getTestPlanById(projectId, testPlanId));
+            return new GetTestPlanByIdResponse( testPlanRepository.getTestPlanById(projectId, testPlanId));
         } catch (IdNotExist e) {
             throw new IdNotExist("Test plan with id " + testPlanId + " not found");
         }

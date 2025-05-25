@@ -3,6 +3,7 @@ package ru.omsu.web.controllers;
 import jakarta.validation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.omsu.core.model.Suite;
 import ru.omsu.core.service.suite.ISuiteService;
@@ -40,7 +41,7 @@ public class SuiteController {
      */
     @PostMapping("/addSuite")
     @ResponseBody
-    public ResponseEntity<?> addSuite(@RequestBody final AddSuiteRequest suiteRequest) {
+    public ResponseEntity<?> addSuite(@Validated @RequestBody final AddSuiteRequest suiteRequest) {
         try {
             Set<ConstraintViolation<AddSuiteRequest>> violations = validator.validate(suiteRequest);
             if (!violations.isEmpty()) {
@@ -63,7 +64,7 @@ public class SuiteController {
      */
     @PatchMapping("/editSuite")
     @ResponseBody
-    public ResponseEntity<?> editSuite(@RequestBody final Suite suite) {
+    public ResponseEntity<?> editSuite(@Validated @RequestBody final Suite suite) {
         try {
             Set<ConstraintViolation<Suite>> violations = validator.validate(suite);
             if (!violations.isEmpty()) {
@@ -87,8 +88,8 @@ public class SuiteController {
      */
     @DeleteMapping("/{suiteId}/deleteSuite")
     @ResponseBody
-    public ResponseEntity<?> deleteSuite(@PathVariable("projectId") final UUID projectId,
-                                         @PathVariable("suiteId") final UUID suiteId) {
+    public ResponseEntity<?> deleteSuite(@Validated @PathVariable("projectId") final UUID projectId,
+                                        @Validated @PathVariable("suiteId") final UUID suiteId) {
         try {
             suiteService.deleteSuite(suiteId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

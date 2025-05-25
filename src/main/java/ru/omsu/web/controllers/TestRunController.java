@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.omsu.core.model.TestRun;
 import ru.omsu.core.service.testRun.ITestRunService;
@@ -24,25 +25,25 @@ public class TestRunController {
 
     @GetMapping
     @RequestMapping("/getTestRuns")
-    public ResponseEntity<?> getTestRuns(@PathVariable("projectId") UUID projectId) {
+    public ResponseEntity<?> getTestRuns(@Validated @PathVariable("projectId") UUID projectId) {
         return new ResponseEntity<>(testRunService.getTestRuns(projectId), HttpStatus.OK);
     }
 
     @PostMapping
     @RequestMapping("/addTestRun")
-    public ResponseEntity<?> addTestRun(@RequestBody AddTestRunRequest addTestRunRequest) {
+    public ResponseEntity<?> addTestRun(@Validated @RequestBody AddTestRunRequest addTestRunRequest) {
         return new ResponseEntity<>(testRunService.addTestRun(addTestRunRequest), HttpStatus.CREATED);
     }
 
     @PutMapping
     @RequestMapping("/editTestRun")
-    public ResponseEntity<?> editTestRun(@RequestBody TestRun testRun) {
+    public ResponseEntity<?> editTestRun(@Validated @RequestBody TestRun testRun) {
         return new ResponseEntity<>(testRunService.editTestRun(testRun), HttpStatus.OK);
     }
 
     @DeleteMapping
     @RequestMapping("/{testRunId}/deleteTestRun")
-    public ResponseEntity<?> deleteTestRun(@PathVariable("testRunId") UUID testRunId) {
+    public ResponseEntity<?> deleteTestRun(@Validated @PathVariable("testRunId") UUID testRunId) {
         testRunService.deleteTestRun(testRunId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

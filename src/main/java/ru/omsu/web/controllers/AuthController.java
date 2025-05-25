@@ -1,6 +1,7 @@
 package ru.omsu.web.controllers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponseDto> authenticate(
-            @RequestBody final AuthenticationRequestDto authenticationRequestDto
+          @Validated @RequestBody final AuthenticationRequestDto authenticationRequestDto
     ) {
         return ResponseEntity.ok(
                 authenticationService.authenticate(authenticationRequestDto));

@@ -2,9 +2,6 @@ package ru.omsu.core.service.project;
 
 
 import org.springframework.stereotype.Service;
-import ru.omsu.core.model.CaseDTO;
-import ru.omsu.core.model.Project;
-import ru.omsu.core.model.Suite;
 import ru.omsu.core.repository.project.IProjectRepository;
 import ru.omsu.core.repository.tree.TreeRepository;
 import ru.omsu.web.model.request.AddProjectRequest;

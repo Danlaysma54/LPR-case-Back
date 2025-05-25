@@ -1,6 +1,7 @@
 package ru.omsu.web.controllers;
 
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.omsu.core.service.tree.ITreeService;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,7 @@ public class TreeController {
 
     @GetMapping("/getAllSuitesInProject")
     @ResponseBody
-    public ResponseEntity<?> getAllSuitesInProject(@PathVariable("projectId") final UUID projectId) {
+    public ResponseEntity<?> getAllSuitesInProject(@Validated @PathVariable("projectId") final UUID projectId) {
         return new ResponseEntity<>(treeService.getAllSuites(projectId), HttpStatus.OK);
     }
 

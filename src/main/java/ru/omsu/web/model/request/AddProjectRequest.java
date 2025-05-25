@@ -17,6 +17,12 @@ public class AddProjectRequest {
     @Size(min = 3, max = 5, message = "Project name must be at least 3 characters long")
     private String projectShortName;
 
+    public AddProjectRequest(String projectName, String projectDescription, String projectShortName) {
+        this.projectName = projectName;
+        this.projectDescription = projectDescription;
+        this.projectShortName = projectShortName;
+    }
+
     public String getProjectName() {
         return projectName;
     }
