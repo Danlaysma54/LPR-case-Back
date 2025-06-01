@@ -1,0 +1,1 @@
+ ALTER TABLE test_case DROP COLUMN serial_number;

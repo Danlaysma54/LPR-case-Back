@@ -13,9 +13,6 @@ ALTER TABLE test_plan
 ALTER TABLE test_run
     ALTER test_run_id SET DEFAULT  gen_random_uuid();
 
-ALTER TABLE user_case
-    ALTER user_id SET DEFAULT  gen_random_uuid();
-
 ALTER TABLE role
     ALTER role_id SET DEFAULT  gen_random_uuid();
 

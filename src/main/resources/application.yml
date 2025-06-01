@@ -2,9 +2,13 @@ server:
   port: 8080
 spring:
   datasource:
-      jdbc-url: jdbc:postgresql://localhost:5432/lpr
+      jdbc-url: jdbc:postgresql://db:5432/lpr
       username: lpr_admin
       password: lpr_pass
       driver-class-name: org.postgresql.Driver
   flyway:
     baselineOnMigrate: true
+jwt:
+  private-key: classpath:jwt/app.key
+  public-key: classpath:jwt/app.pub
+  ttl: 15m

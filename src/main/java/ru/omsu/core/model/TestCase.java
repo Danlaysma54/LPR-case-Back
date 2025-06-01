@@ -1,27 +1,35 @@
 package ru.omsu.core.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+/**
+ * test case
+ */
 public class TestCase {
-    private  UUID testCaseId;
+    private final UUID testCaseId;
     private final String testCaseName;
     private final String layer;
     private final String isAutomated;
     private final UUID suiteId;
+    private final List<Step> stepList;
 
-    public UUID getSuiteId() {
-        return suiteId;
-    }
-
-    public TestCase(UUID testCaseId, String testCaseName, String layer, String isAutomated, UUID suiteId) {
+    /**
+     * @param testCaseId   id of test case
+     * @param testCaseName name of the test case
+     * @param layer        layer of test case
+     * @param isAutomated  is it automated
+     * @param suiteId      id of suite
+     */
+    public TestCase(final UUID testCaseId, final String testCaseName, final String layer, final String isAutomated, final UUID suiteId) {
         this.testCaseId = testCaseId;
         this.testCaseName = testCaseName;
         this.layer = layer;
         this.isAutomated = isAutomated;
         this.suiteId = suiteId;
-
+        this.stepList = new ArrayList<>();
     }
 
     public UUID getTestCaseId() {
@@ -39,5 +47,12 @@ public class TestCase {
     public String getIsAutomated() {
         return isAutomated;
     }
-    public UUID setTestCaseId(UUID testCaseId){return this.testCaseId=testCaseId;}
+
+    public UUID getSuiteId() {
+        return suiteId;
+    }
+
+    public List<Step> getStepList() {
+        return stepList;
+    }
 }

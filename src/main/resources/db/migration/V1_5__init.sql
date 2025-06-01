@@ -1,0 +1,1 @@
+alter table test_case add serial_number int;

@@ -1,0 +1,1809 @@
+{
+	"info": {
+		"_postman_id": "151781cb-440a-4d6d-9f07-978df88208b0",
+		"name": "Test Management API - LPR Environment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33074185",
+		"_collection_link": "https://lpr222.postman.co/workspace/LPR-Workspace~03e69afc-db55-4c49-8617-15bf50ffcf07/collection/33074185-151781cb-440a-4d6d-9f07-978df88208b0?action=share&source=collection_link&creator=33074185"
+	},
+	"item": [
+		{
+			"name": "Auth and Registration",
+			"item": [
+				{
+					"name": "Register User - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 CREATED\", function () {",
+									"    pm.expect(pm.response.code).to.be.eq(201);",
+									"});",
+									"const requestBody = JSON.parse(pm.request.body.raw);",
+									"pm.environment.set(\"lastRegisteredUsername\", requestBody.username);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"testuser_{{$randomInt}}\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User - Negative (Missing Password)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.be.eq(400);",
+									"});",
+									"pm.test(\"Response indicates error\", function () {",
+									"    pm.expect(pm.response.text()).to.not.include(\"OK\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"testuser_neg_{{$randomInt}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate User - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response has a token\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.have.property('token');",
+									"    pm.expect(responseJson.token).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+									"});",
+									"// Save the token to both 'token' and 'auth_token' environment variables",
+									"pm.environment.set(\"token\", pm.response.json().token);",
+									"pm.environment.set(\"auth_token\", pm.response.json().token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{lastRegisteredUsername}}\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate User - Negative (Wrong Credentials)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400 Bad Request or 401 Unauthorized\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 401]);",
+									"});",
+									"pm.test(\"Response indicates authentication failure\", function () {",
+									"    pm.expect(pm.response.text()).to.not.include(\"token\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"nonexistentuser\",\n    \"password\": \"wrongpassword\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Project Management",
+			"item": [
+				{
+					"name": "Add Project - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 CREATED\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Response has addedEntityId\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.have.property('addedEntityId');",
+									"    pm.expect(responseJson.addedEntityId).to.be.a('string').and.to.match(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/);",
+									"});",
+									"pm.environment.set(\"projectId\", pm.response.json().addedEntityId);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"projectName\": \"New Test Project {{$randomInt}}\",\n    \"projectDescription\": \"A project generated by Postman tests.\",\n    \"projectShortName\": \"NTP\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/addProject",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"addProject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Project - Negative (Missing Fields)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400 Bad Request\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"pm.test(\"Response indicates validation error\", function () {",
+									"    pm.expect(pm.response.text()).to.not.include(\"addedEntityId\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"projectName\": \"Incomplete Project\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/addProject",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"addProject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Project - Negative (Unauthorized)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 Unauthorized or 403 Forbidden\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([401, 403]);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer invalid_token"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"projectName\": \"Unauthorized Project\",\n    \"projectDescription\": \"Description\",\n    \"projectShortName\": \"UAP\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/addProject",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"addProject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Project - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/getProject",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"getProject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Project - Negative (Invalid Project ID)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400 Bad Request or 404 Not Found\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([403, 404]);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/00000000-0000-0000-0000-000000000000/getProject",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"00000000-0000-0000-0000-000000000000",
+								"getProject"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Suite Management",
+			"item": [
+				{
+					"name": "Add Suite - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 created\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Response has addedEntityId\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.have.property('addedEntityId');",
+									"    pm.expect(responseJson.addedEntityId).to.be.a('string').and.to.match(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/);",
+									"});",
+									"pm.environment.set(\"suiteId\", pm.response.json().addedEntityId);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"suiteName\": \"Smoke Tests {{$randomInt}}\",\n    \"suiteRootId\": \"{{projectId}}\" \n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/addSuite",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"addSuite"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Suite - Negative (Missing Suite Name)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400 Bad Request\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"suiteRootId\": \"00000000-0000-0000-0000-000000000000\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/addSuite",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"addSuite"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Suite - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"suiteId\": \"{{suiteId}}\",\n    \"suiteName\": \"Edited Smoke Tests {{$randomInt}}\",\n    \"suiteRootId\": \"{{projectId}}\" // Or the actual root ID\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/editSuite",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"editSuite"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Suite - Negative (Invalid Suite ID)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400 Bad Request or 404 Not Found\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 404]);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"suiteId\": \"00000000-0000-0000-0000-000000000000\",\n    \"suiteName\": \"Invalid Suite Name\",\n    \"suiteRootId\": \"00000000-0000-0000-0000-000000000000\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/editSuite",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"editSuite"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Suites In Project - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/getAllSuitesInProject",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"getAllSuitesInProject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Level (Tree) - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response contains 'cases' and 'suites' arrays\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.have.property('cases').and.to.be.an('array');",
+									"    pm.expect(responseJson).to.have.property('suites').and.to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/{{suiteId}}/getOneLevel?offset=1&limit=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"{{suiteId}}",
+								"getOneLevel"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Case Management",
+			"item": [
+				{
+					"name": "Get Test Case Types - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"// Парсим JSON-ответ",
+									"const responseJson = pm.response.json();",
+									"",
+									"// Сохраняем первый layerId, если он существует",
+									"if (responseJson && responseJson.layers && responseJson.layers.length > 0) {",
+									"    pm.environment.set('firstLayerId', responseJson.layers[0].layerId);",
+									"    console.log('firstLayerId set to:', pm.environment.get('firstLayerId'));",
+									"} else {",
+									"    console.warn('No layers found in the response or response format is incorrect.');",
+									"}",
+									"",
+									"// Сохраняем первый automationId, если он существует",
+									"if (responseJson && responseJson.automations && responseJson.automations.length > 0) {",
+									"    pm.environment.set('firstAutomationId', responseJson.automations[0].automationId);",
+									"    console.log('firstAutomationId set to:', pm.environment.get('firstAutomationId'));",
+									"} else {",
+									"    console.warn('No automations found in the response or response format is incorrect.');",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/getTestCaseTypes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"getTestCaseTypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Test Case - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 CREATED\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Response has addedEntityId\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.have.property('addedEntityId');",
+									"    pm.expect(responseJson.addedEntityId).to.be.a('string').and.to.match(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/);",
+									"});",
+									"pm.environment.set(\"testCaseId\", pm.response.json().addedEntityId);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"suiteId\": \"{{suiteId}}\",\n    \"testCaseName\": \"User Login Test Case {{$randomInt}}\",\n    \"layerId\": \"{{firstLayerId}}\", // Placeholder: Replace with actual ID from your system\n    \"isAutomatedId\": \"{{firstAutomationId}}\", // Placeholder: Replace with actual ID from your system\n    \"steps\": [\n        {\n            \"stepDescription\": \"Navigate to login page\",\n            \"stepData\": \"URL: example.com/login\",\n            \"stepResult\": \"Login page loaded\",\n            \"stepNumber\": 1\n        },\n        {\n            \"stepDescription\": \"Enter credentials\",\n            \"stepData\": \"Username: user, Password: pass\",\n            \"stepResult\": \"Credentials entered\",\n            \"stepNumber\": 2\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/addTestCase",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"addTestCase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Test Case By ID - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"const responseJson = pm.response.json();",
+									"            const firstTestStepId = responseJson.stepList[0].testStepId;",
+									"            console.log(firstTestStepId);",
+									"            pm.environment.set(\"firstTestStepId\", firstTestStepId);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/{{testCaseId}}/getTestCase",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"{{testCaseId}}",
+								"getTestCase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Test Case - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"testCaseId\": \"{{testCaseId}}\",\n    \"testCaseName\": \"Edited Login Test Case {{$randomInt}}\",\n    \"layer\": \"{{firstLayerId}}\",\n    \"isAutomated\": \"{{firstAutomationId}}\", \n    \"suiteId\": \"{{suiteId}}\",\n    \"stepList\": [\n        {\n            \"testStepId\": \"{{firstTestStepId}}\",\n            \"stepDescription\": \"Edited step 1\",\n            \"stepData\": \"Data for step 1\",\n            \"stepResult\": \"Result for step 1\",\n            \"stepNumber\": 1\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/editTestCase",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"editTestCase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Test Case - Negative (Invalid Test Case ID)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400 Bad Request or 404 Not Found\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 404]);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"testCaseId\": \"00000000-0000-0000-0000-0000000000\",\n    \"testCaseName\": \"Invalid Test Case\",\n    \"layerId\": {{firstLayerId}},\n    \"isAutomatedId\": {{firstAutomationId}},\n    \"suiteId\": \"{{suiteId}}\",\n    \"steps\": []\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/editTestCase",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"editTestCase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Test Case - Negative (Invalid ID)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400 Bad Request or 404 Not Found\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 404]);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/00000000-0000-0000-0000-000000000000/deleteTestCase",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"00000000-0000-0000-0000-000000000000",
+								"deleteTestCase"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Plan Management",
+			"item": [
+				{
+					"name": "Add Test Plan - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 CREATED\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Response has addedEntityId\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.have.property('addedEntityId');",
+									"    pm.expect(responseJson.addedEntityId).to.be.a('string').and.to.match(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/);",
+									"});",
+									"pm.environment.set(\"testPlanId\", pm.response.json().addedEntityId);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"testPlanName\": \"Test Plan {{$randomInt}}\",\n    \"testCases\": [\"{{testCaseId}}\"]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/addTestPlan",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"addTestPlan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Test Plan - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"testPlanId\": \"{{testPlanId}}\",\n    \"testPlanName\": \"Edited Test Plan Name {{ $randomInt }}\",\n    \"testCases\": []\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/editTestPlan",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"editTestPlan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Test Plan By ID - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/testPlans/{{testPlanId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"testPlans",
+								"{{testPlanId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Test Plan By ID - Negative (Invalid ID)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400 Bad Request or 404 Not Found\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 404]);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/testPlans/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"testPlans",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Test Plans - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/getTestPlans",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"getTestPlans"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Run Management",
+			"item": [
+				{
+					"name": "Add Test Run - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 CREATED\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Response has addedEntityId\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.have.property('addedEntityId');",
+									"    pm.expect(responseJson.addedEntityId).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+									"});",
+									"pm.environment.set(\"testRunId\", pm.response.json().addedEntityId);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"testPlanId\": \"{{testPlanId}}\",\n    \"testRunName\": \"Test Run {{$randomInt}}\",\n    \"comment\": \"Automated run from Postman\",\n    \"testCases\": []\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/addTestRun",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"addTestRun"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Test Runs - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/getTestRuns",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"getTestRuns"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Test Run - Negative (Invalid ID)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400 Bad Request or 404 Not Found\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 404]);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/testRuns/00000000-0000-0000-0000-000000000000/deleteTestRun",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"testRuns",
+								"00000000-0000-0000-0000-000000000000",
+								"deleteTestRun"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cleanup (Optional - Use with Caution)",
+			"item": [
+				{
+					"name": "Delete Test Run - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.environment.set(\"testRunId\", \"\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/{{testRunId}}/deleteTestRun",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"{{testRunId}}",
+								"deleteTestRun"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Test Plan - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.environment.set(\"testPlanId\", \"\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/{{testPlanId}}/deleteTestPlan",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"{{testPlanId}}",
+								"deleteTestPlan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Test Case - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.environment.set(\"testCaseId\", \"\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/{{testCaseId}}/deleteTestCase",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"{{testCaseId}}",
+								"deleteTestCase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Suite - Negative (Invalid Suite ID)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400 Bad Request or 404 Not Found\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 404]);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/00000000-0000-0000-0000-000000000000/deleteSuite",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"00000000-0000-0000-0000-000000000000",
+								"deleteSuite"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Suite - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204 NO CONTENT\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									"// Clear suiteId after deletion",
+									"pm.environment.set(\"suiteId\", \"\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/{{suiteId}}/deleteSuite",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"{{suiteId}}",
+								"deleteSuite"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Project - Negative (Invalid Project ID)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 forbidden\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/00000000-0000-0000-0000-000000000000/deleteProject",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"00000000-0000-0000-0000-000000000000",
+								"deleteProject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Project - Positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.environment.set(\"projectId\", \"\");",
+									"pm.environment.set(\"suiteId\", \"\");",
+									"pm.environment.set(\"testCaseId\", \"\");",
+									"pm.environment.set(\"testPlanId\", \"\");",
+									"pm.environment.set(\"testRunId\", \"\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{projectId}}/deleteProject",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{projectId}}",
+								"deleteProject"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

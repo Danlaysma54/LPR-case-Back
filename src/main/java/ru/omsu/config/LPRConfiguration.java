@@ -8,11 +8,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
-
 import javax.sql.DataSource;
 
+/**
+ * class for configuration db
+ */
 @Configuration
 public class LPRConfiguration {
+    /**
+     *
+     * @return dataSource
+     */
     @Bean
     @FlywayDataSource
     @Qualifier("lprDataSource")
@@ -21,7 +27,11 @@ public class LPRConfiguration {
         return DataSourceBuilder.create().build();
     }
 
-
+    /**
+     *
+     * @param lprDataSource for connections to the physical data source
+     * @return jdbcOperations
+     */
     @Bean
     @Qualifier("lprJdbcOperations")
     public JdbcOperations lprJdbcOperations(

@@ -1,71 +1,127 @@
 @startuml
-
 entity "suite" as suite {
-suite_id: UUID primary key
----
-suite_name: varchar(128) not null
-suite_root_id: UUID not null
+  suite_id: UUID PK
+  --
+  suite_name: varchar(128) NOT NULL
+  suite_root_id: UUID NOT NULL
+  created_at: timestamp
 }
 
 entity "test_case" as test_case {
-test_case_id: UUID primary key
----
-test_case_name: varchar(128) not null
-suite_id: UUID not null
-automation_status: varchar(128) not null
-layer: varchar(128) not null
+  test_case_id: UUID PK
+  --
+  test_case_name: varchar(128) NOT NULL
+  suite_id: UUID FK
+  automation_status_id: UUID FK
+  layer_id: UUID FK
+  created_at: timestamp
 }
+
+entity "test_step" as test_step {
+  test_step_id: UUID PK
+  --
+  step_description: varchar(128) NOT NULL
+  test_case_id: UUID FK
+  step_data: varchar(4096) NOT NULL
+  step_result: varchar(4096) NOT NULL
+  step_number: int
+}
+
+entity "automation_status" as automation_status {
+  automation_status_id: UUID PK
+  --
+  automation_name: varchar(4096) NOT NULL
+}
+
+entity "layer" as layer {
+  layer_id: UUID PK
+  --
+  layer_name: varchar(4096) NOT NULL
+}
+
 entity "project" as project {
-project_id: UUID primary key
----
-project_name: varchar(128) not null
-project_description: varchar(1024)
+  project_id: UUID PK
+  --
+  project_name: varchar(128) NOT NULL
+  project_short_name: varchar(255)
+  project_description: varchar(1024)
 }
-entity "test_plan" as test_plan{
-test_plan_id: UUID primary key
-test_plan_description: varchar(1024)
+
+entity "test_plan" as test_plan {
+  test_plan_id: UUID PK
+  --
+  test_plan_name: varchar(1024)
 }
-entity "test_run" as test_run{
-test_run_id: UUID primary key
----
-test_name: varchar(128)
-test_plan: UUID FK
+
+entity "test_run" as test_run {
+  test_run_id: UUID PK
+  --
+  test_name: varchar(128)
+  test_plan_id: UUID FK
 }
-entity test_cases_in_test_plan{
-test_run_id: UUID
-test_case_id: UUID
+
+entity "test_cases_in_test_plan" as test_cases_in_test_plan {
+  test_plan_id: UUID FK
+  test_case_id: UUID FK
+  --
+  PK(test_plan_id, test_case_id)
 }
-entity user{
-user_id: UUID primary key
----
-surname: varchar(128) not null
-name: varchar(128) not null
-user_password: varchar(128) not null
+
+entity "test_plans_in_project" as test_plans_in_project {
+  test_plan_id: UUID FK
+  project_id: UUID FK
+  --
+  PK(test_plan_id, project_id)
 }
-entity users_in_projects{
-project_id: UUID FK
-user_id: UUID FK
-role_id: UUID FK
+
+entity "user_case" as user_case {
+  user_id: UUID PK
+  --
+  surname: varchar(128) NOT NULL
+  name: varchar(128) NOT NULL
+  user_password: varchar(128) NOT NULL
 }
-entity role{
-role_id: UUID primary key
----
-role_name: varchar(128) not null
+
+entity "role" as role {
+  role_id: UUID PK
+  --
+  role_name: varchar(128) NOT NULL
 }
-entity test_step{
-test_step_id: UUID
----
-step_description: varchar(128) not null
-test_case_id : UUID FK
-step_data: varchar(4096) not null
-step_result: varchar(4096) not null
+
+entity "users_in_projects" as users_in_projects {
+  project_id: UUID FK
+  user_id: UUID FK
+  role_id: UUID FK
+  --
+  PK(project_id, user_id)
 }
-test_case||--o{test_step
-test_plan}|--|{test_run
-users_in_projects}|--|{role
-users_in_projects}|--|{project
-users_in_projects}|--|{user
-test_case}|--|{test_cases_in_test_plan
-test_plan}|--|{test_cases_in_test_plan
-test_case}o--||suite
+
+entity "users" as users {
+  userID: UUID PK
+  --
+  username: varchar(50) NOT NULL
+  password: varchar(255) NOT NULL
+  created_at: timestamp
+  updated_at: timestamp
+}
+
+' ====== Relationships ======
+
+test_case }o--|| suite
+test_case }o--|| automation_status
+test_case }o--|| layer
+
+test_step }o--|| test_case
+
+test_cases_in_test_plan }|--|| test_case
+test_cases_in_test_plan }|--|| test_plan
+
+test_run }o--|| test_plan
+
+test_plans_in_project }|--|| project
+test_plans_in_project }|--|| test_plan
+
+users_in_projects }|--|| user_case
+users_in_projects }|--|| role
+users_in_projects }|--|| project
 @enduml
