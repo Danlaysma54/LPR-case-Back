@@ -29,10 +29,13 @@ public class ProjectRepository implements IProjectRepository {
      * @return UUID of added project
      */
     @Override
-    public UUID addProject(final AddProjectRequest project) {
-        return jdbcOperations.queryForObject("INSERT INTO project(project_name, project_description, project_short_name) VALUES (?,?,?) RETURNING project_id",
+    public UUID addProject(final AddProjectRequest project,UUID userId) {
+        UUID addedProjectId= jdbcOperations.queryForObject("INSERT INTO project(project_name, project_description, project_short_name) VALUES (?,?,?) RETURNING project_id",
                 (resultSet, i) -> UUID.fromString(resultSet.getString("project_id")),
                 project.getProjectName(), project.getProjectDescription(), project.getProjectShortName());
+        jdbcOperations.update("insert into users_in_projects(project_id,user_id) values(?,?)",addedProjectId,userId);
+        jdbcOperations.update("insert into suite(suite_id,suite_name,suite_root_id) values(?,?,?)",addedProjectId,"project Root",addedProjectId);
+        return addedProjectId;
     }
 
     /**
@@ -45,6 +48,12 @@ public class ProjectRepository implements IProjectRepository {
         if (jdbcOperations.update("DELETE FROM project where project_id = CAST(? AS UUID)", projectId.toString()) < 1) {
             throw new IllegalArgumentException("Project with this ID doesn't exist");
         }
+    }
+
+    @Override
+    public boolean isUserInProject(UUID projectId, UUID userId) {
+        return (1==jdbcOperations.queryForObject("select count(*) as numb from users_in_projects where user_id=? and project_id=?",
+                (resultSet,i)->resultSet.getInt("numb") , projectId,userId));
     }
 
     /**

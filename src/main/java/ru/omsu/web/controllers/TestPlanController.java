@@ -38,7 +38,7 @@ public class TestPlanController {
 
         @DeleteMapping("/{testPlanId}/deleteTestPlan")
     @ResponseBody
-    public ResponseEntity<?> deleteTestPlan(@Validated @PathVariable UUID testPlanId,@Validated @PathVariable UUID projectId) {
+    public ResponseEntity<?> deleteTestPlan(@Validated @PathVariable("testPlanId") UUID testPlanId,@Validated @PathVariable UUID projectId) {
         testPlanService.deleteTestPlan(testPlanId, projectId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

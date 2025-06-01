@@ -10,6 +10,7 @@ import ru.omsu.core.model.Layer;
 import ru.omsu.core.model.Step;
 import ru.omsu.core.model.TestCase;
 import ru.omsu.core.repository.testCase.TestCaseRepository;
+import ru.omsu.web.model.request.EditTestCaseRequest;
 import ru.omsu.web.model.request.StepsRequest;
 import ru.omsu.web.model.request.TestCaseRequest;
 
@@ -89,7 +90,7 @@ class TestCaseRepositoryTest {
 
     @Test
     void editTestCase_success() {
-        TestCase testCase = new TestCase(UUID.randomUUID(), "Updated", "LayerX", "Automated", UUID.randomUUID());
+        EditTestCaseRequest testCase = new EditTestCaseRequest(UUID.randomUUID(), "Updated", UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
 
         when(jdbcOperations.update(
                 anyString(),
@@ -105,7 +106,7 @@ class TestCaseRepositoryTest {
 
     @Test
     void editTestCase_notFound() {
-        TestCase testCase = new TestCase(UUID.randomUUID(), "Updated", "LayerX", "Automated", UUID.randomUUID());
+        EditTestCaseRequest testCase = new EditTestCaseRequest(UUID.randomUUID(), "Updated", UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
 
         when(jdbcOperations.update(anyString(), any(), any(), any(), any(), any())).thenReturn(0);
 

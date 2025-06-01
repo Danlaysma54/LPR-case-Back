@@ -7,6 +7,7 @@ import ru.omsu.core.service.testCase.ITestCaseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.omsu.web.model.exception.IdNotExist;
+import ru.omsu.web.model.request.EditTestCaseRequest;
 import ru.omsu.web.model.request.TestCaseRequest;
 
 import java.util.UUID;
@@ -40,9 +41,9 @@ public class TestCaseController {
      * @param testCaseId id of test case
      * @return message
      */
-    @DeleteMapping("/deleteTestCase")
+    @DeleteMapping("{testCaseId}/deleteTestCase")
     @ResponseBody
-    public ResponseEntity<?> deleteTestCase(@Validated @PathVariable final UUID testCaseId) {
+    public ResponseEntity<?> deleteTestCase(@Validated @PathVariable("testCaseId") final UUID testCaseId) {
         try {
             testCaseService.deleteTestCase(testCaseId);
 
@@ -58,7 +59,7 @@ public class TestCaseController {
      */
     @PatchMapping("/editTestCase")
     @ResponseBody
-    public ResponseEntity<?> editTestCase(@Validated @RequestBody final TestCase testCase) {
+    public ResponseEntity<?> editTestCase(@Validated @RequestBody final EditTestCaseRequest testCase) {
         try {
             return new ResponseEntity<>(testCaseService.editTestCase(testCase), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
@@ -68,14 +69,14 @@ public class TestCaseController {
 
     /**
      * @param projectId id of project
-     * @param suiteId   id of suite
+     * @param testCaseId   id of suite
      * @return testCase
      */
     @GetMapping("/{testCaseId}/getTestCase")
     @ResponseBody
-    public ResponseEntity<?> getTestCase(@Validated @PathVariable("projectId") final UUID projectId, @Validated @PathVariable("testCaseId") final UUID suiteId) {
+    public ResponseEntity<?> getTestCase(@Validated @PathVariable("projectId") final UUID projectId, @Validated @PathVariable("testCaseId") final UUID testCaseId) {
         try {
-            return new ResponseEntity<>(testCaseService.getTestCase(suiteId), HttpStatus.OK);
+            return new ResponseEntity<>(testCaseService.getTestCase(testCaseId), HttpStatus.OK);
         } catch (IdNotExist e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }

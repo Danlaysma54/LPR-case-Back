@@ -8,6 +8,7 @@ import ru.omsu.core.model.Step;
 import ru.omsu.core.model.TestCase;
 import ru.omsu.core.repository.testCase.ITestCaseRepository;
 import ru.omsu.core.service.testCase.TestCaseService;
+import ru.omsu.web.model.request.EditTestCaseRequest;
 import ru.omsu.web.model.request.StepsRequest;
 import ru.omsu.web.model.request.TestCaseRequest;
 import ru.omsu.web.model.response.AddedEntityResponse;
@@ -63,7 +64,7 @@ class TestCaseServiceTest {
     @Test
     void testEditTestCase() {
         UUID testCaseId = UUID.randomUUID();
-        TestCase input = mock(TestCase.class);
+        EditTestCaseRequest input = mock(EditTestCaseRequest.class);
         TestCase output = mock(TestCase.class);
 
         when(input.getTestCaseId()).thenReturn(testCaseId);

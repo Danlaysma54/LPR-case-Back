@@ -15,16 +15,16 @@ public class JDBCUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(final String username)
-            throws UsernameNotFoundException {
-
-        return userRepository.findByUsername(username).map(user ->
-                User.builder()
-                        .username(username)
-                        .password(user.getPassword())
-                        .build()
-        ).orElseThrow(() -> new UsernameNotFoundException(
-                "User with username [%s] not found".formatted(username)));
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
+                .map(user -> new CustomUserDetails(
+                        user.getUsername(),
+                        user.getPassword(),
+                        user.getUserID().toString()  // предполагаем, что у User есть getId()
+                ))
+                .orElseThrow(() -> new UsernameNotFoundException(
+                        "User with username [%s] not found".formatted(username)
+                ));
     }
 
 }

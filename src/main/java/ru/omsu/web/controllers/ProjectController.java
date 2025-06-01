@@ -2,20 +2,14 @@ package ru.omsu.web.controllers;
 
 import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.omsu.core.service.project.IProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.omsu.web.model.request.AddProjectRequest;
 import ru.omsu.web.model.response.AddedEntityResponse;
 
+import java.nio.file.AccessDeniedException;
 import java.util.UUID;
 
 /**
@@ -41,8 +35,9 @@ public class ProjectController {
      */
     @PostMapping("/addProject")
     @ResponseBody
-    public ResponseEntity<AddedEntityResponse> addProject(@RequestBody @Validated final AddProjectRequest addProjectRequest) {
-        return new ResponseEntity<>(new AddedEntityResponse(projectService.addProject(addProjectRequest)), HttpStatus.CREATED);
+    public ResponseEntity<AddedEntityResponse> addProject(@RequestBody @Validated final AddProjectRequest addProjectRequest,
+                                                          @RequestHeader("Authorization") final String authHeader) {
+        return new ResponseEntity<>(new AddedEntityResponse(projectService.addProject(addProjectRequest,authHeader)), HttpStatus.CREATED);
     }
 
     /**

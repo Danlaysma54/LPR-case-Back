@@ -4,6 +4,7 @@ package ru.omsu.core.service.project;
 import ru.omsu.web.model.request.AddProjectRequest;
 import ru.omsu.web.model.response.GetProjectResponse;
 
+import java.nio.file.AccessDeniedException;
 import java.util.UUID;
 
 /**
@@ -16,7 +17,7 @@ public interface IProjectService {
      * @return UUID of added project
      */
 
-    UUID addProject(AddProjectRequest project);
+    UUID addProject(AddProjectRequest project,String authHeader);
 
     /**
      *

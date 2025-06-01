@@ -1,8 +1,10 @@
 package ru.omsu.core.service.testCase;
 
+import ru.omsu.core.model.Step;
 import ru.omsu.core.model.TestCase;
 import ru.omsu.core.repository.testCase.ITestCaseRepository;
 import org.springframework.stereotype.Service;
+import ru.omsu.web.model.request.EditTestCaseRequest;
 import ru.omsu.web.model.request.StepsRequest;
 import ru.omsu.web.model.request.TestCaseRequest;
 import ru.omsu.web.model.response.AddedEntityResponse;
@@ -51,7 +53,10 @@ public class TestCaseService implements ITestCaseService {
      * @return testcase
      */
     @Override
-    public TestCase editTestCase(final TestCase testCase) {
+    public TestCase editTestCase(final EditTestCaseRequest testCase) {
+        for (Step step : testCase.getStepList()) {
+            testCaseRepository.editTestStep(step);
+        }
         testCaseRepository.editTestCase(testCase);
         return testCaseRepository.getTestCase(testCase.getTestCaseId());
     }

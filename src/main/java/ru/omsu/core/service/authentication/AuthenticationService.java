@@ -3,6 +3,7 @@ package ru.omsu.core.service.authentication;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
+import ru.omsu.core.repository.user.UserRepository;
 import ru.omsu.core.service.jwt.JwtService;
 import ru.omsu.web.model.request.AuthenticationRequestDto;
 import ru.omsu.web.model.response.AuthenticationResponseDto;
@@ -23,8 +24,7 @@ public class AuthenticationService {
 
         final var authentication = authenticationManager
                 .authenticate(authToken);
-
-        final var token = jwtService.generateToken(request.username());
+        final var token = jwtService.generateToken(authentication);
         return new AuthenticationResponseDto(token);
     }
 }

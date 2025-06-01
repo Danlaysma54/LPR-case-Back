@@ -14,7 +14,7 @@ public interface IProjectRepository {
      * @param project request object to add in db
      * @return UUID of project
      */
-    UUID addProject(AddProjectRequest project);
+    UUID addProject(AddProjectRequest project,UUID userId);
 
     /**
      *
@@ -29,4 +29,6 @@ public interface IProjectRepository {
      */
 
     void deleteProject(UUID projectId);
+
+    boolean isUserInProject(UUID projectId,UUID userId);
 }

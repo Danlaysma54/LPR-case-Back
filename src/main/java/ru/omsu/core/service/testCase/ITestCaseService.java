@@ -1,6 +1,7 @@
 package ru.omsu.core.service.testCase;
 
 import ru.omsu.core.model.TestCase;
+import ru.omsu.web.model.request.EditTestCaseRequest;
 import ru.omsu.web.model.request.TestCaseRequest;
 import ru.omsu.web.model.response.AddedEntityResponse;
 import ru.omsu.web.model.response.TestCaseTypes;
@@ -26,7 +27,7 @@ public interface ITestCaseService {
      * @param testCase test case entity
      * @return new Test case
      */
-    TestCase editTestCase(TestCase testCase);
+    TestCase editTestCase(EditTestCaseRequest testCase);
 
     /**
      * @param testCaseId id of seek test case

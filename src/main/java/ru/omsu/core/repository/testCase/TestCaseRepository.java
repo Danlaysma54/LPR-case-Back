@@ -6,6 +6,7 @@ import ru.omsu.core.model.Step;
 import ru.omsu.core.model.TestCase;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
+import ru.omsu.web.model.request.EditTestCaseRequest;
 import ru.omsu.web.model.request.StepsRequest;
 import ru.omsu.web.model.request.TestCaseRequest;
 import ru.omsu.web.model.response.TestCaseTypes;
@@ -72,10 +73,18 @@ public class TestCaseRepository implements ITestCaseRepository {
      * @param testCase entity of test case
      */
     @Override
-    public void editTestCase(final TestCase testCase) {
-        if (jdbcOperations.update("UPDATE test_case SET test_case_name=?,suite_id=?,automation_status=?,layer=? where test_case_id=?",
+    public void editTestCase(final EditTestCaseRequest testCase) {
+        if (jdbcOperations.update("UPDATE test_case SET test_case_name=?,suite_id=?,automation_status_id=?,layer_id=? where test_case_id=?",
                 testCase.getTestCaseName(), testCase.getSuiteId(), testCase.getIsAutomated(), testCase.getLayer(), testCase.getTestCaseId()) < 1) {
             throw new IllegalArgumentException("Test Case with that Id doesn't exist");
+        }
+    }
+
+    @Override
+    public void editTestStep(Step step) {
+        if (jdbcOperations.update("UPDATE test_step set step_description=?,step_data=?,step_result=?,step_number=? where test_step_id=?",
+                step.stepDescription(), step.stepData(), step.stepResult(), step.stepNumber(), step.testStepId()) < 1) {
+            throw new IllegalArgumentException("Test Step with that Id doesn't exist");
         }
     }
 
@@ -86,7 +95,7 @@ public class TestCaseRepository implements ITestCaseRepository {
     @Override
     public List<Step> getTestCaseSteps(final UUID testCaseId) {
         return jdbcOperations.query("SELECT test_step_id,step_description,step_data,step_result,step_number from test_step where test_case_id=?",
-                (resultSet, i) -> new Step(UUID.fromString(resultSet.getString("test_step_id")),resultSet.getString("step_description"), resultSet.getString("step_data"),
+                (resultSet, i) -> new Step(UUID.fromString(resultSet.getString("test_step_id")), resultSet.getString("step_description"), resultSet.getString("step_data"),
                         resultSet.getString("step_result"), resultSet.getInt("step_number"))
                 , testCaseId);
     }

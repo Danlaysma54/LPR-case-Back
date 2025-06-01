@@ -11,6 +11,7 @@ import ru.omsu.core.model.TestCase;
 import ru.omsu.core.service.testCase.ITestCaseService;
 import ru.omsu.web.controllers.TestCaseController;
 import ru.omsu.web.model.exception.IdNotExist;
+import ru.omsu.web.model.request.EditTestCaseRequest;
 import ru.omsu.web.model.request.TestCaseRequest;
 import ru.omsu.web.model.response.AddedEntityResponse;
 import ru.omsu.web.model.response.TestCaseTypes;
@@ -81,8 +82,9 @@ class TestCaseControllerTest {
     @Test
     void editTestCase_ShouldReturnOk_WhenSuccessful() {
         // Arrange
-        TestCase editedTestCase = new TestCase(UUID.randomUUID(),"HI","layer","auto",UUID.randomUUID());
-        when(testCaseService.editTestCase(editedTestCase)).thenReturn(editedTestCase);
+        EditTestCaseRequest editedTestCase = new EditTestCaseRequest(UUID.randomUUID(), "Updated", UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
+        TestCase testCase = new TestCase(UUID.randomUUID(),"HI","layer","auto",UUID.randomUUID());
+        when(testCaseService.editTestCase(editedTestCase)).thenReturn(testCase);
 
         // Act
         ResponseEntity<?> response = testCaseController.editTestCase(editedTestCase);
@@ -96,18 +98,19 @@ class TestCaseControllerTest {
     @Test
     void editTestCase_ShouldReturnNotFound_WhenIllegalArgument() {
         // Arrange
+        EditTestCaseRequest editedTestCase = new EditTestCaseRequest(UUID.randomUUID(), "Updated", UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
         TestCase testCase = new TestCase(UUID.randomUUID(),"HI","layer","auto",UUID.randomUUID());
         String errorMessage = "Test case not found";
-        when(testCaseService.editTestCase(testCase))
+        when(testCaseService.editTestCase(editedTestCase))
                 .thenThrow(new IllegalArgumentException(errorMessage));
 
         // Act
-        ResponseEntity<?> response = testCaseController.editTestCase(testCase);
+        ResponseEntity<?> response = testCaseController.editTestCase(editedTestCase);
 
         // Assert
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertEquals(errorMessage, response.getBody());
-        verify(testCaseService).editTestCase(testCase);
+        verify(testCaseService).editTestCase(editedTestCase);
     }
 
     @Test

@@ -4,6 +4,7 @@ import ru.omsu.core.model.Automation;
 import ru.omsu.core.model.Layer;
 import ru.omsu.core.model.Step;
 import ru.omsu.core.model.TestCase;
+import ru.omsu.web.model.request.EditTestCaseRequest;
 import ru.omsu.web.model.request.StepsRequest;
 import ru.omsu.web.model.request.TestCaseRequest;
 
@@ -42,7 +43,9 @@ public interface ITestCaseRepository {
      * @param testCase entity of test case
      */
 
-    void editTestCase(TestCase testCase);
+    void editTestCase(EditTestCaseRequest testCase);
+
+    void editTestStep(Step step);
 
     /**
      *

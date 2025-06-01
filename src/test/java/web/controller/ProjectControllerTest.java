@@ -36,21 +36,21 @@ class ProjectControllerTest {
     @Test
     void addProject_ShouldReturnCreatedResponseWithId() {
 
-        when(projectService.addProject(testRequest)).thenReturn(testProjectId);
+        when(projectService.addProject(testRequest,"")).thenReturn(testProjectId);
 
-        ResponseEntity<AddedEntityResponse> response = projectController.addProject(testRequest);
+        ResponseEntity<AddedEntityResponse> response = projectController.addProject(testRequest,"");
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
         assertNotNull(response.getBody());
         assertEquals(testProjectId, response.getBody().addedEntityId());
-        verify(projectService).addProject(testRequest);
+        verify(projectService).addProject(testRequest,"");
     }
 
     @Test
     void addProject_ShouldValidateInput() {
         // This test verifies the @Validated annotation is properly processed
-        assertDoesNotThrow(() -> projectController.addProject(testRequest));
+        assertDoesNotThrow(() -> projectController.addProject(testRequest,""));
     }
 
     @Test

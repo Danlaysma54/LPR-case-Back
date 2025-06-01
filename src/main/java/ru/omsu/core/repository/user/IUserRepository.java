@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface IUserRepository {
-    boolean existsByUsername(String email);
+    boolean existsByUsername(String username);
 
     UUID save(User user);
 

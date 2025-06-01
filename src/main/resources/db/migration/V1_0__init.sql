@@ -39,25 +39,19 @@ CREATE TABLE test_cases_in_test_plan (
     PRIMARY KEY (test_plan_id, test_case_id)
 );
 
-
-CREATE TABLE user_case (
-    user_id UUID  PRIMARY KEY,
-    surname VARCHAR(128) NOT NULL,
-    name VARCHAR(128) NOT NULL,
-    user_password VARCHAR(128) NOT NULL
-);
-
-
 CREATE TABLE role (
     role_id UUID PRIMARY KEY,
     role_name VARCHAR(128) NOT NULL
 );
-
+CREATE TABLE users (
+  userID UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL
+);
 
 CREATE TABLE users_in_projects (
     project_id UUID REFERENCES project(project_id) ON DELETE CASCADE,
-    user_id UUID REFERENCES user_case(user_id) ON DELETE CASCADE,
-    role_id UUID REFERENCES role(role_id) ON DELETE SET NULL,
+    user_id UUID REFERENCES users(userID) ON DELETE CASCADE,
     PRIMARY KEY (project_id, user_id)
 );
 

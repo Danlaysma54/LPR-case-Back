@@ -38,7 +38,7 @@ class ProjectRepositoryTest {
         )).thenReturn(expectedId);
 
 
-        UUID result = projectRepository.addProject(request);
+        UUID result = projectRepository.addProject(request,UUID.randomUUID());
 
         assertEquals(expectedId, result);
         verify(jdbcOperations).queryForObject(anyString(),any(org.springframework.jdbc.core.RowMapper.class),
