@@ -32,7 +32,7 @@ public class TestPlanController {
 
     @PostMapping("/addTestPlan")
     @ResponseBody
-    public ResponseEntity<?> addTestPlan(@Validated @PathVariable UUID projectId, @Validated @RequestBody TestPlanRequest testPlanRequest) {
+    public ResponseEntity<?> addTestPlan(@Validated @RequestBody TestPlanRequest testPlanRequest) {
         return new ResponseEntity<>(testPlanService.addTestPlan(testPlanRequest), HttpStatus.CREATED);
     }
 
@@ -45,7 +45,7 @@ public class TestPlanController {
 
     @PatchMapping("/editTestPlan")
     @ResponseBody
-    public ResponseEntity<?> editTestPlan(@Validated @PathVariable UUID projectId,@Validated @RequestBody EditTestPlanRequest testPlan) {
+    public ResponseEntity<?> editTestPlan(@Validated @RequestBody EditTestPlanRequest testPlan) {
         testPlanService.editTestPlan(testPlan);
         return new ResponseEntity<>(HttpStatus.OK);
     }

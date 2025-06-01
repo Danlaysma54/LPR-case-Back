@@ -60,7 +60,7 @@ class TestPlanControllerTest {
         when(testPlanService.addTestPlan(testPlanRequest)).thenReturn(addedEntityResponse);
 
         // Act
-        ResponseEntity<?> response = testPlanController.addTestPlan(projectId, testPlanRequest);
+        ResponseEntity<?> response = testPlanController.addTestPlan( testPlanRequest);
 
         // Assert
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -92,7 +92,7 @@ class TestPlanControllerTest {
         doNothing().when(testPlanService).editTestPlan(request);
 
         // Act
-        ResponseEntity<?> response = testPlanController.editTestPlan(projectId, request);
+        ResponseEntity<?> response = testPlanController.editTestPlan( request);
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -125,7 +125,7 @@ class TestPlanControllerTest {
         assertDoesNotThrow(() -> {
             TestPlanRequest request = new TestPlanRequest("Hello",new ArrayList<>());
             // Установите валидные данные
-            testPlanController.addTestPlan(UUID.randomUUID(), request);
+            testPlanController.addTestPlan( request);
         });
     }
 

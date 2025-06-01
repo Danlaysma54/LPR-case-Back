@@ -68,13 +68,12 @@ public class TestCaseController {
     }
 
     /**
-     * @param projectId id of project
      * @param testCaseId   id of suite
      * @return testCase
      */
     @GetMapping("/{testCaseId}/getTestCase")
     @ResponseBody
-    public ResponseEntity<?> getTestCase(@Validated @PathVariable("projectId") final UUID projectId, @Validated @PathVariable("testCaseId") final UUID testCaseId) {
+    public ResponseEntity<?> getTestCase(@Validated @PathVariable("testCaseId") final UUID testCaseId) {
         try {
             return new ResponseEntity<>(testCaseService.getTestCase(testCaseId), HttpStatus.OK);
         } catch (IdNotExist e) {

@@ -122,7 +122,7 @@ class TestCaseControllerTest {
         when(testCaseService.getTestCase(testCaseId)).thenReturn(expectedTestCase);
 
         // Act
-        ResponseEntity<?> response = testCaseController.getTestCase(projectId, testCaseId);
+        ResponseEntity<?> response = testCaseController.getTestCase( testCaseId);
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -140,7 +140,7 @@ class TestCaseControllerTest {
                 .thenThrow(new IdNotExist(errorMessage));
 
         // Act
-        ResponseEntity<?> response = testCaseController.getTestCase(projectId, testCaseId);
+        ResponseEntity<?> response = testCaseController.getTestCase( testCaseId);
 
         // Assert
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
