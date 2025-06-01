@@ -82,13 +82,12 @@ public class SuiteController {
     }
 
     /**
-     * @param projectId id of project
      * @param suiteId   id of suite
      * @return empty response if entity is deleted and messages with errors if not
      */
     @DeleteMapping("/{suiteId}/deleteSuite")
     @ResponseBody
-    public ResponseEntity<?> deleteSuite(@Validated @PathVariable("projectId") final UUID projectId,
+    public ResponseEntity<?> deleteSuite(
                                         @Validated @PathVariable("suiteId") final UUID suiteId) {
         try {
             suiteService.deleteSuite(suiteId);

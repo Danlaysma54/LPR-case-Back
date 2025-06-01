@@ -144,7 +144,7 @@ class SuiteControllerTest {
         doNothing().when(suiteService).deleteSuite(suiteId);
 
         // Act
-        ResponseEntity<?> response = suiteController.deleteSuite(projectId, suiteId);
+        ResponseEntity<?> response = suiteController.deleteSuite( suiteId);
 
         // Assert
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
@@ -163,7 +163,7 @@ class SuiteControllerTest {
                 .when(suiteService).deleteSuite(suiteId);
 
         // Act
-        ResponseEntity<?> response = suiteController.deleteSuite(projectId, suiteId);
+        ResponseEntity<?> response = suiteController.deleteSuite(suiteId);
 
         // Assert
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
