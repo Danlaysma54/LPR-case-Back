@@ -102,13 +102,13 @@ class TestPlanServiceTest {
         UUID planId = UUID.randomUUID();
         TestPlanWithSuitesId mockData = mock(TestPlanWithSuitesId.class);
 
-        when(testPlanRepository.getTestPlanById(projectId, planId)).thenReturn(mockData);
+        when(testPlanRepository.getTestPlanById( planId)).thenReturn(mockData);
 
         GetTestPlanByIdResponse result = testPlanService.getTestPlanById(projectId, planId);
 
         assertNotNull(result);
         assertEquals(mockData, result.getTestPlan());
-        verify(testPlanRepository).getTestPlanById(projectId, planId);
+        verify(testPlanRepository).getTestPlanById( planId);
     }
 
 
@@ -117,7 +117,7 @@ class TestPlanServiceTest {
         UUID projectId = UUID.randomUUID();
         UUID planId = UUID.randomUUID();
 
-        when(testPlanRepository.getTestPlanById(projectId, planId)).thenThrow(new IdNotExist("Not found"));
+        when(testPlanRepository.getTestPlanById( planId)).thenThrow(new IdNotExist("Not found"));
 
         IdNotExist thrown = assertThrows(IdNotExist.class, () ->
                 testPlanService.getTestPlanById(projectId, planId)

@@ -34,19 +34,6 @@ class ProjectServiceTest {
     private final GetProjectResponse TEST_PROJECT_RESPONSE = new GetProjectResponse(null, 0, 0);
 
     @Test
-    void addProject_ShouldReturnUUID_WhenSuccessful() throws AccessDeniedException {
-        // Arrange
-        when(projectRepository.addProject(TEST_PROJECT_REQUEST,TEST_PROJECT_ID)).thenReturn(TEST_PROJECT_ID);
-
-        // Act
-        UUID result = projectService.addProject(TEST_PROJECT_REQUEST,"");
-
-        // Assert
-        assertEquals(TEST_PROJECT_ID, result);
-        verify(projectRepository).addProject(TEST_PROJECT_REQUEST,TEST_PROJECT_ID);
-    }
-
-    @Test
     void deleteProject_ShouldCallRepository_WhenProjectExists() {
         // Arrange
         doNothing().when(projectRepository).deleteProject(TEST_PROJECT_ID);

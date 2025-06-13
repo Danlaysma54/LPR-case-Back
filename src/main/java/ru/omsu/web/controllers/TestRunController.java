@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.omsu.core.model.TestRun;
 import ru.omsu.core.service.testRun.ITestRunService;
+import ru.omsu.web.model.exception.IdNotExist;
 import ru.omsu.web.model.request.AddTestRunRequest;
 
 
@@ -32,7 +33,12 @@ public class TestRunController {
     @PostMapping
     @RequestMapping("/addTestRun")
     public ResponseEntity<?> addTestRun(@Validated @RequestBody AddTestRunRequest addTestRunRequest) {
-        return new ResponseEntity<>(testRunService.addTestRun(addTestRunRequest), HttpStatus.CREATED);
+        try {
+            return new ResponseEntity<>(testRunService.addTestRun(addTestRunRequest), HttpStatus.CREATED);
+
+        } catch (IdNotExist e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping

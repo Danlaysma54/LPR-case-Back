@@ -43,6 +43,6 @@ public interface ITestPlanRepository {
 
     void deleteAllTestCasesInTestPlan(UUID testPlanId);
 
-    TestPlanWithSuitesId getTestPlanById(UUID testPlanId, UUID projectId);
+    TestPlanWithSuitesId getTestPlanById(UUID testPlanId);
 
 }

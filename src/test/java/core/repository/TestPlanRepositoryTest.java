@@ -161,7 +161,7 @@ class TestPlanRepositoryTest {
                 eq(testPlanId)
         )).thenReturn(expected);
 
-        TestPlanWithSuitesId actual = repository.getTestPlanById(projectId, testPlanId);
+        TestPlanWithSuitesId actual = repository.getTestPlanById( testPlanId);
 
         assertEquals(expected, actual);
     }
@@ -179,7 +179,7 @@ class TestPlanRepositoryTest {
                 eq(testPlanId)
         )).thenThrow(new EmptyResultDataAccessException(1));
 
-        assertThrows(IdNotExist.class, () -> repository.getTestPlanById(projectId, testPlanId));
+        assertThrows(IdNotExist.class, () -> repository.getTestPlanById( testPlanId));
     }
 
 }

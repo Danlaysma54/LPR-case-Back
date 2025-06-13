@@ -34,7 +34,6 @@ public class UserInProjectFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws IOException, ServletException {
 
-        // Проверяем, относится ли запрос к проектам
         Matcher matcher = PROJECT_URL_PATTERN.matcher(request.getRequestURI());
         if (!matcher.find()) {
             filterChain.doFilter(request, response);
@@ -42,13 +41,10 @@ public class UserInProjectFilter extends OncePerRequestFilter {
         }
 
         try {
-            // Извлекаем projectId (UUID) из URL
             UUID projectId = UUID.fromString(matcher.group(1));
 
-            // Получаем userId из токена
             UUID userId = extractUserIdFromToken(request);
 
-            // Проверяем доступ
             if(!projectRepository.isUserInProject(userId,projectId))
             {
                 response.sendError(HttpStatus.FORBIDDEN.value(), "Access to project denied");

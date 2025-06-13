@@ -86,7 +86,7 @@ public class TestPlanRepository implements ITestPlanRepository {
     }
 
     @Override
-    public TestPlanWithSuitesId getTestPlanById(UUID projectId, UUID testPlanId) {
+    public TestPlanWithSuitesId getTestPlanById(UUID testPlanId) {
         try {
             List<CaseForPlanDTO> testCasesInPlan = getCaseWithSuitesInTestPlans(testPlanId);
             return jdbcOperations.queryForObject("SELECT test_plan_id,test_plan_name from test_plan where test_plan_id=?",

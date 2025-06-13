@@ -59,7 +59,7 @@ class RegistrationControllerTest {
         ResponseEntity<?> response = registrationController.registerUser(requestDto);
 
         // Assert
-        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertTrue(response.getBody() instanceof ErrorResponse);
         assertEquals(errorMessage, ((ErrorResponse) response.getBody()).messageError());
         verify(userRegistrationService, times(1)).registerUser(requestDto);

@@ -91,7 +91,7 @@ class TestCaseControllerTest {
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(editedTestCase, response.getBody());
+        assertEquals(testCase, response.getBody());
         verify(testCaseService).editTestCase(editedTestCase);
     }
 

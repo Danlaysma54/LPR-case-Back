@@ -76,7 +76,7 @@ public class ServiceConfig {
     }
 
     @Bean
-    public TestRunService testRunService(final TestRunRepository testRunRepository) {
-        return new TestRunService(testRunRepository);
+    public TestRunService testRunService(final TestRunRepository testRunRepository,final TestPlanRepository testPlanRepository) {
+        return new TestRunService(testRunRepository,testPlanRepository);
     }
 }

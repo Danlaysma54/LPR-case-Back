@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.omsu.core.model.TestRun;
 import ru.omsu.core.model.TestRunDTO;
+import ru.omsu.core.repository.testPlan.ITestPlanRepository;
 import ru.omsu.core.repository.testRun.ITestRunRepository;
 import ru.omsu.core.service.testRun.TestRunService;
 import ru.omsu.web.model.request.AddTestRunRequest;
@@ -20,11 +21,13 @@ class TestRunServiceTest {
 
     private ITestRunRepository testRunRepository;
     private TestRunService testRunService;
+    private ITestPlanRepository testPlanRepository;
 
     @BeforeEach
     void setUp() {
+        testPlanRepository = mock(ITestPlanRepository.class);
         testRunRepository = mock(ITestRunRepository.class);
-        testRunService = new TestRunService(testRunRepository);
+        testRunService = new TestRunService(testRunRepository,testPlanRepository);
     }
 
     @Test

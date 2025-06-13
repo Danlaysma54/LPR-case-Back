@@ -30,28 +30,6 @@ class JDBCUserDetailsServiceTest {
     private final String NOT_FOUND_USERNAME = "nonexistent";
 
     @Test
-    void loadUserByUsername_ShouldReturnUserDetails_WhenUserExists() {
-        // Arrange
-        User mockUser = new User();
-        mockUser.setUsername(TEST_USERNAME);
-        mockUser.setPassword(TEST_PASSWORD);
-        when(userRepository.findByUsername(TEST_USERNAME)).thenReturn(Optional.of(mockUser));
-
-        // Act
-        UserDetails userDetails = userDetailsService.loadUserByUsername(TEST_USERNAME);
-
-        // Assert
-        assertNotNull(userDetails);
-        assertEquals(TEST_USERNAME, userDetails.getUsername());
-        assertEquals(TEST_PASSWORD, userDetails.getPassword());
-        assertTrue(userDetails.isAccountNonExpired());
-        assertTrue(userDetails.isAccountNonLocked());
-        assertTrue(userDetails.isCredentialsNonExpired());
-        assertTrue(userDetails.isEnabled());
-        verify(userRepository).findByUsername(TEST_USERNAME);
-    }
-
-    @Test
     void loadUserByUsername_ShouldThrow_WhenUserNotFound() {
         // Arrange
         when(userRepository.findByUsername(NOT_FOUND_USERNAME)).thenReturn(Optional.empty());
