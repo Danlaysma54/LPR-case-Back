@@ -27,8 +27,11 @@ public class SuiteService implements ISuiteService {
      */
     @Override
     public UUID addSuite(final AddSuiteRequest suiteRequest) throws IdNotExist {
+        Suite suite = new Suite();
+        suite.setSuiteRootId(suiteRequest.getSuiteRootId());
+        suite.setSuiteName(suiteRequest.getSuiteName());
         suiteRepository.getSuite(suiteRequest.getSuiteRootId());
-        return suiteRepository.addSuite(suiteRequest);
+        return suiteRepository.addSuite(suite);
     }
 
     /**

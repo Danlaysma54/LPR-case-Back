@@ -64,7 +64,7 @@ class SuiteRepositoryTest {
     @Test
     void testAddSuite_success() {
         UUID expectedId = UUID.randomUUID();
-        AddSuiteRequest request = new AddSuiteRequest("Suite A", UUID.randomUUID());
+        Suite request = new Suite("Suite A", UUID.randomUUID(),UUID.randomUUID());
 
         when(jdbcOperations.queryForObject(
                 eq("INSERT INTO suite(suite_name,suite_root_id) VALUES (?,?) RETURNING suite_id"),

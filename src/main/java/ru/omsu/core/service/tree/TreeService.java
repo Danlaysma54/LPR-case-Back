@@ -3,6 +3,7 @@ package ru.omsu.core.service.tree;
 
 import ru.omsu.core.model.Suite;
 import ru.omsu.core.model.AllSuitesInProject;
+import ru.omsu.core.model.SuiteDTO;
 import ru.omsu.core.repository.tree.ITreeRepository;
 import org.springframework.stereotype.Service;
 import ru.omsu.web.model.response.OneLevelResponse;
@@ -32,10 +33,10 @@ public class TreeService implements ITreeService {
      */
     @Override
     public OneLevelResponse getOneLevel(final UUID suiteId, final int offset, final int limit) {
-        List<Suite> suites = treeRepository.getOneLevelSuites(suiteId, offset, limit);
-        for (Suite suite : suites) {
-            if (!treeRepository.getOneLevelSuites(suite.getSuiteId(), offset, limit).isEmpty()) {
-                suite.setHasChildSuites(true);
+        List<SuiteDTO> suites = treeRepository.getOneLevelSuites(suiteId, offset, limit);
+        for (SuiteDTO suite : suites) {
+            if (!treeRepository.getOneLevelSuites(suite.suiteId(), offset, limit).isEmpty()) {
+
             }
         }
         return new OneLevelResponse(

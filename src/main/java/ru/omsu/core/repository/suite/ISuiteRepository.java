@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * interface for requests to db on suite entity
  */
-public interface ISuiteRepository {
+public interface ISuiteRepository  {
     /**
      * @param suiteId id of suite
      * @return suite entity
@@ -17,10 +17,10 @@ public interface ISuiteRepository {
     Suite getSuite(UUID suiteId);
 
     /**
-     * @param addSuiteRequest request entity to add suite
+     * @param Suite  entity to add suite
      * @return UUID of added suite
      */
-    UUID addSuite(AddSuiteRequest addSuiteRequest);
+    UUID addSuite(Suite Suite);
 
     /**
      * @param suite new version of suite

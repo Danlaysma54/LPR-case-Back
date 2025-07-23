@@ -48,7 +48,7 @@ public class SuiteRepository implements ISuiteRepository {
      * @return UUID of added suite
      */
     @Override
-    public UUID addSuite(final AddSuiteRequest addSuiteRequest) {
+    public UUID addSuite(final Suite addSuiteRequest) {
         return jdbcOperations.queryForObject("INSERT INTO suite(suite_name,suite_root_id) VALUES (?,?) RETURNING suite_id",
                 (resultSet, i) -> UUID.fromString(resultSet.getString("suite_id")),
                 addSuiteRequest.getSuiteName(), addSuiteRequest.getSuiteRootId());

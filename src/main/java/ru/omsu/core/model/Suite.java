@@ -1,52 +1,39 @@
 package ru.omsu.core.model;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
 /**
  * class for entity suite
  */
+
+@Getter
+@Setter
+@Entity
+@Table(name="suite")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Suite {
+
+    @Column(name="suite_name")
     @NotNull(message = "Suite name can't be null")
     @Size(min = 2, max = 255, message = "Suite name has to be from 2 to 255 symbols")
-    private final String suiteName;
+    private  String suiteName;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="suite_id")
     @NotNull(message = "Suite id can't be null")
-    private final UUID suiteId;
+    private  UUID suiteId;
+
+    @Column(name="suite_root_id")
     @NotNull(message = "Suite id can't be null")
-    private final UUID suiteRootId;
-    private boolean hasChildSuites;
-
-    /**
-     * @param suiteName   name of suite
-     * @param suiteId     id of suite
-     * @param suiteRootId root id of suite
-     */
-    public Suite(final String suiteName, final UUID suiteId, final UUID suiteRootId) {
-        this.suiteName = suiteName;
-        this.suiteId = suiteId;
-        this.suiteRootId = suiteRootId;
-        this.hasChildSuites = false;
-    }
-
-    public String getSuiteName() {
-        return suiteName;
-    }
-
-    public UUID getSuiteId() {
-        return suiteId;
-    }
-
-    public UUID getSuiteRootId() {
-        return suiteRootId;
-    }
-
-    public void setHasChildSuites(final boolean hasChildSuites) {
-        this.hasChildSuites = hasChildSuites;
-    }
-
-    public boolean isHasChildSuites() {
-        return hasChildSuites;
-    }
+    private  UUID suiteRootId;
 }

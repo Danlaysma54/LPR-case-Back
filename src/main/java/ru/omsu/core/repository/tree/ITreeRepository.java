@@ -2,6 +2,7 @@ package ru.omsu.core.repository.tree;
 
 import ru.omsu.core.model.CaseDTO;
 import ru.omsu.core.model.Suite;
+import ru.omsu.core.model.SuiteDTO;
 
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface ITreeRepository {
      * @param limit   how many suites we can get
      * @return of suites
      */
-    List<Suite> getOneLevelSuites(UUID suiteID, int offset, int limit);
+    List<SuiteDTO> getOneLevelSuites(UUID suiteID, int offset, int limit);
 
     /**
      *
